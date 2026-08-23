@@ -9,17 +9,21 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use phpDocumentor\Reflection\PseudoTypes\PublicPropertiesOf;
 
 class WelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $userName;
+    public $userEmail;
+
+
+
+    public function __construct($name, $email)
     {
-        //
+        $this->userName = $name;
+        $this->userEmail = $email;
     }
 
     /**
@@ -28,7 +32,7 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'WelcomeBack to Email',
+            subject: 'WelcomeBack to CoolFix',
         );
     }
 
@@ -38,7 +42,7 @@ class WelcomeEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.welcome', // اسم مجلد الإيميل نقطة اسم الفيو
+            view: 'emails.welcome',
         );
     }
 
