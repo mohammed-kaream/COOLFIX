@@ -1,5 +1,6 @@
 FROM php:8.2-fpm
 
+# تثبيت الحزم الأساسية للنظام ولـ Composer
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -8,16 +9,23 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
+    libzip-dev \
     nginx
 
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+# تثبيت ملحقات الـ PHP الضرورية للارفل
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
+# جلب الـ Composer من نسخته الرسمية
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+# السماح للـ Composer بالعمل بصلاحيات Root داخل الحاوية وتخطي الفحص
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+# تشغيل التثبيت مع تفادي مشاكل الحزم الناقصة
+RUN composer install --no-interaction --no-plugins --no-scripts --no-dev --prefer-dist
 
 RUN chmod -R 775 storage bootstrap/cache
 
