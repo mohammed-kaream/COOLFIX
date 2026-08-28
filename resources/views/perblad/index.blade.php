@@ -9,7 +9,7 @@
                         <h1>Your fridge stops. We show up fast.</h1>
                         <p>COOLFIX repairs and maintains refrigerators, freezers and cooling systems across Gaza —
                             honest diagnostics, genuine parts, and a technician who actually picks up the phone.</p>
-                    </div>
+                    </div>  
                     <div class="home_btn">
                         <a href="tel:+970598924040" class="cta"><span>Call 059 892 4040</span>
                             <svg width="13px" height="10px" viewBox="0 0 13 10">
@@ -366,4 +366,6 @@
         </div>
     </section>
     <!-- END CTA BANNER -->
+
+
 @endsection

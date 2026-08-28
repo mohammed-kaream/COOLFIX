@@ -5,15 +5,19 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [CoolController::class, 'home'])->name('home');
-Route::get('/index', [CoolController::class, 'home'])->name('index');
-Route::get('/about', [CoolController::class, 'about'])->name('about');
-Route::get('/services', [CoolController::class, 'services'])->name('services');
-Route::get('/pricing', [CoolController::class, 'pricing'])->name('pricing');
-Route::get('/faq', [CoolController::class, 'faq'])->name('faq');
+// Route::get('/', [CoolController::class, 'store'])->name('home');
+// Route::get('/', [CoolController::class, 'home'])->name('home');
+// Route::get('/index', [CoolController::class, 'home'])->name('index');
+// Route::get('/about', [CoolController::class, 'about'])->name('about');
+// Route::get('/services', [CoolController::class, 'services'])->name('services');
+// Route::get('/pricing', [CoolController::class, 'pricing'])->name('pricing');
+// Route::get('/faq', [CoolController::class, 'faq'])->name('faq');
+// Route::get('/contact', [CoolController::class, 'contact'])->name('contact');
+// Route::post('/contact', [CoolController::class, 'contact_data']);
+// Route::get('/data', [CoolController::class, 'store'])->name('store');
 
-Route::get('/contact', [CoolController::class, 'contact'])->name('contact');
-Route::post('/contact', [CoolController::class, 'contact_data']);
+Route::get('/upload-file', [CoolController::class, 'upload_file'])->name('upload-file');
+Route::post('/upload-file', [CoolController::class, 'storeFile']);
 
 
 

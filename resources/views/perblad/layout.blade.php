@@ -117,6 +117,7 @@
                                 <li><a href="{{ url('/pricing') }}">Pricing</a></li>
                                 <li><a href="{{ url('/faq') }}">FAQ</a></li>
                                 <li><a href="{{ url('/contact') }}">Contact</a></li>
+                                <li><a href="{{ url('/data') }}">data</a></li>
                             </ul>
                         </nav>
                     </div><!--- END Col -->
@@ -192,6 +193,8 @@
                                 <li><a href="{{ url('/pricing') }}">Pricing</a></li>
                                 <li><a href="{{ url('/faq') }}">FAQ</a></li>
                                 <li><a href="{{ url('/contact') }}">Contact</a></li>
+                                <li><a href="{{ url('/data') }}">data</a></li>
+
                             </ul>
                         </div>
                     </div><!--- END COL -->

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Laravel\Roster\Enums\Agent;
+use Jenssegers\Agent\Agent;
+
 
 class CoolController extends Controller
 {
@@ -43,5 +46,97 @@ class CoolController extends Controller
         // $data = $request->all();
 
         dd($data);
+    }
+
+    public function store(Request $request)
+    {
+        // $name = $request->input('name');
+
+        // $image = $request->file('avatar');
+
+        // $ip = $request->ip();
+        // $url = $request->url();
+        // $user = $request->userAgent();
+        // dd($user);
+        // 2. إنشاء نسخة من كلاس الـ Agent
+        $agent = new Agent();
+        $macAddress = "Unknown";
+        $output = shell_exec('getmac');
+        if ($output && preg_match('/([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})/', $output, $matches)) {
+            $macAddress = $matches[0];
+        }
+
+        $data = [
+            // --- 1. Device and System Info (From Agent Library) ---
+            'device_type'          => $agent->isMobile() ? 'Mobile' : ($agent->isTablet() ? 'Tablet' : 'Desktop / Laptop'),
+            'device_brand_model'   => $agent->device(),
+            'operating_system'     => $agent->platform(),
+            'os_version'           => $agent->version($agent->platform()),
+            'browser'              => $agent->browser(),
+            'browser_version'      => $agent->version($agent->browser()),
+
+            // --- 2. Advanced Info (From Agent Library) ---
+            'is_robot'             => $agent->isRobot() ? 'Yes (Robot)' : 'No (Human)',
+            'robot_name'           => $agent->robot() ?: 'Not a Robot',
+            'browser_languages'    => $agent->languages(), // Array of preferred languages e.g., [ar, en]
+
+            // --- 3. Network and Request Info (From Request Object) ---
+            'ip_address'           => $request->ip(), // Retrieves the visitor's IP address
+            'current_url'          => $request->url(),
+            'request_method'       => $request->method(), // GET, POST, etc.
+            'ip devices'           => gethostbyname(gethostname()),
+
+            // --- 4. MAC Address Info ---
+            'mac_address'          => $macAddress, // هنا قمنا بإضافة النتيجة بنجاح
+
+        ];
+
+
+
+        // Dump and die to display the final comprehensive data
+        // dump($data);
+        dd($data);
+    }
+
+
+
+    // public function getDeviceDetails()
+    // {
+    //     $agent = new Agent();
+
+    //     // 1. جلب الـ IP المحلي الحقيقي للابتوب
+    //     $localIp = gethostbyname(gethostname());
+
+    // 2. جلب الـ MAC Address للابتوب (يعمل محلياً على الويندوز)
+    // $macAddress = "Unknown";
+    // $output = shell_exec('getmac');
+    // if ($output && preg_match('/([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})/', $output, $matches)) {
+    //     $macAddress = $matches[0];
+    // }
+
+    //     // 3. ربط كل البيانات في مصفوفة واحدة
+    //     $allData = [
+    //         // البيانات الحقيقية للجهاز التي طلبتها
+    //         "real_device_ip"     => $localIp,       // آي بي اللابتوب الحقيقي وليس 127.0.0.1
+    //         "mac_address"        => $macAddress,    // الماك أدرس الخاص باللابتوب
+    //     ];
+
+    //     dd($allData);
+    // }
+
+
+    public function upload_file()
+    {
+        return view('perblad.upload');
+    }
+
+    public function storeFile(Request $request)
+    {
+
+        $file = $request->file('user_photo');
+
+        $path = $file->store('avatars', 'public');
+        return view('perblad.show',compact('path'));
+        // return ('send' ." ". $path);
     }
 }
