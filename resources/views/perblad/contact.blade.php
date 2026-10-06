@@ -60,7 +60,7 @@
                         <h2>Tell us what's wrong with your fridge.</h2>
                     </div>
                     <div class="contact">
-                        <form class="form" name="enq" method="POST" action="{{ url('/contact') }}"
+                        <form class="form" name="enq" method="POST" action="{{ route('contact') }}"
                             onsubmit="return validation();">
                             <div class="row">
                                 <x-input type="text" name="name" placeholder="Enter your name" />
@@ -72,7 +72,7 @@
                                     placeholder="Describe the problem (noise, leaking, not cooling, etc.) and your address in Gaza" />
 
                                 <div class="col-md-12 text-center">
-                                    <button href="#" class="cta"><span>Send Message</span>
+                                    <button type="submit" href="#" class="cta"><span>Send Message</span>
                                         <svg width="13px" height="10px" viewBox="0 0 13 10">
                                             <path d="M1,5 L11,5"></path>
                                             <polyline points="8 1 12 5 8 9"></polyline>

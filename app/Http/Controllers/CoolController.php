@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 // use Laravel\Roster\Enums\Agent;
 use Jenssegers\Agent\Agent;
@@ -42,12 +43,37 @@ class CoolController extends Controller
     public function contact_data(Request $request)
     {
         // $data = $request->except('phone');
-        $data = $request->phone;
         // $data = $request->all();
+        // dd($request->all());
 
-        dd($data);
+        //----------1-------------
+        $validatedData =  $request->validate([
+            'name' => 'required|string|min:5',
+            'phone' => 'required|string|min:9',
+            'brand' => 'required|string',
+            'area' => 'required|string',
+            'textarea' => 'required|string',
+        ]);
+        return view('perblad.display', compact('validatedData'));
+        //-----------2-------------
+        // $rules = [
+        //     'name' => 'required|string|min:5',
+        //     'phone' => 'required|string|min:9',
+        //     'brand' => 'required|string',
+        //     'area' => 'required|string',
+        //     'textarea' => 'required|string',
+        // ];
+
+        // $customMessages = [
+        // 'required'   => 'هاد الحقل مطلوب !!!',
+        // 'phone.min' =>" اقل اشي رقم الجوال تسع خانات"
+        // ];
+
+
+        $request->validate($rules, $customMessages);
+
+        return "تم استقبال البيانات بنجاح!";
     }
-
     public function store(Request $request)
     {
         // $name = $request->input('name');
@@ -136,7 +162,15 @@ class CoolController extends Controller
         $file = $request->file('user_photo');
 
         $path = $file->store('avatars', 'public');
-        return view('perblad.show',compact('path'));
+        return view('perblad.show', compact('path'));
         // return ('send' ." ". $path);
+    }
+
+
+    public function user(){
+        return 'Welcome bake in the page user @-@ ';
+    }
+    public function post(){
+        return 'Welcome bake in the page post @-@ ';
     }
 }

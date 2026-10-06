@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إيميل ترحيب — {{ $userName }}!</title>
+    <title>خطاب اعتماد رسمي — ⁦{{ $userName }}⁩</title>
     <!--[if mso]>
 <noscript>
 <xml>
@@ -15,7 +15,7 @@
 </noscript>
 <![endif]-->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap');
 
         body,
         table,
@@ -43,7 +43,7 @@
             padding: 0;
             width: 100% !important;
             height: 100% !important;
-            background-color: #0E1B2B;
+            background-color: #F2EFE7;
         }
 
         a {
@@ -52,75 +52,62 @@
 
         .email-wrapper {
             width: 100%;
-            background-color: #0E1B2B;
-            padding: 40px 0;
+            background-color: #F2EFE7;
+            padding: 56px 0;
         }
 
-        .seal {
-            width: 74px;
-            height: 74px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, #F3D98A, #C9A227 55%, #8C6E15 100%);
-            box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.18), 0 8px 20px rgba(0, 0, 0, 0.35);
-        }
-
-        .headline {
-            font-family: 'Cairo', Tahoma, Arial, sans-serif;
-            font-weight: 900;
-            color: #F7F3E9;
-            letter-spacing: 0;
+        .serif {
+            font-family: 'Amiri', Georgia, 'Times New Roman', serif;
         }
 
         .body-text {
             font-family: 'Tajawal', Tahoma, Arial, sans-serif;
-            color: #2B2B2B;
-            line-height: 1.9;
+            font-weight: 300;
+            color: #2B2822;
+            line-height: 2.05;
         }
 
-        .cta-btn {
-            font-family: 'Cairo', Tahoma, Arial, sans-serif;
-            font-weight: 700;
-            display: inline-block;
-            background: linear-gradient(135deg, #D9B44A 0%, #B9862A 100%);
-            color: #0E1B2B !important;
-            padding: 16px 46px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 16px;
-            letter-spacing: .3px;
-            box-shadow: 0 10px 24px rgba(185, 134, 42, 0.35);
+        .ref {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
         }
 
-        .divider {
+        .seal-ring {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            border: 1.5px solid #8A6A34;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .divider-fine {
             height: 1px;
-            background: linear-gradient(90deg, rgba(201, 162, 39, 0) 0%, rgba(201, 162, 39, 0.55) 50%, rgba(201, 162, 39, 0) 100%);
+            background: #8A6A34;
+            opacity: .35;
         }
 
-        .footer-text {
-            font-family: 'Tajawal', Tahoma, Arial, sans-serif;
-            color: #9AA5B4;
-            line-height: 1.8;
+        .divider-double {
+            border-top: 1px solid #8A6A34;
+            border-bottom: 1px solid #8A6A34;
+            height: 4px;
+            opacity: .5;
         }
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 640px) {
             .container {
                 width: 100% !important;
             }
 
             .px {
-                padding-left: 22px !important;
-                padding-right: 22px !important;
+                padding-left: 26px !important;
+                padding-right: 26px !important;
             }
 
             .headline-size {
-                font-size: 28px !important;
-                line-height: 1.4 !important;
-            }
-
-            .stack {
-                display: block !important;
-                width: 100% !important;
-                text-align: center !important;
+                font-size: 26px !important;
+                line-height: 1.6 !important;
             }
         }
     </style>
@@ -132,73 +119,116 @@
             <tr>
                 <td align="center">
 
-                    <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0"
-                        border="0" style="width:600px; max-width:600px;">
+                    <table role="presentation" class="container" width="620" cellpadding="0" cellspacing="0"
+                        border="0" style="width:620px; max-width:620px;">
 
-                        <!-- ===== Header / Hero ===== -->
+                        <!-- ===== outer frame top ===== -->
                         <tr>
-                            <td style="background: linear-gradient(160deg, #0E1B2B 0%, #16283F 60%, #1B2E44 100%); border-radius: 18px 18px 0 0; padding: 46px 40px 40px 40px;"
-                                class="px" align="center">
-
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <td style="padding-bottom:2px;">
+                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+                                    border="0">
                                     <tr>
-                                        <td align="center" style="padding-bottom:22px;">
-                                            <div class="seal"
-                                                style="width:74px;height:74px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #F3D98A, #C9A227 55%, #8C6E15 100%);box-shadow:0 0 0 4px rgba(201,162,39,0.18), 0 8px 20px rgba(0,0,0,0.35);">
-                                            </div>
+                                        <td style="height:3px; background:#8A6A34;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:1px; background:#8A6A34; opacity:.4;"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- ===== Reference bar ===== -->
+                        <tr>
+                            <td style="background:#FBFAF6; padding: 22px 46px 0 46px;" class="px" align="center">
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center"
+                                    style="margin:0 auto;">
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- ===== Seal + heading ===== -->
+                        <tr>
+                            <td style="background:#FBFAF6; padding: 34px 46px 30px 46px;" class="px" align="center">
+
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+                                    align="center">
+                                    <tr>
+                                        <td class="seal-ring">
+                                            <span class="serif"
+                                                style="font-size:22px; color:#8A6A34; letter-spacing:1px;">CF</span>
                                         </td>
                                     </tr>
                                 </table>
 
-                                <div class="footer-text"
-                                    style="font-size:12px; letter-spacing:3px; text-transform:uppercase; color:#C9A227; margin-bottom:14px; font-family:'Tajawal',Tahoma,Arial,sans-serif;">
-                                    عضوية جديدة
-                                </div>
+                                <p class="ref"
+                                    style="font-size:13px; color:#8A6A34; margin: 20px 0 6px 0; letter-spacing:.5px;">
+                                    CoolFix
+                                </p>
 
-                                <h1 class="headline headline-size"
-                                    style="font-size:34px; margin:0; font-family:'Cairo',Tahoma,Arial,sans-serif;">
-                                    أهلاً بك، {{ $userName }}!
-                                </h1>
+                                <h1 class="serif headline-size"
+                                    style="font-size:30px; font-weight:700; color:#1E1B15; margin:14px 0 0 0; line-height:1.7;">
+                                    منوريين الشباب </h1>
 
-                                <p class="footer-text"
-                                    style="font-size:15px; margin:14px 0 0 0; color:#B9C2D0; font-family:'Tajawal',Tahoma,Arial,sans-serif;">
-                                    حسابك جاهز، ونحن سعداء بانضمامك إلينا
+                                <p class="body-text" style="font-size:14px; margin:14px 0 0 0; color:#6B6656;">
+                                    صادر بموجب السجل الداخلي لشركة CoolFix، ومعتمد من الإدارة التنفيذية
                                 </p>
                             </td>
+                        </tr>
+
+                        <tr>
+                            <td class="divider-fine" style="margin: 0 46px;"></td>
                         </tr>
 
                         <!-- ===== Body ===== -->
                         <tr>
-                            <td style="background:#FBF9F4; padding: 44px 44px 10px 44px;" class="px">
-                                <p class="body-text" style="font-size:16px; margin:0 0 22px 0;">
-                                    عزيزنا <strong style="color:#0E1B2B;">{{ $userName }}!</strong>،
-                                </p>
-                                <p class="body-text" style="font-size:16px; margin:0 0 22px 0;">
-                                    يسعدنا انضمامك إلى مجتمعنا. تم إنشاء حسابك بنجاح، وأصبح بإمكانك الآن الوصول إلى كافة
-                                    الخدمات والمزايا المخصّصة لأعضائنا. نحرص دائمًا على تقديم تجربة استثنائية تليق بثقتك
-                                    بنا.
+                            <td style="background:#FBFAF6; padding: 38px 50px 10px 50px;" class="px">
+
+                                <p class="body-text" style="font-size:16px; margin:0 0 24px 0;">
+                                    السيد(ة) / <strong dir="ltr"
+                                        style="unicode-bidi:isolate; color:#1E1B15; font-weight:500;">⁦{{ $userName }}⁩</strong>،
+                                    المحترم(ة)،
                                 </p>
 
+                                <p class="body-text" style="font-size:15.5px; margin:0 0 24px 0; text-align:justify;">
+دشششششششششششششششش برممممممممممممم                                </p>
+
+                                <p class="body-text" style="font-size:15.5px; margin:0 0 30px 0; text-align:justify;">
+                                    يُرجى التكرم بالاطلاع على البيانات الموثّقة أدناه، والاحتفاظ بهذا الخطاب للرجوع إليه
+                                    عند الحاجة.
+                                </p>
+
+                                <!-- formal data table -->
                                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                                    style="margin: 8px 0 30px 0;">
+                                    style="margin: 0 0 34px 0; border:1px solid rgba(138,106,52,0.35);">
                                     <tr>
-                                        <td
-                                            style="background:#F1EADA; border-radius:10px; padding: 22px 24px; border-right:4px solid #C9A227;">
-                                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
-                                                border="0">
-                                                <tr>
-                                                    <td class="body-text"
-                                                        style="font-size:14px; color:#6B5B2A; padding-bottom:6px; font-family:'Tajawal',Tahoma,Arial,sans-serif;">
-                                                        البريد الإلكتروني المسجَّل</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-size:16px; font-weight:700; color:#0E1B2B; font-family:'Cairo',Tahoma,Arial,sans-serif;"
-                                                        dir="ltr" align="right">
-                                                        {{ $userEmail }}
-                                                    </td>
-
-                                                </tr>
-                                            </table>
+                                        <td style="padding:16px 20px; border-bottom:1px solid rgba(138,106,52,0.25); width:38%;"
+                                            class="ref">
+                                            <span style="font-size:13px; color:#8A6A34;">الاسم الكامل</span>
+                                        </td>
+                                        <td style="padding:16px 20px; border-bottom:1px solid rgba(138,106,52,0.25);"
+                                            class="body-text" align="left">
+                                            <span dir="ltr"
+                                                style="unicode-bidi:isolate; font-size:14.5px; color:#1E1B15; font-weight:500;">⁦{{ $userName }}⁩</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:16px 20px; border-bottom:1px solid rgba(138,106,52,0.25);"
+                                            class="ref">
+                                            <span style="font-size:13px; color:#8A6A34;">البريد الموثّق</span>
+                                        </td>
+                                        <td style="padding:16px 20px; border-bottom:1px solid rgba(138,106,52,0.25);"
+                                            class="body-text" align="left" dir="ltr">
+                                            <span dir="ltr"
+                                                style="unicode-bidi:isolate; font-size:14.5px; color:#1E1B15; font-weight:500;">⁦{{ $userEmail }}⁩</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:16px 20px;" class="ref">
+                                            <span style="font-size:13px; color:#8A6A34;">درجة الاعتماد</span>
+                                        </td>
+                                        <td style="padding:16px 20px;" class="body-text" align="left">
+                                            <span style="font-size:14.5px; color:#1E1B15; font-weight:500;">عضو معتمد
+                                                &nbsp;—&nbsp; الفئة الأولى</span>
                                         </td>
                                     </tr>
                                 </table>
@@ -206,69 +236,71 @@
                                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
                                     border="0">
                                     <tr>
-                                        <td align="center" style="padding: 6px 0 34px 0;">
-                                            <a href="#" class="cta-btn">تفعيل الحساب الآن</a>
+                                        <td align="center" style="padding: 4px 0 40px 0;">
+                                            <a href="#"
+                                                style="font-family:'Tajawal',Arial,sans-serif; font-weight:500; display:inline-block; background:#1E1B15; color:#F2EFE7 !important; padding:16px 50px; text-decoration:none; font-size:14.5px; letter-spacing:1px; border:1px solid #1E1B15;">
+                                                تفعيل العضوية المعتمدة
+                                            </a>
                                         </td>
                                     </tr>
                                 </table>
 
-                                <div class="divider"
-                                    style="height:1px; background:linear-gradient(90deg, rgba(201,162,39,0) 0%, rgba(201,162,39,0.55) 50%, rgba(201,162,39,0) 100%); margin-bottom: 30px;">
-                                </div>
-
-                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
-                                    border="0">
-                                    <tr>
-                                        <td width="33%" class="stack" align="center" style="padding-bottom:20px;">
-                                            <div
-                                                style="font-family:'Cairo',Tahoma,Arial,sans-serif; font-weight:900; font-size:20px; color:#0E1B2B;">
-                                                01</div>
-                                            <div class="body-text"
-                                                style="font-size:13px; color:#5A5A5A; margin-top:6px;">أكمل ملفك الشخصي
-                                            </div>
-                                        </td>
-                                        <td width="33%" class="stack" align="center" style="padding-bottom:20px;">
-                                            <div
-                                                style="font-family:'Cairo',Tahoma,Arial,sans-serif; font-weight:900; font-size:20px; color:#0E1B2B;">
-                                                02</div>
-                                            <div class="body-text"
-                                                style="font-size:13px; color:#5A5A5A; margin-top:6px;">استكشف الخدمات
-                                            </div>
-                                        </td>
-                                        <td width="33%" class="stack" align="center" style="padding-bottom:20px;">
-                                            <div
-                                                style="font-family:'Cairo',Tahoma,Arial,sans-serif; font-weight:900; font-size:20px; color:#0E1B2B;">
-                                                03</div>
-                                            <div class="body-text"
-                                                style="font-size:13px; color:#5A5A5A; margin-top:6px;">تواصل مع الدعم
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                <div class="divider-fine" style="margin-bottom: 34px;"></div>
                             </td>
                         </tr>
 
-                        <!-- ===== Signature line ===== -->
+                        <!-- ===== Signature block ===== -->
                         <tr>
-                            <td style="background:#FBF9F4; padding: 6px 44px 40px 44px;" class="px">
-                                <p class="body-text" style="font-size:15px; margin:0; color:#4A4A4A;">
-                                    مع خالص التقدير،<br>
-                                    <strong style="color:#0E1B2B; font-family:'Cairo',Tahoma,Arial,sans-serif;">فريق
-                                        العمل</strong>
-                                </p>
+                            <td style="background:#FBFAF6; padding: 0 50px 44px 50px;" class="px">
+                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+                                    border="0">
+                                    <tr>
+                                        <td width="55%" valign="top">
+                                            <p class="body-text"
+                                                style="font-size:13.5px; color:#6B6656; margin:0 0 4px 0;">حُرِّر
+                                                بتاريخ</p>
+                                            <p class="ref" style="font-size:15px; color:#1E1B15; margin:0;">2026
+                                            </p>
+                                        </td>
+                                        <td width="45%" valign="top" align="left">
+                                            <p class="body-text"
+                                                style="font-size:13.5px; color:#6B6656; margin:0 0 4px 0;">اعتماد
+                                                وتوقيع</p>
+                                            <p class="serif"
+                                                style="font-size:20px; color:#1E1B15; margin:0 0 3px 0; font-style:italic;">
+                                                Mohammed Kareem</p>
+                                            <p class="ref" style="font-size:12px; color:#8A6A34; margin:0;">المدير
+                                                التنفيذي — CoolFix</p>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
 
                         <!-- ===== Footer ===== -->
                         <tr>
-                            <td style="background:#0E1B2B; border-radius:0 0 18px 18px; padding: 30px 40px;"
-                                class="px" align="center">
-                                <p class="footer-text" style="font-size:12px; margin:0 0 10px 0;">
-                                    وصلتك هذه الرسالة لأنه تم إنشاء حساب جديد باسم {{ $userName }}!.
+                            <td style="background:#F2EFE7; padding: 26px 46px;" class="px" align="center">
+                                <p class="ref" style="font-size:11.5px; color:#8A6A34; margin:0 0 8px 0;">
+                                    هذا الخطاب صادر إلكترونيًا ولا يتطلب توقيعًا يدويًا لاعتماده
                                 </p>
-                                <p class="footer-text" style="font-size:12px; margin:0;">
-                                    © 2026 جميع الحقوق محفوظة
+                                <p class="ref" style="font-size:11.5px; color:#8A6A34; margin:0;">
+                                    © 2026 CoolFix — جميع الحقوق محفوظة
                                 </p>
+                            </td>
+                        </tr>
+
+                        <!-- ===== outer frame bottom ===== -->
+                        <tr>
+                            <td style="padding-top:2px;">
+                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+                                    border="0">
+                                    <tr>
+                                        <td style="height:1px; background:#8A6A34; opacity:.4;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height:3px; background:#8A6A34;"></td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
 
