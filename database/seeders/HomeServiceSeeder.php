@@ -13,6 +13,6 @@ class HomeServiceSeeder extends Seeder
     public function run(): void
     {
         // السطر السحري والذكي تبعك اللي بيشغل الفاكتوري ويولد 8 كروت فوراً
-        HomeService::factory(12)->create();
+        HomeService::factory(8)->create();
     }
 }

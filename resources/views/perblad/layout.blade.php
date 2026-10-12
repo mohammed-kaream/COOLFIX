@@ -156,10 +156,14 @@
 
                                 <!-- زر الاتصال المستدير (Call Now) -->
                                 <div class="call_to_action">
-                                    <a class="btn_two btn btn-primary" href="tel:+970598924040"
-                                        style="white-space: nowrap; border-radius: 50px;">
-                                        Call Now <i class="fa-solid fa-arrow-right ms-1"></i>
-                                    </a>
+                                    <form method="POST" action="{{ route('logout') }}" id="logout-form">
+                                        @csrf
+                                        <a class="btn_two btn btn-primary" href="#"
+                                            style="white-space: nowrap; border-radius: 50px;"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                             Log Out <i class="fa-solid fa-arrow-right ms-1"></i>
+                                        </a>
+                                    </form>
                                 </div>
 
                             </div>
@@ -341,6 +345,7 @@
 
                                 </ul>
                             </div>
+
                         </div><!--- END COL -->
                         <div class="col-lg-3 col-sm-6 col-xs-12">
                             <div class="single_footer">
@@ -448,42 +453,42 @@
             <script src="{{ asset('webfront/js/wow.min.js') }}"></script>
             <!-- scripts js -->
             <script src="{{ asset('webfront/js/scripts.js') }}"></script>
-<!-- استدعاء ملف الجافا سكريبت المحلي الخاص بمكتبة الـ Owl Carousel من مشروعك -->
-<script src="{{ asset('webfront/owlcarousel/js/owl.carousel.min.js') }}"></script>
+            <!-- استدعاء ملف الجافا سكريبت المحلي الخاص بمكتبة الـ Owl Carousel من مشروعك -->
+            <script src="{{ asset('webfront/owlcarousel/js/owl.carousel.min.js') }}"></script>
 
-<!-- سكربت تفعيل حركة سلايدر فنيين الأباوت بالنقاط السفلية -->
-<script>
-$(document).ready(function(){
-    var teamSlider = $("#team-slider");
+            <!-- سكربت تفعيل حركة سلايدر فنيين الأباوت بالنقاط السفلية -->
+            <script>
+                $(document).ready(function() {
+                    var teamSlider = $("#team-slider");
 
-    // تدمير النسخ القديمة المعلقة بالكاش لمنع تداخل الأكواد
-    if(teamSlider.hasClass('owl-loaded')){
-        teamSlider.owlCarousel('destroy');
-    }
+                    // تدمير النسخ القديمة المعلقة بالكاش لمنع تداخل الأكواد
+                    if (teamSlider.hasClass('owl-loaded')) {
+                        teamSlider.owlCarousel('destroy');
+                    }
 
-    // تشغيل السلايدر بالبنية الجديدة ومزامنة النقاط الأربعة
-    teamSlider.owlCarousel({
-        items: 3,               // عرض 3 كروت فنيين بجانب بعضهم
-        loop: true,             // دوران مستمر للكروت بشكل دائري
-        margin: 20,             // مسافة أمان جانبية بين الكروت
-        autoplay: true,         // تحريك تلقائي للكروت
-        autoplayTimeout: 4000,  // الانتقال كل 4 ثوانٍ تلقائياً
-        smartSpeed: 800,        // نعومة دوران السلايدر
-        dots: true,             // تفعيل وإظهار نقاط السكرول السفلية بنجاح 🟢
-        responsive:{
-            0:{
-                items:1         // كرت واحد فقط على شاشات الجوال
-            },
-            768:{
-                items:2         // كرتين على شاشات التابلت
-            },
-            1170:{
-                items:3         // 3 كروت على شاشات الكمبيوتر تماماً كصورتك الأصلية
-            }
-        }
-    });
-});
-</script>
+                    // تشغيل السلايدر بالبنية الجديدة ومزامنة النقاط الأربعة
+                    teamSlider.owlCarousel({
+                        items: 3, // عرض 3 كروت فنيين بجانب بعضهم
+                        loop: true, // دوران مستمر للكروت بشكل دائري
+                        margin: 20, // مسافة أمان جانبية بين الكروت
+                        autoplay: true, // تحريك تلقائي للكروت
+                        autoplayTimeout: 4000, // الانتقال كل 4 ثوانٍ تلقائياً
+                        smartSpeed: 800, // نعومة دوران السلايدر
+                        dots: true, // تفعيل وإظهار نقاط السكرول السفلية بنجاح 🟢
+                        responsive: {
+                            0: {
+                                items: 1 // كرت واحد فقط على شاشات الجوال
+                            },
+                            768: {
+                                items: 2 // كرتين على شاشات التابلت
+                            },
+                            1170: {
+                                items: 3 // 3 كروت على شاشات الكمبيوتر تماماً كصورتك الأصلية
+                            }
+                        }
+                    });
+                });
+            </script>
 
     </body>
 

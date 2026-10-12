@@ -28,7 +28,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'email' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string'],
         ];
     }
@@ -42,15 +42,41 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        $identifier = trim((string) $this->input('email'));
+        $password = (string) $this->input('password');
+        $credentialSets = [];
 
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+        if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+            $credentialSets[] = ['email' => $identifier, 'password' => $password];
+        } else {
+            $mobileCandidates = array_unique([
+                $identifier,
+                preg_replace('/\D+/', '', $identifier),
+                '+' . preg_replace('/\D+/', '', $identifier),
             ]);
+
+            foreach ($mobileCandidates as $mobileCandidate) {
+                if ($mobileCandidate === '') {
+                    continue;
+                }
+
+                $credentialSets[] = ['mobile' => $mobileCandidate, 'password' => $password];
+            }
         }
 
-        RateLimiter::clear($this->throttleKey());
+        foreach ($credentialSets as $credentials) {
+            if (Auth::attempt($credentials, $this->boolean('remember'))) {
+                RateLimiter::clear($this->throttleKey());
+
+                return;
+            }
+        }
+
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'email' => trans('auth.failed'),
+        ]);
     }
 
     /**
@@ -60,7 +86,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -81,6 +107,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }
