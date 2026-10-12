@@ -2,43 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Http\Controllers\Controller;
+use App\Models\AboutTeam;
+use App\Models\HomeCounter;
+use App\Models\HomeFeature;
+use App\Models\Pricing;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
-// use Laravel\Roster\Enums\Agent;
 use Jenssegers\Agent\Agent;
-
 
 class CoolController extends Controller
 {
-    public function home()
-    {
-        return view('perblad.index');
-    }
-
+    /**
+     * دالة عرض صفحة من نحن (About)
+     */
     public function about()
     {
-        return view('perblad.about');
+        // 1. جلب الـ 4 عدادات الإحصائية النشطة من قاعدة البيانات
+        $homeCounters = HomeCounter::where('is_active', true)->get();
+
+        // 2. جلب الـ 6 ميزات التنافسية النشطة من قاعدة البيانات
+        $homeFeatures = HomeFeature::where('is_active', true)->get();
+
+        // 3. جلب كروت فريق العمل الثلاثة النشطة من قاعدة البيانات 🎯
+        $aboutTeams = AboutTeam::where('is_active', true)->get();
+
+        // 4. جلب كروت آراء العملاء الـ 10 النشطة من قاعدة البيانات
+        $testimonials = Testimonial::where('is_active', true)->get();
+
+        // 5. التعديل الحاسم: تمرير المتغيرات الأربعة معاً لصفحة الأباوت بسلام 🚀 👇
+        return view('perblad.about', compact('homeCounters', 'homeFeatures', 'aboutTeams', 'testimonials'));
     }
 
     public function services()
     {
-        return view('perblad.services');
+        // 1. جلب الخدمات النشطة من قاعدة البيانات
+        $services = \App\Models\Service::where('is_active', true)->get();
+
+        // 2. تمرير المتغير $services إلى ملف الـ Blade لكي يقرأه الـ foreach
+        return view('perblad.services', compact('services'));
     }
+
 
     public function pricing()
     {
-        return view('perblad.pricing');
+        // جلب الباقات مع ميزاتها المترابطة دفعة واحدة بذكاء وعال العال 🎯
+        $pricings = Pricing::with('features')->where('is_active', true)->get();
+
+        // التمرير الآمن داخل الـ compact بجانب المتغيرات السابقة
+        return view('perblad.pricing', compact('pricings'));
+        // (تأكد من إبقاء المتغيرات السابقة بجانبه مثل: compact('homeCounters', 'pricings'))
     }
 
-    public function faq()
-    {
-        return view('perblad.faq');
-    }
 
-    public function contact()
-    {
-        return view('perblad.contact');
-    }
 
     public function contact_data(Request $request)
     {
@@ -167,10 +183,12 @@ class CoolController extends Controller
     }
 
 
-    public function user(){
+    public function user()
+    {
         return 'Welcome bake in the page user @-@ ';
     }
-    public function post(){
+    public function post()
+    {
         return 'Welcome bake in the page post @-@ ';
     }
 }

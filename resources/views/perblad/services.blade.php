@@ -3,7 +3,7 @@
     <!-- START SECTION TOP -->
     <section class="section-top">
         <div class="container">
-            <div class="col-lg-10 offset-lg-1 text-center">
+            <div class="col-lg-10 offset-lg-1 text-center p-4">
                 <div class="section-top-title wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s" data-wow-offset="0">
                     <h1>Our Services</h1>
                     <ul>
@@ -18,300 +18,149 @@
     </div><!-- END  TOP HEADER CLASS -->
 
     <!--START SERVICES -->
-    <div class="best-course section-padding">
-        <div class="container">
-            <div class="section-title">
-                <h4>What We Repair</h4>
-                <h1>Refrigeration &amp; Cooling Services</h1>
+    <!-- 1. يجب إضافة كلاس الـ row هنا لكي تترتب الكروت بجانب بعضها -->
+    <!-- 🎯 1. حقل البحث الفوري الفخم في أعلى قسم الخدمات -->
+<!-- 🎯 1. حقل البحث المودرن والفخم المحدث بالكامل -->
+<div class="row justify-content-center" style="margin-bottom: 50px; margin-top: 20px;">
+    <div class="col-lg-6 col-md-8 col-sm-10 p-5">
+        <div class="coolfix-search-wrapper" style="position: relative; display: flex; align-items: center; background: #ffffff; border: 2px solid #e5e7eb; border-radius: 50px; padding: 6px 8px 6px 25px; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);">
+
+            <!-- حقل الإدخال النظيف -->
+            <input type="text" id="service-search-input" placeholder="What cooling service do you need today?..."
+                   style="width: 100%; border: none; outline: none; font-size: 1rem; color: #374151; background: transparent; padding-right: 50px;">
+
+<!-- 🎯 الخطوة 1: استبدل ديف العدسة القديم بهذا الديف المحدث المجهز بالـ ID والـ cursor المباشر -->
+<div id="trigger-search-btn" class="search-icon-btn" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 35px; height: 35px; background: #15803d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25); transition: all 0.3s ease; cursor: pointer;">
+    <i class="fa-solid fa-magnifying-glass" style="font-size: 1rem;"></i>
+</div>
+
+        </div>
+    </div>
+</div>
+
+<!-- حاوية الكروت الرئيسية (تبقي كما هي) -->
+<div class="row" id="services-wrapper">
+
+    @foreach($services as $service)
+        <!-- كلاس service-card على الـ COL الأب الخارجي مجهز بتصفير حشو البوتستراب px-0 -->
+        <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4 service-card px-0">
+
+            <!-- 🛠️ التعديل الحاسم: أضفنا margin جانبي بمقدار 15px لإبعاد الكروت عن بعضها بشكل فخم ومنع الالتصاق 👇 -->
+            <div class="course-item d-flex" style="position: relative; width: calc(100% - 30px) !important; margin: 0 15px 25px 15px !important;">
+
+                <!-- تمديد الحاوية الداخلية لتملأ المربع بالكامل وتلتحم بالأطراف 100% -->
+                <div class="course-inner" style="width: 100% !important; margin: 0 !important;">
+
+                    <div class="course-img">
+                        <div class="course-img-icon">
+                            <i class="fa-solid {{ $service->icon }} fa-3x"></i>
+                        </div>
+                        <div class="course-price">From ₪{{ $service->starting_price }}</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="ccategory">
+                            <a href="#">{{ $service->category }}</a>
+                        </div>
+                        <h3><a href="#" class="service-name">{{ $service->name }}</a></h3>
+                        <div class="crating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span>5.0 / 98 Reviews</span>
+                        </div>
+                        <div class="cmeta">
+                            <span><i class="fa-solid fa-stopwatch"></i> {{ $service->duration }}</span>
+                            <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> {{ $service->warranty }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- الطبقة الشفافة للـ Hover الأصلي ممددة بالتطابق مع العرض الجديد -->
+                <div class="course-hover align-self-center" style="width: 100% !important; height: 100% !important; left: 0 !important; top: 0 !important;">
+                    <h3><a href="#">{{ $service->name }}</a></h3>
+                    <p>{{ $service->description }}</p>
+                    <a href="#">Book This Service</a>
+                </div>
             </div>
-            <div class="course-list row wow fadeIn">
+        </div><!--- END COL -->
+    @endforeach
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-kitchen-set fa-3x"></i></div>
-                                <div class="course-price">From ₪80</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Home Appliances</a>
-                                </div>
-                                <h3><a href="#">Refrigerator Repair</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 140 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> Same-day visit</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> 6-mo warranty</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Refrigerator Repair</a></h3>
-                            <p>Diagnosis and repair for cooling failures, unusual noise, leaks, and doors that won't
-                                seal properly.</p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+</div>
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-snowflake fa-3x"></i></div>
-                                <div class="course-price">From ₪90</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Home Appliances</a>
-                                </div>
-                                <h3><a href="#">Freezer Repair</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 98 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> Same-day visit</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> 6-mo warranty</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Freezer Repair</a></h3>
-                            <p>Chest and upright freezer repairs — frost build-up, weak freezing, and door seal
-                                replacement.</p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+<!-- 🎯 2. كود الـ CSS التفاعلي للخانة الجديدة بقوة الـ !important لمنع قيود القالب -->
+<style>
+/* تأثير التوهج الفخم عند الضغط بداخل الخانة للتفاعل */
+.coolfix-search-wrapper:focus-within {
+    border-color: #15803d !important;
+    box-shadow: 0 10px 25px rgba(21, 128, 61, 0.12) !important;
+    transform: translateY(-2px);
+}
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-fire-flame-simple fa-3x"></i></div>
-                                <div class="course-price">From ₪120</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Gas &amp; Leaks</a>
-                                </div>
-                                <h3><a href="#">Gas Refill (Freon)</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 76 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> 1-2 hours</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> Leak test
-                                        incl.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Gas Refill (Freon)</a></h3>
-                            <p>Full leak detection, repair, and refrigerant gas refill to bring cooling back to full
-                                strength.</p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+/* تأثير خفيف عند تمرير الماوس فوق الزر الأخضر */
+.coolfix-search-wrapper:hover .search-icon-btn {
+    background: #166534 !important;
+    scale: 1.05;
+}
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-gear fa-3x"></i></div>
-                                <div class="course-price">From ₪250</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Major Repairs</a>
-                                </div>
-                                <h3><a href="#">Compressor Replacement</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 62 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> 2-4 hours</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> 12-mo
-                                        warranty</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Compressor Replacement</a></h3>
-                            <p>Genuine replacement compressors fitted and tested for units that won't cool at all.</p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+/* القيد الحديدي لإخفاء الكروت المستبعدة بالكامل مع الـ Hover */
+.service-card.hide-card {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+.service-card.hide-card .course-hover {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+</style>
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-plug-circle-bolt fa-3x"></i></div>
-                                <div class="course-price">From ₪70</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Electrical</a>
-                                </div>
-                                <h3><a href="#">Thermostat &amp; Wiring</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 54 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> 1 hour</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> 6-mo
-                                        warranty</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Thermostat &amp; Wiring</a></h3>
-                            <p>Control board diagnostics, thermostat replacement, and electrical fault-finding.</p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+<!-- 🎯 3. سكربت الجافا سكريبت الصافي المطور (البحث بحسب بداية الأحرف المعتمد) -->
+<!-- 🎯 سكربت الفلترة الحية + ميزة النقر الفوري للعدسة غصباً عن الكاش -->
+<!-- 🎯 السكربت المكتمل والجاهز للنسخ المباشر بأسفل ملف الخدمات -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var searchInput = document.getElementById('service-search-input');
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-shop fa-3x"></i></div>
-                                <div class="course-price">Custom Quote</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Commercial</a>
-                                </div>
-                                <h3><a href="#">Commercial Cooling</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 41 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> Scheduled visit</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> Service
-                                        contract</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Commercial Cooling</a></h3>
-                            <p>Display fridges, walk-in coolers, and cooling systems for shops, restaurants and clinics.
-                            </p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+    // 1. هاد السطر اللي بتقصده بالظبط لمسك الزر الأخضر عبر الـ ID 🎯 👇
+    var searchBtn = document.getElementById('trigger-search-btn');
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-icicles fa-3x"></i></div>
-                                <div class="course-price">From ₪60</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Home Appliances</a>
-                                </div>
-                                <h3><a href="#">Ice Maker Repair</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 33 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> 1 hour</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> 3-mo
-                                        warranty</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Ice Maker Repair</a></h3>
-                            <p>Built-in and standalone ice maker repairs — jams, leaks, and units that won't make ice.
-                            </p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+    // 2. تفعيل حدث النقر لنقل مؤشر الكتابة إلى داخل الخانة فوراً
+    if (searchBtn && searchInput) {
+        searchBtn.addEventListener('click', function() {
+            searchInput.focus(); // نقل التركيز والمؤشر لداخل صندوق البحث
+        });
+    }
 
-                <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                    <div class="course-item d-flex">
-                        <div class="course-inner">
-                            <div class="course-img">
-                                <div class="course-img-icon"><i class="fa-solid fa-clipboard-check fa-3x"></i></div>
-                                <div class="course-price">From ₪50</div>
-                            </div>
-                            <div class="course-content">
-                                <div class="ccategory">
-                                    <a href="#">Maintenance</a>
-                                </div>
-                                <h3><a href="#">Preventive Maintenance</a></h3>
-                                <div class="crating">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <span>5.0 / 88 Reviews</span>
-                                </div>
-                                <div class="cmeta">
-                                    <span><i class="fa-solid fa-stopwatch"></i> 30-45 min</span>
-                                    <span class="cmtime"><i class="fa-solid fa-shield-halved"></i> Seasonal
-                                        check-up</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="course-hover align-self-center">
-                            <h3><a href="#">Preventive Maintenance</a></h3>
-                            <p>Coil cleaning, seal checks, and gas-pressure tests to catch problems before they become
-                                breakdowns.</p>
-                            <a href="contact.html">Book This Service</a>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
+    // 3. كود الفلترة الحية بحسب بداية الكلمة (Starts With)
+    if (searchInput) {
+        searchInput.addEventListener('keyup', function() {
+            var value = this.value.toLowerCase().trim();
+            var cards = document.querySelectorAll('.service-card');
 
-            </div><!-- END COURSE LIST -->
-        </div><!--- END CONTAINER -->
+            cards.forEach(function(card) {
+                var nameElement = card.querySelector('.service-name');
+                if (nameElement) {
+                    var serviceName = nameElement.textContent.toLowerCase().trim();
+
+                    // الفحص الصارم بحسب بداية الكلمة (Starts With %***)
+                    if (serviceName.startsWith(value)) {
+                        card.classList.remove('hide-card');
+                    } else {
+                        card.classList.add('hide-card');
+                    }
+                }
+            });
+        });
+    }
+});
+</script>
+
+
+    </div><!-- END COURSE LIST -->
+    </div><!--- END CONTAINER -->
     </div>
     <!--END SERVICES -->
 

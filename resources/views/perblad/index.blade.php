@@ -42,42 +42,33 @@
     </div>
     <!-- END  TOP HEADER CLASS -->
 
-    <!-- START COUNTER -->
-    <section class="count_area counter_feature">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_one">
-                        <span class="ti-timer sc_one"></span>
-                        <h2 class="counter-num">9</h2>
-                        <p>Years in Business</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_two">
-                        <span class="ti-medall-alt sc_two"></span>
-                        <h2 class="counter-num">3000</h2>
-                        <p>Repairs Completed</p>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_three">
-                        <span class="ti-id-badge sc_three"></span>
-                        <h2 class="counter-num">45</h2>
-                        <p>Minutes Avg. Response</p>
+<!-- START COUNTER -->
+<section class="count_area counter_feature">
+    <div class="container">
+        <div class="row">
+
+            @foreach($homeCounters as $counter)
+                <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <!-- جعلنا لون خلفية المربع ديناميكي يقرأ من الـ DB ليعيد ألوان صورتك الأصلية الزاهية -->
+                    <div class="single-counter" style="background-color: {{ $counter->bg_color }}; border-radius: 8px; padding: 30px 20px;">
+
+                        <!-- الأيقونة الديناميكية (استخدمنا كلاسات الفونت أوسم لتدعم رموزك) -->
+                        <span class="fa-solid {{ $counter->icon }} fa-2x mb-3" style="display: block;"></span>
+
+                        <!-- الرقم الإحصائي الكبير ديناميكي -->
+                        <h2 class="counter-num" style="font-weight: 700; margin-bottom: 5px;">{{ $counter->count_value }}</h2>
+
+                        <!-- النص التعريفي الصغير السفلي ديناميكي -->
+                        <p class="mb-0" style="font-size: 0.95rem; color: #4b5563;">{{ $counter->title }}</p>
+
                     </div>
                 </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_four">
-                        <span class="ti-user sc_four"></span>
-                        <h2 class="counter-num">1200</h2>
-                        <p>Happy Customers</p>
-                    </div>
-                </div><!-- END COL -->
-            </div><!--- END ROW -->
-        </div><!--- END CONTAINER -->
-    </section>
-    <!-- END COUNTER -->
+            @endforeach
+
+        </div><!--- END ROW -->
+    </div><!--- END CONTAINER -->
+</section>
+<!-- END COUNTER -->
 
     <!-- START ABOUT US HOME ONE -->
     <section class="ab_one section-padding">
@@ -142,7 +133,7 @@
                         <h3>Same-Day Service</h3>
                         <i class="fa-solid fa-truck-fast"></i>
                         <p>Call before 3pm and in most cases we're at your door the same day.</p>
-                        <a href="services.html" class="cta"><span>Learn More</span>
+                        <a href="{{ route('services') }}" class="cta"><span>Learn More</span>
                             <svg width="13px" height="10px" viewBox="0 0 13 10">
                                 <path d="M1,5 L11,5"></path>
                                 <polyline points="8 1 12 5 8 9"></polyline>
@@ -156,7 +147,7 @@
                         <h3>Certified Technicians</h3>
                         <i class="fa-solid fa-user-gear"></i>
                         <p>Trained on all major fridge and freezer brands sold in Gaza.</p>
-                        <a href="about.html" class="cta"><span>Learn More</span>
+                        <a href="{{ route('about') }}" class="cta"><span>Learn More</span>
                             <svg width="13px" height="10px" viewBox="0 0 13 10">
                                 <path d="M1,5 L11,5"></path>
                                 <polyline points="8 1 12 5 8 9"></polyline>
@@ -170,7 +161,7 @@
                         <h3>Genuine Spare Parts</h3>
                         <i class="fa-solid fa-gears"></i>
                         <p>We only fit original or manufacturer-approved compressors and parts.</p>
-                        <a href="services.html" class="cta"><span>Learn More</span>
+                        <a href="{{ route('services') }}" class="cta"><span>Learn More</span>
                             <svg width="13px" height="10px" viewBox="0 0 13 10">
                                 <path d="M1,5 L11,5"></path>
                                 <polyline points="8 1 12 5 8 9"></polyline>
@@ -184,7 +175,7 @@
                         <h3>Upfront Pricing</h3>
                         <i class="fa-solid fa-tag"></i>
                         <p>A clear quote before we start — no surprise charges on the invoice.</p>
-                        <a href="pricing.html" class="cta"><span>Learn More</span>
+                        <a href="{{ route('pricing') }}" class="cta"><span>Learn More</span>
                             <svg width="13px" height="10px" viewBox="0 0 13 10">
                                 <path d="M1,5 L11,5"></path>
                                 <polyline points="8 1 12 5 8 9"></polyline>
@@ -205,143 +196,69 @@
                 <h1>Our Refrigeration Services</h1>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_one">
-                        <i class="fa-solid fa-kitchen-set fa-2x"></i>
-                        <h2><a href="services.html">Refrigerator Repair</a></h2>
-                        <span>Home &amp; kitchen units</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_two">
-                        <i class="fa-solid fa-snowflake fa-2x"></i>
-                        <h2><a href="services.html">Freezer Repair</a></h2>
-                        <span>Chest &amp; upright freezers</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_three">
-                        <i class="fa-solid fa-fire-flame-simple fa-2x"></i>
-                        <h2><a href="services.html">Gas Refill (Freon)</a></h2>
-                        <span>Leak testing included</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_four">
-                        <i class="fa-solid fa-gear fa-2x"></i>
-                        <h2><a href="services.html">Compressor Replacement</a></h2>
-                        <span>All major brands</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_five">
-                        <i class="fa-solid fa-plug-circle-bolt fa-2x"></i>
-                        <h2><a href="services.html">Electrical &amp; Thermostat</a></h2>
-                        <span>Wiring &amp; control boards</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_six">
-                        <i class="fa-solid fa-shop fa-2x"></i>
-                        <h2><a href="services.html">Commercial Cooling</a></h2>
-                        <span>Shops, restaurants &amp; stores</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_seven">
-                        <i class="fa-solid fa-icicles fa-2x"></i>
-                        <h2><a href="services.html">Ice Maker Repair</a></h2>
-                        <span>Built-in &amp; standalone</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single_tca sc_eight">
-                        <i class="fa-solid fa-clipboard-check fa-2x"></i>
-                        <h2><a href="services.html">Preventive Maintenance</a></h2>
-                        <span>Seasonal check-ups</span>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-12 text-center">
-                    <div class="cc_btn">
-                        <a href="services.html" class="cta"><span>View All Services</span>
-                            <svg width="13px" height="10px" viewBox="0 0 13 10">
-                                <path d="M1,5 L11,5"></path>
-                                <polyline points="8 1 12 5 8 9"></polyline>
-                            </svg>
-                        </a>
-                    </div>
-                </div><!--END COL -->
+@foreach($homeServices as $card)
+    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+        <!-- جعلنا لون الخلفية ديناميكي يتغير حسب اللون المخزن في قاعدة البيانات لكل كرت -->
+        <div class="single_tca" style="background-color: {{ $card->bg_color }};">
+
+            <!-- الأيقونة الديناميكية -->
+            <i class="fa-solid {{ $card->icon }} fa-2x"></i>
+
+            <!-- العنوان الرئيسي للخدمة -->
+            <h2><a href="#">{{ $card->title }}</a></h2>
+
+            <!-- النص الصغير (البيضاوي أو التوضيحي السفلي) -->
+            <span>{{ $card->sub_text }}</span>
+
+        </div>
+    </div>
+@endforeach
+
             </div><!-- END ROW -->
         </div><!-- END CONTAINER -->
     </section>
     <!-- END SERVICES GRID -->
 
-    <!-- START TESTIMONIALS-->
-    <section class="testi_home_area section-padding">
-        <div class="container">
-            <div class="section-title">
-                <h4>Testimonials</h4>
-                <h1>What our customers say</h1>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div id="testimonial-slider" class="owl-carousel">
+<!-- START TESTIMONIALS-->
+<section class="testi_home_area section-padding">
+    <div class="container">
+        <div class="section-title">
+            <h4>Testimonials</h4>
+            <h1>What our customers say</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- حاوية السلايدر المشغلة بمكتبة owl-carousel -->
+                <div id="testimonial-slider" class="owl-carousel">
+
+                    @foreach($testimonials as $testimonial)
                         <div class="testimonial">
                             <div class="testi_pic_title">
                                 <div class="pic">
-                                    <img src="{{ asset('webfront/images/all-img/t1.png') }}" alt="">
+                                    <!-- صورة العميل الديناميكية: إذا توفرت في القاعدة تُعرض، وإلا يتم استخدام الأفتار الافتراضي t1.png -->
+                                    <img src="{{ $testimonial->avatar ? asset('webfront/images/all-img/' . $testimonial->avatar) : asset('webfront/images/all-img/t1.png') }}" alt="{{ $testimonial->name }}">
                                 </div>
-                                <h4>Ahmad Al-Sayed</h4>
-                                <small class="post">Rimal, Gaza</small>
+                                <!-- اسم العميل ديناميكي -->
+                                <h4>{{ $testimonial->name }}</h4>
+                                <!-- المنطقة/العنوان ديناميكي -->
+                                <small class="post">{{ $testimonial->location }}</small>
                             </div>
-                            <p>My fridge stopped cooling on a Friday and COOLFIX still came out. Fixed the compressor
-                                the same evening and it's been running perfectly since.</p>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                            <!-- نص الرسالة والتقييم ديناميكي -->
+                            <p>{{ $testimonial->feedback }}</p>
+
+                            <!-- توليد النجوم الذهبية ديناميكيًا بناءً على التقييم الرقمي المخزن في الـ DB للزبون -->
+                            @for($i = 0; $i < $testimonial->stars; $i++)
+                                <i class="fa fa-star"></i>
+                            @endfor
                         </div><!-- END TESTIMONIAL -->
-                        <div class="testimonial">
-                            <div class="testi_pic_title">
-                                <div class="pic">
-                                    <img src="{{ asset('webfront/images/all-img/t2.png') }}" alt="">
-                                </div>
-                                <h4>Huda Nassar</h4>
-                                <small class="post">Al-Nasr, Gaza</small>
-                            </div>
-                            <p>Clear price before they started, no hidden fees after. The technician also showed me
-                                how
-                                to keep the seals clean so it doesn't happen again.</p>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div><!-- END TESTIMONIAL -->
-                        <div class="testimonial">
-                            <div class="testi_pic_title">
-                                <div class="pic">
-                                    <img src="{{ asset('webfront/images/all-img/t3.png') }}" alt="">
-                                </div>
-                                <h4>Samir Barghouti</h4>
-                                <small class="post">Shop owner, Omar Al-Mukhtar St.</small>
-                            </div>
-                            <p>We use COOLFIX for all the display fridges in our store. They know commercial units
-                                well
-                                and always work around our opening hours.</p>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div><!-- END TESTIMONIAL -->
-                    </div>
-                </div><!--- END COL -->
-            </div><!--- END ROW -->
-        </div><!--- END CONTAINER -->
-    </section>
-    <!-- END TESTIMONIALS -->
+                    @endforeach
+
+                </div>
+            </div><!--- END COL -->
+        </div><!--- END ROW -->
+    </div><!--- END CONTAINER -->
+</section>
+<!-- END TESTIMONIALS -->
 
     <!-- START CTA BANNER -->
     <section class="marketing_content_area section-padding">

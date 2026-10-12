@@ -188,6 +188,45 @@
 
         }
 
+        /* تأثير توهج الحاوية الكلي عند الكتابة والضغط بالداخل */
+        .ultra-search-wrapper:focus-within {
+            border-color: #6366f1 !important;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15) !important;
+            transform: translateY(-1px);
+        }
+
+        /* هندسة رسم رأس العدسة الدائري بالـ CSS الصافي داخل الدائرة البنفسجية 👇 */
+        .lens-drawn-purple::before {
+            content: "" !important;
+            position: absolute !important;
+            width: 12px !important;
+            height: 12px !important;
+            border: 2px solid #ffffff !important;
+            border-radius: 50% !important;
+            top: 11px !important;
+            left: 11px !important;
+            display: block !important;
+        }
+
+        /* هندسة رسم مقبض وعصا العدسة المائل بالـ CSS الصافي 👇 */
+        .lens-drawn-purple::after {
+            content: "" !important;
+            position: absolute !important;
+            width: 2px !important;
+            height: 6px !important;
+            background-color: #ffffff !important;
+            top: 23px !important;
+            left: 23px !important;
+            transform: rotate(-45deg) !important;
+            display: block !important;
+        }
+
+        /* القيد الحديدي الاحترافي لإخفاء السطر المستبعد بقوة الـ !important */
+        .post-row.hide-row-premium {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
     </style>
 </head>
@@ -200,6 +239,29 @@
                 <span class="badge">العدد الإجمالي: {{ $allPost->count() }}</span>
             </div>
         </div>
+
+
+<!-- START 70% CENTERED ENGLISH PREMIUM SEARCH BAR -->
+<div class="outstanding-search-container d-flex justify-content-center align-items-center" style="width: 100% !important; margin: 30px 0 !important; padding: 0 !important; box-sizing: border-box !important; display: flex !important; justify-content: center !important; align-items: center !important;">
+
+    <!-- حاوية الـ 70% المتمركزة بالنص بالظبط مع حشو أبعاد معدل لليسار -->
+    <div class="ultra-search-wrapper" style="position: relative !important; width: 90% !important; max-width: 90% !important; display: flex !important; align-items: center !important; background: #ffffff !important; border: 2px solid #e2e8f0 !important; border-radius: 50px !important; padding: 12px 55px 12px 25px !important; transition: all 0.4s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important; box-sizing: border-box !important;">
+
+        <!-- حقل الإدخال الإنجليزي - 🛠️ تم تفعيل الـ direction: ltr والكتابة من الشمال مع الـ Placeholder الإنجليزي الفخم 👇 -->
+        <input type="text" id="post-search-input" placeholder="Search for posts or authors... (e.g., Refrigerator, Gay)"
+               style="width: 100% !important; border: none !important; outline: none !important; font-size: 1.05rem !important; font-weight: 500 !important; color: #1e1b4b !important; background: transparent !important; direction: ltr !important; text-align: left !important; padding-right: 15px !important; padding-left: 0 !important; box-sizing: border-box !important;">
+
+        <!-- الزر الدائري البنفسجي المجهز بالعدسة المرسومة يدوياً ومثبت بدقة متناهية على اليمين 🎯 -->
+        <div id="trigger-posts-search" class="ultra-search-btn lens-drawn-purple" style="position: absolute !important; right: 12px !important; top: 50% !important; transform: translateY(-50%) !important; width: 40px !important; height: 40px !important; background: linear-gradient(135deg, #8b5cf6, #6366f1) !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35) !important; transition: all 0.3s ease !important; cursor: pointer !important; z-index: 10 !important;">
+        </div>
+
+    </div>
+</div>
+<!-- END 70% CENTERED ENGLISH PREMIUM SEARCH BAR -->
+
+        <!-- END OUTSTANDING PREMIUM SEARCH BAR -->
+        <!-- END OUTSTANDING PREMIUM SEARCH BAR -->
+
 
         <div class="table-responsive">
             <table>
@@ -214,7 +276,9 @@
                 </thead>
                 <tbody>
                     @foreach ($allPost as $post)
-                        <tr class="{{ $loop->first ? 'active-first' : '' }}">
+                        <!-- 🛠️ التعديل الحاسم: أضفنا كلاس post-row هنا على السطر ليمحيه السكربت بالكامل عند عدم التطابق 👇 -->
+                        <tr class="post-row {{ $loop->first ? 'active-first' : '' }}"
+                            style="transition: all 0.3s ease;">
                             <!-- عمود أزرار العمليات -->
                             <td class="actions-col">
                                 <div class="action-group">
@@ -224,19 +288,21 @@
                                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                                         @method('delete')
                                         <button onclick="return confirm ('Are you sure?!')" type="submit"
-                                            class="btn-action btn-delete">❌
-                                            حذف</button>
+                                            class="btn-action btn-delete">❌ حذف</button>
                                     </form>
-
                                 </div>
                             </td>
 
                             <!-- عرض البيانات -->
                             <td class="id-cell">{{ $post->id }}</td>
-                            <td class="title-cell">{{ $post->title }}</td>
+
+                            <!-- 🛠️ التعديل: أضفنا كلاس post-title لمسك نص العنوان بالسكربت 👇 -->
+                            <td class="title-cell post-title">{{ $post->title }}</td>
+
                             <td class="content-cell">{{ Str::limit($post->content, 60) }}</td>
                             <td>
-                                <span class="author-cell">
+                                <!-- 🛠️ التعديل: أضفنا كلاس post-author لمسك نص الكاتب بالسكربت 👇 -->
+                                <span class="author-cell post-author">
                                     👤 {{ $post->name ?? 'مجهول' }}
                                 </span>
                             </td>
@@ -246,6 +312,48 @@
             </table>
         </div>
     </div>
+    <!-- 🎯 3. سكربت الجافا سكريبت الصافي (Vanilla JS) المطور لتوجيه النقر والفلترة الحية بحسب البداية غصباً عن الكاش -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var searchInput = document.getElementById('post-search-input');
+            var searchBtn = document.getElementById('trigger-posts-search');
+
+            // عند الضغط على الدائرة البنفسجية، ينتقل مؤشر الكتابة للداخل فوراً
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    searchInput.focus();
+                });
+            }
+
+            // سكربت الفلترة الحية المبني على بداية الكلمة (Starts With) غصباً عن الكاش
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    var value = this.value.toLowerCase().trim();
+                    var rows = document.querySelectorAll('.post-row');
+
+                    rows.forEach(function(row) {
+                        var titleEl = row.querySelector('.post-title');
+                        var authorEl = row.querySelector('.post-author');
+
+                        // تنظيف النصوص وفصل أي نقاط تزيين أمامية بالجدول لضمان دقة مطابقة البداية
+                        var titleText = titleEl ? titleEl.textContent.toLowerCase().trim().replace(
+                            /^\.+/, '') : '';
+                        // إزالة رمز الإيموجي 👤 من نص الكاتب ليطابق الاسم الصافي بالظبط بالـ replace
+                        var authorText = authorEl ? authorEl.textContent.replace('👤', '')
+                            .toLowerCase().trim() : '';
+
+                        // الفحص والفلترة الحية الصارمة تزامناً مع البداية
+                        if (titleText.startsWith(value) || authorText.startsWith(value)) {
+                            row.classList.remove('hide-row-premium'); // سطر متطابق -> إظهاره
+                        } else {
+                            row.classList.add(
+                            'hide-row-premium'); // سطر مستبعد -> إبادة وإخفاء فوراً ❌
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 
 </body>
 

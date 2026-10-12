@@ -36,6 +36,10 @@
         <!-- Style CSS -->
         <link rel="stylesheet" href="{{ asset('webfront/css/style.css') }}">
         <link rel="icon" type="image/svg+xml" href="assets/images/brand/logo.svg">
+        <!-- owl carousel Css -->
+        <link rel="stylesheet" href="{{ asset('webfront/owlcarousel/css/owl.carousel.css') }}">
+        <link rel="stylesheet" href="{{ asset('webfront/owlcarousel/css/owl.theme.css') }}">
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -83,8 +87,8 @@
                                     <li><a href="https://www.facebook.com/profile.php?id=100010037628573&locale=ar_AR"
                                             class="top_f_facebook"><i class="fa-brands fa-facebook"></i></a>
                                     </li>
-                                    <li><a href="https://www.youtube.com/@Mohamed.123." class="fa-brands fa-youtube"><i
-                                                ></i></a>
+                                    <li><a href="https://www.youtube.com/@Mohamed.123."
+                                            class="fa-brands fa-youtube"><i></i></a>
                                     </li>
                                     <li><a href="https://wa.me/972598924040" class="top_f_twitter"><i
                                                 class="fa-brands fa-whatsapp"></i></a>
@@ -121,7 +125,7 @@
                         <div class="col-xl-6 col-lg-5 d-none d-lg-block">
                             <nav id="main-menu">
                                 <ul class="d-flex justify-content-center list-unstyled m-0 gap-1">
-                                    <li><a href="{{ url('index') }}">Home</a></li>
+                                    <li><a href="{{ url('/') }}">Home</a></li>
                                     <li><a href="{{ url('/about') }}">AboutUs</a></li>
                                     <li><a href="{{ url('/services') }}">Services</a></li>
                                     <li><a href="{{ url('/pricing') }}">Pricing</a></li>
@@ -294,9 +298,9 @@
                                     <li><a href="https://www.facebook.com/profile.php?id=100010037628573&locale=ar_AR"
                                             class="top_f_facebook"><i class="fa-brands fa-facebook"></i></a>
                                     </li>
-                                        <li><a href="https://www.youtube.com/@Mohamed.123." class="fa-brands fa-youtube"><i
-                                                    ></i></a>
-                                        </li>
+                                    <li><a href="https://www.youtube.com/@Mohamed.123."
+                                            class="fa-brands fa-youtube"><i></i></a>
+                                    </li>
 
                                     <li><a href="https://wa.me" class="top_f_twitter"><i
                                                 class="fa-brands fa-whatsapp"></i></a>
@@ -444,6 +448,42 @@
             <script src="{{ asset('webfront/js/wow.min.js') }}"></script>
             <!-- scripts js -->
             <script src="{{ asset('webfront/js/scripts.js') }}"></script>
+<!-- استدعاء ملف الجافا سكريبت المحلي الخاص بمكتبة الـ Owl Carousel من مشروعك -->
+<script src="{{ asset('webfront/owlcarousel/js/owl.carousel.min.js') }}"></script>
+
+<!-- سكربت تفعيل حركة سلايدر فنيين الأباوت بالنقاط السفلية -->
+<script>
+$(document).ready(function(){
+    var teamSlider = $("#team-slider");
+
+    // تدمير النسخ القديمة المعلقة بالكاش لمنع تداخل الأكواد
+    if(teamSlider.hasClass('owl-loaded')){
+        teamSlider.owlCarousel('destroy');
+    }
+
+    // تشغيل السلايدر بالبنية الجديدة ومزامنة النقاط الأربعة
+    teamSlider.owlCarousel({
+        items: 3,               // عرض 3 كروت فنيين بجانب بعضهم
+        loop: true,             // دوران مستمر للكروت بشكل دائري
+        margin: 20,             // مسافة أمان جانبية بين الكروت
+        autoplay: true,         // تحريك تلقائي للكروت
+        autoplayTimeout: 4000,  // الانتقال كل 4 ثوانٍ تلقائياً
+        smartSpeed: 800,        // نعومة دوران السلايدر
+        dots: true,             // تفعيل وإظهار نقاط السكرول السفلية بنجاح 🟢
+        responsive:{
+            0:{
+                items:1         // كرت واحد فقط على شاشات الجوال
+            },
+            768:{
+                items:2         // كرتين على شاشات التابلت
+            },
+            1170:{
+                items:3         // 3 كروت على شاشات الكمبيوتر تماماً كصورتك الأصلية
+            }
+        }
+    });
+});
+</script>
 
     </body>
 

@@ -69,73 +69,28 @@
                 <h1>What sets our workshop apart.</h1>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
-                    data-wow-offset="0">
-                    <div class="single_feature_one">
-                        <div class="sf_top">
-                            <i class="fa-solid fa-truck-fast"></i>
-                            <h2><a href="contact.html">Fast <br />Response</a></h2>
+
+                @foreach ($homeFeatures as $index => $feature)
+                    <!-- جعلنا الـ delay ديناميكي يزيد تلقائياً مع كل كرت بناءً على الترتيب ليبقى الـ WOW مؤثر وجذاب -->
+                    <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s"
+                        data-wow-delay="0.{{ $index + 1 }}s" data-wow-offset="0">
+                        <div class="single_feature_one">
+                            <div class="sf_top">
+                                <!-- الأيقونة الديناميكية -->
+                                <i class="fa-solid {{ $feature->icon }}"></i>
+
+                                <!-- العنوان الرئيسي للميزة -->
+                                <!-- التعديل لفتح صفحة التواصل بسلام 👇 -->
+                                <h2><a href="{{ route('about') }}">{{ $feature->title }}</a></h2>
+                            </div>
+                            <!-- نص الشرح والوصف التفصيلي القادم من الـ DB -->
+                            <p>{{ $feature->description }}</p>
+
+                            <a href="{{ route('about') }}">Read More <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
-                        <p>Most calls within Gaza get a technician on site the same day, often within the hour.</p>
-                        <a href="contact.html">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s"
-                    data-wow-offset="0">
-                    <div class="single_feature_one">
-                        <div class="sf_top">
-                            <i class="fa-solid fa-user-gear"></i>
-                            <h2><a href="about.html">Skilled <br />Technicians</a></h2>
-                        </div>
-                        <p>Years of hands-on experience with residential and commercial cooling units of every brand.</p>
-                        <a href="about.html">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s"
-                    data-wow-offset="0">
-                    <div class="single_feature_one">
-                        <div class="sf_top">
-                            <i class="fa-solid fa-gears"></i>
-                            <h2><a href="services.html">Genuine <br />Parts</a></h2>
-                        </div>
-                        <p>Original or manufacturer-approved compressors, thermostats, and gas — never generic knock-offs.
-                        </p>
-                        <a href="services.html">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s"
-                    data-wow-offset="0">
-                    <div class="single_feature_one">
-                        <div class="sf_top">
-                            <i class="fa-solid fa-tag"></i>
-                            <h2><a href="pricing.html">Transparent <br />Pricing</a></h2>
-                        </div>
-                        <p>You get a clear quote before any work starts — the price you agree to is the price you pay.</p>
-                        <a href="pricing.html">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s"
-                    data-wow-offset="0">
-                    <div class="single_feature_one">
-                        <div class="sf_top">
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <h2><a href="pricing.html">Repair <br />Warranty</a></h2>
-                        </div>
-                        <p>Every completed job comes with a written warranty covering parts and labor.</p>
-                        <a href="pricing.html">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
-                    data-wow-offset="0">
-                    <div class="single_feature_one">
-                        <div class="sf_top">
-                            <i class="fa-solid fa-headset"></i>
-                            <h2><a href="contact.html">Always <br />Reachable</a></h2>
-                        </div>
-                        <p>Call or WhatsApp 0598 924 040 and speak directly with the person doing your repair.</p>
-                        <a href="contact.html">Read More <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div><!-- END COL -->
+                    </div><!-- END COL -->
+                @endforeach
+
             </div><!-- END ROW -->
         </div><!-- END CONTAINER -->
     </section>
@@ -145,72 +100,159 @@
     <section class="count_area counter_feature">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_one">
-                        <span class="ti-timer sc_one"></span>
-                        <h2 class="counter-num">9</h2>
-                        <p>Years in Business</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_two">
-                        <span class="ti-medall-alt sc_two"></span>
-                        <h2 class="counter-num">3000</h2>
-                        <p>Repairs Completed</p>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_three">
-                        <span class="ti-id-badge sc_three"></span>
-                        <h2 class="counter-num">45</h2>
-                        <p>Minutes Avg. Response</p>
-                    </div>
-                </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12">
-                    <div class="single-counter count_four">
-                        <span class="ti-user sc_four"></span>
-                        <h2 class="counter-num">1200</h2>
-                        <p>Happy Customers</p>
-                    </div>
-                </div><!-- END COL -->
+
+                @foreach ($homeCounters as $counter)
+                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                        <!-- استخدام نفس الألوان الزاهية الأصلية وقيم التنسيق المتجاوبة ديناميكياً -->
+                        <div class="single-counter"
+                            style="background-color: {{ $counter->bg_color }}; border-radius: 8px; padding: 30px 20px;">
+
+                            <!-- الأيقونة الديناميكية المتوافقة مع الفونت أوسم -->
+                            <span class="fa-solid {{ $counter->icon }} fa-2x mb-3" style="display: block;"></span>
+
+                            <!-- الرقم الكبير الصافي الجاهز للعد التصاعدي التلقائي بالموقع -->
+                            <h2 class="counter-num" style="font-weight: 700; margin-bottom: 5px;">
+                                {{ $counter->count_value }}</h2>
+
+                            <!-- النص التوضيحي المكتوب في قاعدة البيانات -->
+                            <p class="mb-0" style="font-size: 0.95rem; color: #4b5563;">{{ $counter->title }}</p>
+
+                        </div>
+                    </div><!-- END COL -->
+                @endforeach
+
             </div><!--- END ROW -->
         </div><!--- END CONTAINER -->
     </section>
     <!-- END COUNTER -->
 
     <!-- START TEAM (owner/technician) -->
-    <section class="team_member section-padding">
-        <div class="container">
-            <div class="section-title">
-                <h4>Meet The Technician</h4>
-                <h1>The person who'll be at your door</h1>
-            </div>
-            <div class="row text-center justify-content-center">
-                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
-                    data-wow-offset="0">
-                    <div class="our-team">
-                        <div class="team_img">
-                            <img src="{{ asset('webfront/images/team/1.jpg') }}" alt="Mohammed Kareem Kohail">
-                            <ul class="social">
-                                <li><a href="tel:+970598924040" class="top_f_facebook"><i
-                                            class="fa-solid fa-phone"></i></a></li>
-                                <li><a href="#" class="top_f_twitter"><i class="fa-brands fa-whatsapp"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="team-content">
-                            <h3 class="title">Mohammed Kareem Kohail</h3>
-                            <span class="post">Founder &amp; Lead Technician</span>
-                            <div class="sth_det2">
-                                <span class="ti-timer"> <u>9+ Years</u></span>
-                                <span class="ti-user"> <u>3000+ Repairs</u></span>
+<!-- START TEAM SECTION -->
+<!-- START TEAM SECTION -->
+<section class="team_member section-padding" style="position: relative !important; display: block !important; padding: 80px 0 !important; background: #fff !important; overflow: visible !important;">
+    <div class="container">
+        <div class="section-title text-center" style="margin-bottom: 50px !important;">
+            <h4>Meet The Technician</h4>
+            <h1 style="font-weight: 700; color: #1f2937;">The person who'll be at your door</h1>
+        </div>
+        <div class="row" style="overflow: visible !important;">
+            <div class="col-lg-12" style="position: relative !important; padding: 0 15px !important; overflow: visible !important;">
+
+                <!-- حاوية السلايدر الرسمية للفريق مع كلاس owl-theme القياسي ومنع أي قص برمي -->
+                <div id="team-slider" class="owl-carousel owl-theme" style="display: block !important; overflow: visible !important;">
+
+                    @foreach ($aboutTeams as $member)
+                        <div class="item" style="overflow: visible !important; height: auto !important;">
+                            <!-- الكرت الطويل الفخم الممدد لـ 600px ليعطي راحة للعين -->
+                            <div class="our-team" style="margin: 20px 7px !important; background: #fff !important; box-shadow: 0 8px 25px rgba(0,0,0,0.06) !important; border-radius: 12px !important; padding-bottom: 40px !important; height: auto !important; min-height: 600px !important; display: block !important; overflow: visible !important; border: 1px solid #f3f4f6 !important;">
+
+                                <!-- ارتفاع الصورة الأقصى ممدد لـ 420px لتظهر صور الفنيين ضخمة وفخمة -->
+                                <div class="team_img" style="position: relative !important; overflow: hidden !important; height: auto !important; max-height: 520px !important; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                                    <!-- صورة الفني ديناميكية -->
+                                    <img src="{{ asset('webfront/images/team/' . $member->image) }}" alt="{{ $member->name }}" style="width: 100% !important; display: block !important; height: auto !important; object-fit: cover !important;">
+
+                                    <!-- أزرار الجوال والواتساب الأصلية الثابتة في الزوايا الفخمة فوق الصورة -->
+                                    <ul class="social" style="position: absolute !important; top: auto !important; bottom: 15px !important; left: 15px !important; right: 15px !important; padding: 0 !important; margin: 0 !important; list-style: none !important; display: flex !important; justify-content: space-between !important; width: calc(100% - 30px) !important; z-index: 99 !important;">
+                                        <!-- زر الجوال تحت شمال 📞 -->
+                                        <li style="margin:0 !important; float:none !important; display: inline-block !important;">
+                                            <a href="tel:{{ $member->phone }}" class="top_f_facebook" style="width: 40px !important; height: 40px !important; line-height: 40px !important; background: #fff !important; color: #15803d !important; display: inline-block !important; text-align: center !important; border-radius: 50% !important; box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important; padding:0 !important;">
+                                                <i class="fa-solid fa-phone" style="font-size: 0.95rem;"></i>
+                                            </a>
+                                        </li>
+                                        <!-- زر الواتساب تحت يمين 💬 -->
+                                        <li style="margin:0 !important; float:none !important; display: inline-block !important;">
+                                            <a href="{{ $member->whatsapp }}" class="top_f_twitter" target="_blank" style="width: 40px !important; height: 40px !important; line-height: 40px !important; background: #fff !important; color: #25d366 !important; display: inline-block !important; text-align: center !important; border-radius: 50% !important; box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important; padding:0 !important;">
+                                                <i class="fa-brands fa-whatsapp" style="font-size: 1.05rem;"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="team-content text-center" style="padding-top: 25px !important; display: block !important; height: auto !important;">
+                                    <!-- 🛠️ التعديل الحاسم: ضفنا margin-bottom و padding-bottom لإبعاد الاسم عن خط الزينة والنقطة الخضراء تماماً كما طلبت 👇 -->
+                                    <h3 class="title" style="font-size: 1.25rem !important; font-weight:700 !important; color:#232b38 !important; margin-bottom: 15px !important; padding-bottom: 8px !important; display: block !important;">{{ $member->name }}</h3>
+
+                                    <!-- المسمى الوظيفي الأخضر الموحد -->
+                                    <span class="post" style="color: #15803d !important; font-size: 0.92rem !important; display:block !important; margin-bottom: 18px !important; font-weight: 600 !important; text-transform: uppercase;">{{ $member->role }}</span>
+
+                                    <!-- تفاصيل الخبرة والتصليحات متباعدة وبشكل مريح فخم بقاعدة الكرت الممدد -->
+                                    <div class="sth_det2" style="display: flex !important; justify-content: space-around !important; border-top: 1px solid #f1f5f9 !important; padding-top: 15px !important; font-size: 0.88rem !important; color: #4b5563 !important; width: 100% !important; margin-top: 15px !important;">
+                                        <span class="ti-timer" style="display: inline-block !important;"> <i class="fa-solid fa-clock" style="color: #15803d !important; margin-right: 3px;"></i> <u>{{ $member->experience }}</u></span>
+                                        <span class="ti-user" style="display: inline-block !important;"> <i class="fa-solid fa-user" style="color: #15803d !important; margin-right: 3px;"></i> <u>{{ $member->repairs_count }}</u></span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div><!--- END COL -->
-            </div><!-- END ROW -->
-        </div><!-- END CONTAINER -->
-    </section>
+                        </div><!-- END ITEM -->
+                    @endforeach
+
+                </div>
+
+            </div><!--- END COL -->
+        </div><!-- END ROW -->
+    </div><!-- END CONTAINER -->
+</section>
+<!-- END TEAM SECTION -->
+
+<!-- 🎨 كود الـ CSS القاضي لإلغاء الأسهم تماماً وإجبار وإبراز تلوين نقاط السكرول (الداشات الخضراء) بقوة الـ !important -->
+<style>
+/* مسح وإلغاء حاوية الأسهم الجانبية نهائياً لمنع أي تضارب بصري ❌ */
+#team-slider .owl-nav {
+    display: none !important;
+}
+
+/* إجبار تلوين وتكحيل نقاط السكرول (الداشات الخضراء) بالأسفل بقوة الـ !important لتظهر واضحة تحت الصور 👇 */
+#team-slider .owl-dots,
+#team-slider .owl-dots.disabled {
+    text-align: center !important;
+    margin-top: 40px !important;
+    display: block !important; /* إلغاء وإحباط أي وسم حظر إخفاء موروث من الـ layout الأب 🎯 */
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+#team-slider .owl-dots .owl-dot {
+    display: inline-block !important;
+}
+#team-slider .owl-dots .owl-dot span {
+    width: 10px !important;
+    height: 10px !important;
+    margin: 5px 8px !important;
+    background: #e5e7eb !important; /* لون الداشات الرمادي الهادئ غير النشط */
+    display: block !important;
+    border-radius: 30px !important;
+    transition: all .2s ease !important;
+}
+#team-slider .owl-dots .owl-dot.active span {
+    background: #15803d !important; /* لون الداشة الخضراء النشطة المعبرة عن هوية الموقع */
+    width: 32px !important; /* تحويل النقطة النشطة لداشة مستطيلة فخمة تدل على التمرير السلس */
+}
+</style>
+
+<!-- سكربت تفعيل التجاوب وحساب الـ نقاط تلقائياً بناءً على كروتك الـ 8 بسلام وبدون أخطاء -->
+<script>
+$(document).ready(function(){
+    var teamSlider = $("#team-slider");
+
+    if(teamSlider.hasClass('owl-loaded')){
+        teamSlider.owlCarousel('destroy');
+    }
+
+    teamSlider.owlCarousel({
+        items: 3,               // عرض 3 فنيين بجانب بعضهم في شاشات الـ Desktop كصورتك
+        loop: true,             // تفعيل الـ loop كسر قيد حظر الـ disabled وجعل النقاط تظهر وتلف تلقائياً 🎯
+        margin: 15,
+        autoplay: true,         // تفعيل السكرول واللف التلقائي لتتحرك الصور أمام العميل لوحدها الفخامة
+        autoplayTimeout: 4000,  // لفة كل 4 ثوانٍ
+        smartSpeed: 800,
+        nav: false,             // إلغاء الأسهم نهائياً بناءً على طلبك ❌
+        dots: true,             // تفعيل وإظهار نقاط السكرول السفلية تلقائياً 🟢
+        responsive:{
+            0:{ items:1 },
+            768:{ items:2 },
+            1170:{ items:3 }
+        }
+    });
+});
+</script>
     <!-- END TEAM -->
 
     <!-- START CTA BANNER -->
