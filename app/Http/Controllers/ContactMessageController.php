@@ -45,4 +45,44 @@ class ContactMessageController extends Controller
         // استدعاء الصفحة بالمسار الصحيح الظاهر في مجلداتك الحالية 👇
         return view('perblad.display');
     }
+    public function bookFromFaq(Request $request)
+    {
+        // honeypot: البوتات بتعبّي الحقل المخفي
+        if ($request->filled('website')) {
+            return response()->json(['ok' => true, 'ref' => 'CF-00000']);
+        }
+
+        $data = $request->validate([
+            'name'     => 'required|string|max:30',
+            'phone'    => 'required|string|min:9|max:20',
+            'brand'    => 'required|string|max:100',
+            'area'     => 'required|string|max:150',
+            'describe' => 'nullable|string|max:1000',
+        ], [
+            'required' => 'هذا الحقل مطلوب',
+            'max'      => 'النص أطول من المسموح',
+            'min'      => 'القيمة قصيرة جداً',
+        ]);
+
+        // التشخيص بنقرأه من الـ session مش من المتصفح، فما حدا بيقدر يزوّره
+        $ai = session('last_ai');
+
+        $message = ContactMessage::create($data + [
+            'ai_diagnosis' => isset($ai['a']) ? \Illuminate\Support\Str::limit($ai['a'], 4000, '') : null,
+            'source'       => 'faq_ai',
+        ]);
+
+        $ref = 'CF-' . str_pad((string) $message->id, 5, '0', STR_PAD_LEFT);
+
+        // نفس البيانات اللي بتعرضها صفحة الشكر، تنحفظ للطلب الجاي (التحويل)
+        session()->flash('client_data', $data + ['ref' => $ref]);
+
+        return response()->json([
+            'ok'       => true,
+            'ref'      => $ref,
+            'redirect' => route('contact.display'),
+        ]);
+    }
+
+
 }

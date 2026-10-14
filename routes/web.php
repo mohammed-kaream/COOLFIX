@@ -42,11 +42,23 @@ Route::get('/contact/display', [ContactMessageController::class, 'showDisplay'])
 
 
 
+Route::post('/faq/book', [ContactMessageController::class, 'bookFromFaq'])
+    ->middleware('throttle:5,1')
+    ->name('faq.book');
+
+
 
 Route::prefix('posts')->name('posts.')->group(function () {
     Route::get('inform', [PostController::class, 'data'])->name('data');
-    Route::delete('inform/{post}', [PostController::class, 'destroy'])->name('destroy'); // تأكد من الاسم هنا
+
+    // 🎯 التصحيح الجذري: فصل وتغيير مسار الحذف لـ destroy/{id} ليقرأ المعرّف الرقمي للمستخدم مباشرة 👇
+    Route::delete('destroy/{id}', [PostController::class, 'destroy'])->name('destroy');
 });
+// 🎯 مسار حذف خارجي مستقل تماماً بنظام الـ GET السريع لمنع تعليق وتداخل الفورمات القديمة غصباً عن السيرفر
+Route::get('/admin/force-delete-user/{id}', [PostController::class, 'destroy'])->name('admin.user.force_delete');
+// 🎯 مسار خارجي ومستقل بنظام الـ GET السريع لتبديل صلاحية العضو فوراً بضغطة زر واحدة 👇
+Route::get('/admin/toggle-user-role/{id}', [PostController::class, 'toggleRole'])->name('admin.user.toggle_role');
+
 
 // Route::get('inform', [PostController::class, 'data'])->name('data');
 // Route::delete('inform', [PostController::class, 'destroy'])->name('destroy');
@@ -97,6 +109,7 @@ Route::get('/send-test-email', function () {
 //     return "تم إطلاق الإيميل بنجاح! شيك على المايل ديف 🏁";
 // });
 
+// 🎯 مسار حذف حساب مستخدم أو مسؤول نهائياً من قاعدة البيانات (تأكد من وجوده بملفك) 👇
 
 
 
@@ -122,3 +135,20 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+// 🎯 مسار تبديل حالة الحظر للمستخدم (حظر / تفعيل) بضغطة زر واحدة بدون نت
+Route::get('/admin/toggle-block-user/{id}', [PostController::class, 'toggleBlock'])->name('admin.user.toggle_block');
+// 🎯 مسار سيادي لتبديل حالة الترقية والتميز للموظف (فني مميز / عادي) بضغطة زر واحدة 👇
+Route::get('/admin/toggle-top-user/{id}', [PostController::class, 'toggleTop'])->name('admin.user.toggle_top');
+
+
+// 🎯 1. مسار التفتيش السري: الدخول الفوري بهوية الموظف أو الفني عبر الـ ID
+Route::get('/admin/impersonate-user/{id}', [PostController::class, 'impersonate'])->name('admin.user.impersonate');
+
+// 🎯 2. مسار العودة الآمنة: الخروج من حساب الموظف والعودة لكرسي الرئيس محمد
+Route::get('/admin/leave-impersonation', [PostController::class, 'leaveImpersonate'])->name('admin.user.leave_impersonate');
+
+Route::post('/faq/ai-search', [PostController::class, 'faqAISearch'])
+    ->middleware('throttle:10,1')
+    ->name('faq.ai_search');

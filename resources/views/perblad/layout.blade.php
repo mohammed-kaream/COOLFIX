@@ -15,6 +15,11 @@
         <!-- SITE TITLE -->
         <title>COOLFIX - Refrigerator & Cooling Repair in Gaza</title>
         <!-- Latest Bootstrap min CSS -->
+
+        <!-- 🎯 سطر حقن أيقونة التبويب الملكية (Favicon) لـ COOLFIX بداخل الـ <head> 👇🔥 -->
+        <link rel="icon" type="image/png" href="{{ asset('webfront/images/all-img/iconcoolfix.jpg') }}">
+
+
         <link rel="stylesheet" href="{{ asset('webfront/bootstrap/css/bootstrap.min.css') }}">
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
@@ -46,6 +51,22 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+        <!-- 🚨 بار التفتيش السري السيادي: لا يظهر نهائياً إلا إذا كان الرئيس محمد يتقمص حساباً حالياً 👇🎯 -->
+        @if (session()->has('impersonator_id'))
+            <div class="super-admin-impersonate-bar"
+                style="background: linear-gradient(90deg, #dc2626, #b91c1c); color: #ffffff; padding: 12px; text-align: center; font-weight: 800; font-size: 0.98rem; position: relative; z-index: 999999; display: flex; justify-content: center; align-items: center; gap: 20px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); direction: rtl;">
+                <span>🕵️‍♂️ تنبيه سيادي: أنت تتصفح الموقع الحين وثائقياً بهوية الموظف: <b
+                        style="color: #fef08a;">{{ auth()->user()->name }}</b></span>
+
+                <!-- رابط المغادرة والعودة الفورية لحساب الأدمن الرئيسي محمد -->
+                <a href="{{ route('admin.user.leave_impersonate') }}"
+                    style="background: #ffffff; color: #b91c1c; padding: 6px 16px; border-radius: 20px; font-weight: 900; text-decoration: none; font-size: 0.88rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.2s ease; display: inline-block;">
+                    🔴 العودة لكرسي الرئيس
+                </a>
+            </div>
+        @endif
+
     </head>
 
     <body>
@@ -161,7 +182,7 @@
                                         <a class="btn_two btn btn-primary" href="#"
                                             style="white-space: nowrap; border-radius: 50px;"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                             Log Out <i class="fa-solid fa-arrow-right ms-1"></i>
+                                            Log Out <i class="fa-solid fa-arrow-right ms-1"></i>
                                         </a>
                                     </form>
                                 </div>

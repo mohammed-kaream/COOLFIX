@@ -4,264 +4,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>لوحة التحكم | إدارة المنشورات</title>
-    <!-- استدعاء خط Cairo ليعطي مظهر عربي احترافي جداً -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>لوحة التحكم | إدارة المستخدمين</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-color: #4f46e5;
-            /* لون أزرق نيلي عصري */
-            --bg-color: #f8fafc;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --primary: #4f46e5; --violet: #8b5cf6; --bg: #f1f5f9; --card: #fff;
+            --text: #1e293b; --muted: #64748b; --line: #e2e8f0;
         }
+        * { box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; direction: rtl; margin: 0; padding: 36px 20px 60px; background: var(--bg); color: var(--text); }
+        .container { max-width: 1280px; margin: 0 auto; }
 
-        body {
-            font-family: 'Cairo', sans-serif;
-            direction: rtl;
-            padding: 40px 20px;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-        }
+        /* header */
+        .header-section { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+        h1 { font-size: 24px; font-weight: 800; margin: 0; color: #0f172a; }
+        .header-tools { display: flex; align-items: center; gap: 10px; }
+        .badge { background: #e0e7ff; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 700; }
+        .rabit_home { background: #fff; color: #1A444E; border: 1px solid var(--line); font-weight: 700; font-size: 14px; padding: 5px 16px; border-radius: 15px; text-decoration: none; transition: .25s; }
+        .rabit_home:hover { background: #013e37; color: #fff; box-shadow: 1px 1px 7px #013e37; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* stats */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+        .stat { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgb(15 23 42 / .04); }
+        .stat i { font-style: normal; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 1.3rem; }
+        .stat b { display: block; font-size: 1.5rem; line-height: 1.1; }
+        .stat span { color: var(--muted); font-size: .82rem; font-weight: 600; }
 
-        .header-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
+        /* search + filters */
+        .search-wrap { position: relative; display: flex; align-items: center; width: 100%; background: #fff; border: 2px solid var(--line); border-radius: 50px; padding: 6px 54px 6px 22px; transition: .3s; box-shadow: 0 4px 20px rgb(0 0 0 / .03); }
+        .search-wrap:focus-within { border-color: var(--violet); box-shadow: 0 10px 30px rgb(139 92 246 / .22); transform: translateY(-1px); }
+        #post-search-input { width: 100%; border: 0; outline: 0; background: transparent; font: 500 1.02rem 'Cairo', sans-serif; color: #1e1b4b; direction: ltr; text-align: left; padding: 10px 0; }
+        .search-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--primary)); box-shadow: 0 4px 12px rgb(99 102 241 / .35); cursor: pointer; }
+        .search-btn::before { content: ""; position: absolute; width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; top: 11px; left: 11px; }
+        .search-btn::after { content: ""; position: absolute; width: 2px; height: 6px; background: #fff; top: 23px; left: 23px; transform: rotate(-45deg); }
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; align-items: center; }
+        .chip { border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 999px; padding: 6px 16px; font: 700 .85rem 'Cairo', sans-serif; cursor: pointer; transition: .2s; }
+        .chip:hover { border-color: var(--violet); color: var(--primary); }
+        .chip.on { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 12px rgb(79 70 229 / .3); }
+        .result-count { margin-right: auto; color: var(--muted); font-size: .85rem; font-weight: 600; }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0;
-            color: #0f172a;
-        }
+        /* table */
+        .table-responsive { background: var(--card); border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .05); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: right; min-width: 900px; }
+        th { background: #f8fafc; color: var(--muted); font-weight: 700; font-size: 13px; padding: 15px 20px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+        td { padding: 14px 20px; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+        tr:last-child td { border-bottom: 0; }
+        tr:hover td { background: #f8fafc; }
+        .post-row.account-blocked-row td { background: #fff5f5; }
+        .post-row.account-blocked-row .avatar { filter: grayscale(.7); }
+        .post-row.hide-row-premium { display: none !important; }
+        .id-cell { font-weight: 700; color: var(--muted); }
+        .content-cell { color: var(--muted); max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .user-cell { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #0f172a; }
+        .avatar { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; background: linear-gradient(135deg, var(--violet), var(--primary)); flex: none; }
+        .tag-blocked { background: #fee2e2; color: #b91c1c; font-size: .7rem; font-weight: 800; padding: 2px 8px; border-radius: 20px; margin-right: 6px; }
+        .type-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .type-pill { color: #fff; padding: 5px 14px; border-radius: 20px; font-size: .78rem; font-weight: 700; white-space: nowrap; }
+        .royal-badge-glow-top { background: linear-gradient(135deg, #fbbf24, #d97706); color: #fff; font-size: .65rem; font-weight: 900; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: .5px; animation: royalPulse 1.5s infinite alternate; }
+        @keyframes royalPulse { from { box-shadow: 0 3px 8px rgb(217 119 6 / .25); } to { box-shadow: 0 4px 15px rgb(251 191 36 / .6); } }
 
-        .badge {
-            background-color: #e0e7ff;
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
+        /* action buttons: compact, icon first, label on hover (tooltip) */
+        .actions-col { width: 250px; }
+        .action-group { display: flex; gap: 8px; }
+        .act { position: relative; width: 40px; height: 40px; display: inline-grid; place-items: center; border-radius: 12px; border: 2px solid; text-decoration: none; font-size: 1.1rem; cursor: pointer; transition: transform .2s, box-shadow .2s, background .2s; }
+        .act:hover { transform: translateY(-3px); }
+        .act:active { transform: scale(.94); }
+        .act::before { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px); background: #0f172a; color: #fff; font: 700 .72rem 'Cairo', sans-serif; padding: 4px 10px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: .18s; z-index: 5; }
+        .act:hover::before, .act:focus-visible::before { opacity: 1; transform: translateX(-50%); }
+        .act:focus-visible { outline: 3px solid rgb(99 102 241 / .45); outline-offset: 2px; }
+        .act-role { background: #f5f3ff; border-color: #ddd6fe; } .act-role:hover { background: #ede9fe; box-shadow: 0 10px 22px rgb(109 40 217 / .25); }
+        .act-block { background: #fff7ed; border-color: #fed7aa; } .act-block:hover { background: #ffedd5; box-shadow: 0 10px 22px rgb(234 88 12 / .25); }
+        .act-unblock { background: #fef3c7; border-color: #fde68a; }
+        .act-del { background: #fef2f2; border-color: #fca5a5; } .act-del:hover { background: #fee2e2; box-shadow: 0 10px 22px rgb(185 28 28 / .25); }
+        .act-top { background: #fffbeb; border-color: #fde68a; } .act-top:hover { background: #fef3c7; box-shadow: 0 10px 22px rgb(217 119 6 / .25); }
+        .act-spy { background: #ecfdf5; border-color: #a7f3d0; } .act-spy:hover { background: #d1fae5; box-shadow: 0 10px 22px rgb(4 120 87 / .25); }
+        .ring { position: absolute; inset: 0; border-radius: 12px; border: 3px solid currentColor; opacity: 0; pointer-events: none; }
+        .act:active .ring { animation: boom .55s cubic-bezier(.1, .8, .3, 1) forwards; }
+        @keyframes boom { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(2.1); } }
+        .act.busy { pointer-events: none; opacity: .5; }
 
-        /* حاوية الجدول لإعطائه حواف دائرية وظل احترافي */
-        .table-responsive {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-        }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: right;
-        }
+        /* state-driven buttons */
+        .ico { display: inline-block; line-height: 1; transition: transform .25s, filter .25s, opacity .25s; }
+        .act:hover .ico { transform: scale(1.15) rotate(8deg); }
+        .act.is-admin, .act.is-admin:hover { background: #ddd6fe; border-color: #7c3aed; box-shadow: 0 0 0 3px rgb(124 58 237 / .14); }
+        .act.is-blocked, .act.is-blocked:hover { background: #fecaca; border-color: #b91c1c; box-shadow: 0 0 0 3px rgb(185 28 28 / .16), 0 6px 16px rgb(185 28 28 / .3); }
+        .act.is-top, .act.is-top:hover { background: #fde68a; border-color: #d97706; box-shadow: 0 0 16px rgb(251 191 36 / .65); }
+        .act-top:not(.is-top) .ico { filter: grayscale(1); opacity: .5; }
+        .act-top:not(.is-top):hover .ico { filter: none; opacity: 1; }
+        .act.just-changed { animation: flashBtn 1.3s ease-out; }
+        .act.just-changed .ico { animation: icoPop .85s cubic-bezier(.2, .9, .3, 1.4); }
+        @keyframes icoPop { 0% { transform: scale(.35) rotate(-45deg); } 55% { transform: scale(1.55) rotate(12deg); } 100% { transform: none; } }
+        @keyframes flashBtn { 0% { box-shadow: 0 0 0 0 rgb(99 102 241 / .75); } 100% { box-shadow: 0 0 0 20px transparent; } }
+        .post-row.just-row td { animation: rowFlash 1.8s ease-out; }
+        @keyframes rowFlash { 0% { background: #e0e7ff; } 100% { background: transparent; } }
 
-        th {
-            background-color: #f8fafc;
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 13px;
-            text-transform: uppercase;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border-color);
-            letter-spacing: 0.5px;
-        }
+        .empty-row td { text-align: center; padding: 40px; color: var(--muted); font-weight: 700; display: none; }
+        .empty-row.show td { display: table-cell; }
 
-        td {
-            padding: 16px 24px;
-            font-size: 14px;
-            color: #334155;
-            border-bottom: 1px solid #f1f5f9;
-            vertical-align: middle;
-        }
+        /* toast */
+        #custom-toast-notification { position: fixed; top: 30px; right: -450px; background: rgb(255 255 255 / .96); backdrop-filter: blur(10px); border-radius: 16px; padding: 16px 22px; box-shadow: 0 20px 40px rgb(99 102 241 / .15); display: flex; align-items: center; gap: 16px; z-index: 999999; transition: all .5s cubic-bezier(.68, -.55, .265, 1.55); min-width: 340px; overflow: hidden; border: 1px solid var(--line); }
+        #custom-toast-notification::before { content: ''; position: absolute; top: 0; right: 0; width: 6px; height: 100%; background: linear-gradient(#8b5cf6, #6366f1); }
+        #custom-toast-notification.show-toast-ultra { right: 30px; }
+        .toast-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 6px 20px rgb(16 185 129 / .4); flex: none; }
+        .show-toast-ultra .toast-icon { animation: spinIcon .6s cubic-bezier(.175, .885, .32, 1.275) .2s both; }
+        @keyframes spinIcon { from { transform: scale(0) rotate(0); } to { transform: scale(1) rotate(360deg); } }
+        .toast-title { font-weight: 800; font-size: 1rem; background: linear-gradient(135deg, #4f46e5, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .toast-bar { position: absolute; bottom: 0; left: 0; height: 4px; width: 100%; background: linear-gradient(to right, #10b981, #6366f1); transform-origin: left; }
+        .show-toast-ultra .toast-bar { animation: shrink 3.5s linear forwards; }
+        @keyframes shrink { to { transform: scaleX(0); } }
 
-        /* تأثير التمرير فوق السطر */
-        tr:hover td {
-            background-color: #f8fafc;
-        }
-
-        /* تمييز السطر الأول بشكل هادئ */
-        .active-first td {
-            background-color: #f0fdf4 !important;
-        }
-
-        .id-cell {
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .title-cell {
-            font-weight: 600;
-            color: #0f172a;
-        }
-
-        .content-cell {
-            color: var(--text-muted);
-            max-width: 300px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .author-cell {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background-color: #f1f5f9;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        /* تنسيق الأزرار الاحترافي */
-        .actions-col {
-            width: 200px;
-        }
-
-        .action-group {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-action {
-            background-color: #f3f5f3;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            color: #1d385f;
-            transition: color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            border-radius: 15px;
-            text-align: center;
-            padding: 7px 6px;
-            border: none;
-
-        }
-
-        .btn-action:hover,
-        .btn-delete:hover {
-            color: var(--primary-color);
-            background-color: #016e62;
-            color: #fff;
-            box-shadow: 1px 1px 7px #013e37;
-            cursor: pointer;
-        }
-
-        .rabit_home {
-            background-color: #ece3e3;
-            color: #1A444E;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 3px 14px;
-            border-radius: 15px;
-            cursor: pointer;
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: ease 0.3s all;
-            text-decoration: none;
-        }
-
-        .rabit_home:hover {
-            background-color: #013e37;
-            color: #fff;
-            box-shadow: 1px 1px 7px #013e37;
-
-        }
-
-        /* تأثير توهج الحاوية الكلي عند الكتابة والضغط بالداخل */
-        .ultra-search-wrapper:focus-within {
-            border-color: #6366f1 !important;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.15) !important;
-            transform: translateY(-1px);
-        }
-
-        /* هندسة رسم رأس العدسة الدائري بالـ CSS الصافي داخل الدائرة البنفسجية 👇 */
-        .lens-drawn-purple::before {
-            content: "" !important;
-            position: absolute !important;
-            width: 12px !important;
-            height: 12px !important;
-            border: 2px solid #ffffff !important;
-            border-radius: 50% !important;
-            top: 11px !important;
-            left: 11px !important;
-            display: block !important;
-        }
-
-        /* هندسة رسم مقبض وعصا العدسة المائل بالـ CSS الصافي 👇 */
-        .lens-drawn-purple::after {
-            content: "" !important;
-            position: absolute !important;
-            width: 2px !important;
-            height: 6px !important;
-            background-color: #ffffff !important;
-            top: 23px !important;
-            left: 23px !important;
-            transform: rotate(-45deg) !important;
-            display: block !important;
-        }
-
-        /* القيد الحديدي الاحترافي لإخفاء السطر المستبعد بقوة الـ !important */
-        .post-row.hide-row-premium {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-        }
+        @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } h1 { font-size: 19px; } body { padding: 22px 12px 50px; } }
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
 </head>
 
 <body>
+    <!-- Toast (moved into body; was invalid inside head) -->
+    <div id="custom-toast-notification" role="status" aria-live="polite">
+        <div class="toast-icon">✔</div>
+        <div style="display:flex;flex-direction:column;flex:1">
+            <span class="toast-title">تحديث لوحة البيانات ⚡</span>
+            <span id="toast-message-text" style="color:#334155;font-size:.9rem;font-weight:600">{{ session('success') }}</span>
+        </div>
+        <div class="toast-bar"></div>
+    </div>
+
     <div class="container">
         <div class="header-section">
-            <h1>صندوق المنشورات الحية 📊</h1>
-            <div> <a class="rabit_home" href="{{ url('/') }}">Home</a>
-                <span class="badge">العدد الإجمالي: {{ $allPost->count() }}</span>
+            <h1>صندوق بيانات الحسابات والمستخدمين 👤</h1>
+            <div class="header-tools">
+                <a class="rabit_home" href="{{ url('/') }}">Home</a>
+                <span class="badge">العدد الإجمالي: {{ $users->count() }}</span>
             </div>
         </div>
 
-
-<!-- START 70% CENTERED ENGLISH PREMIUM SEARCH BAR -->
-<div class="outstanding-search-container d-flex justify-content-center align-items-center" style="width: 100% !important; margin: 30px 0 !important; padding: 0 !important; box-sizing: border-box !important; display: flex !important; justify-content: center !important; align-items: center !important;">
-
-    <!-- حاوية الـ 70% المتمركزة بالنص بالظبط مع حشو أبعاد معدل لليسار -->
-    <div class="ultra-search-wrapper" style="position: relative !important; width: 90% !important; max-width: 90% !important; display: flex !important; align-items: center !important; background: #ffffff !important; border: 2px solid #e2e8f0 !important; border-radius: 50px !important; padding: 12px 55px 12px 25px !important; transition: all 0.4s ease !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important; box-sizing: border-box !important;">
-
-        <!-- حقل الإدخال الإنجليزي - 🛠️ تم تفعيل الـ direction: ltr والكتابة من الشمال مع الـ Placeholder الإنجليزي الفخم 👇 -->
-        <input type="text" id="post-search-input" placeholder="Search for posts or authors... (e.g., Refrigerator, Gay)"
-               style="width: 100% !important; border: none !important; outline: none !important; font-size: 1.05rem !important; font-weight: 500 !important; color: #1e1b4b !important; background: transparent !important; direction: ltr !important; text-align: left !important; padding-right: 15px !important; padding-left: 0 !important; box-sizing: border-box !important;">
-
-        <!-- الزر الدائري البنفسجي المجهز بالعدسة المرسومة يدوياً ومثبت بدقة متناهية على اليمين 🎯 -->
-        <div id="trigger-posts-search" class="ultra-search-btn lens-drawn-purple" style="position: absolute !important; right: 12px !important; top: 50% !important; transform: translateY(-50%) !important; width: 40px !important; height: 40px !important; background: linear-gradient(135deg, #8b5cf6, #6366f1) !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35) !important; transition: all 0.3s ease !important; cursor: pointer !important; z-index: 10 !important;">
+        <div class="stats">
+            <div class="stat"><i style="background:#e0e7ff">👥</i><div><b>{{ $users->count() }}</b><span>إجمالي الحسابات</span></div></div>
+            <div class="stat"><i style="background:#fef3c7">🛡️</i><div><b>{{ $users->where('type', 'admin')->count() }}</b><span>مدراء</span></div></div>
+            <div class="stat"><i style="background:#fee2e2">🚫</i><div><b>{{ $users->where('is_blocked', true)->count() }}</b><span>محظورون</span></div></div>
+            <div class="stat"><i style="background:#fffbeb">🌟</i><div><b>{{ $users->where('is_top', true)->count() }}</b><span>مميّزون</span></div></div>
         </div>
 
-    </div>
-</div>
-<!-- END 70% CENTERED ENGLISH PREMIUM SEARCH BAR -->
+        <!-- Search (same ids and starts-with logic as before) -->
+        <div class="search-wrap">
+            <input type="text" id="post-search-input" autocomplete="off"
+                placeholder="Search for users or emails... (e.g., Kohail, admin)">
+            <div id="trigger-posts-search" class="search-btn" aria-hidden="true"></div>
+        </div>
 
-        <!-- END OUTSTANDING PREMIUM SEARCH BAR -->
-        <!-- END OUTSTANDING PREMIUM SEARCH BAR -->
-
+        <div class="chips" id="filterChips">
+            <button type="button" class="chip on" data-f="all">الكل</button>
+            <button type="button" class="chip" data-f="admin">مدراء</button>
+            <button type="button" class="chip" data-f="user">مستخدمون</button>
+            <button type="button" class="chip" data-f="blocked">محظورون</button>
+            <button type="button" class="chip" data-f="top">مميّزون</button>
+            <span class="result-count">المعروض: <b id="visibleCount">{{ $users->count() }}</b></span>
+        </div>
 
         <div class="table-responsive">
             <table>
@@ -269,92 +171,147 @@
                     <tr>
                         <th class="actions-col">العمليات</th>
                         <th>ID</th>
-                        <th>العنوان (Title)</th>
-                        <th>المحتوى (Content)</th>
-                        <th>الكاتب (Name)</th>
+                        <th>الاسم الكامل (Name)</th>
+                        <th>البريد الإلكتروني (Email)</th>
+                        <th>رقم الجوال (Mobile)</th>
+                        <th style="text-align:center">نوع الصلاحية (Type)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($allPost as $post)
-                        <!-- 🛠️ التعديل الحاسم: أضفنا كلاس post-row هنا على السطر ليمحيه السكربت بالكامل عند عدم التطابق 👇 -->
-                        <tr class="post-row {{ $loop->first ? 'active-first' : '' }}"
-                            style="transition: all 0.3s ease;">
-                            <!-- عمود أزرار العمليات -->
+                    @foreach ($users as $user)
+                        <tr class="post-row {{ $user->is_blocked ? 'account-blocked-row' : '' }}"
+                            data-id="{{ $user->id }}" data-type="{{ $user->type }}" data-blocked="{{ $user->is_blocked ? 1 : 0 }}"
+                            data-top="{{ $user->is_top ? 1 : 0 }}">
+
                             <td class="actions-col">
                                 <div class="action-group">
-                                    <button href="#" class="btn-action">📝 تعديل</button>
-                                    <button href="#" class="btn-action">📋 نسخ</button>
+                                    {{-- القفل: مدير = مغلق 🔒 ، مستخدم = مفتوح 🔓 --}}
+                                    <a href="{{ route('admin.user.toggle_role', $user->id) }}" data-a="role"
+                                        onclick="return confirm('هل أنت متأكد من رغبتك في تبديل صلاحيات هذا الحساب؟')"
+                                        class="act act-role {{ $user->type == 'admin' ? 'is-admin' : '' }}"
+                                        data-tip="{{ $user->type == 'admin' ? 'تحويل إلى مستخدم' : 'ترقية إلى مدير' }}"
+                                        aria-label="تغيير الصلاحية"><span class="ico">{{ $user->type == 'admin' ? '🔒' : '🔓' }}</span><span class="ring" style="color:#8b5cf6"></span></a>
 
-                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                                        @method('delete')
-                                        <button onclick="return confirm ('Are you sure?!')" type="submit"
-                                            class="btn-action btn-delete">❌ حذف</button>
-                                    </form>
+                                    {{-- الحظر: المحظور يصير أحمر غامق --}}
+                                    <a href="{{ route('admin.user.toggle_block', $user->id) }}" data-a="block"
+                                        onclick="return confirm('هل أنت متأكد من تغيير حالة حظر هذا الحساب؟')"
+                                        class="act act-block {{ $user->is_blocked ? 'is-blocked' : '' }}"
+                                        data-tip="{{ $user->is_blocked ? 'فك الحظر' : 'حظر الحساب' }}"
+                                        aria-label="{{ $user->is_blocked ? 'فك الحظر' : 'حظر الحساب' }}"><span class="ico">🚫</span><span class="ring" style="color:#ea580c"></span></a>
+
+                                    {{-- التميّز: المميز نجمة مضيئة، غير المميز نجمة باهتة --}}
+                                    <a href="{{ route('admin.user.toggle_top', $user->id) }}" data-a="top"
+                                        onclick="return confirm('هل أنت متأكد من تغيير رتبة التميز لهذا الموظف؟')"
+                                        class="act act-top {{ $user->is_top ? 'is-top' : '' }}"
+                                        data-tip="{{ $user->is_top ? 'إلغاء التميز' : 'تعيين كمميز' }}"
+                                        aria-label="{{ $user->is_top ? 'إلغاء التميز' : 'تعيين كمميز' }}"><span class="ico">🌟</span><span class="ring" style="color:#fbbf24"></span></a>
+
+                                    <a href="{{ route('admin.user.impersonate', $user->id) }}" data-a="spy"
+                                        onclick="return confirm('هل أنت متأكد من بدء جلسة التفتيش السري والدخول بهوية هذا الحساب حياً؟')"
+                                        class="act act-spy" data-tip="التفتيش السري" aria-label="التفتيش السري"><span class="ico">🕵️‍♂️</span><span class="ring" style="color:#10b981"></span></a>
+
+                                    <a href="{{ route('admin.user.force_delete', $user->id) }}" data-a="del"
+                                        onclick="return confirm('هل أنت متأكد من حذف هذا الحساب نهائياً؟')"
+                                        class="act act-del" data-tip="حذف الحساب" aria-label="حذف الحساب"><span class="ico">❌</span><span class="ring" style="color:#ef4444"></span></a>
                                 </div>
                             </td>
 
-                            <!-- عرض البيانات -->
-                            <td class="id-cell">{{ $post->id }}</td>
-
-                            <!-- 🛠️ التعديل: أضفنا كلاس post-title لمسك نص العنوان بالسكربت 👇 -->
-                            <td class="title-cell post-title">{{ $post->title }}</td>
-
-                            <td class="content-cell">{{ Str::limit($post->content, 60) }}</td>
+                            <td class="id-cell">#{{ $user->id }}</td>
+                            <td class="post-title">
+                                <div class="user-cell">
+                                    <span class="avatar">{{ mb_strtoupper(mb_substr($user->name, 0, 1)) }}</span>
+                                    <span>👤 <span class="post-name">{{ $user->name }}</span>@if ($user->is_blocked)<span class="tag-blocked">محظور</span>@endif</span>
+                                </div>
+                            </td>
+                            <td class="content-cell post-author" title="{{ $user->email }}">{{ $user->email }}</td>
+                            <td style="direction:ltr;text-align:right">{{ $user->mobile ?? 'لا يوجد' }}</td>
                             <td>
-                                <!-- 🛠️ التعديل: أضفنا كلاس post-author لمسك نص الكاتب بالسكربت 👇 -->
-                                <span class="author-cell post-author">
-                                    👤 {{ $post->name ?? 'مجهول' }}
-                                </span>
+                                <div class="type-col">
+                                    @if ($user->is_top)
+                                        <span class="royal-badge-glow-top">PREMIUM 🌟</span>
+                                    @endif
+                                    <span class="type-pill" style="background: {{ $user->type == 'admin' ? '#b45309' : '#0369a1' }}">{{ strtoupper($user->type) }}</span>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
+                    <tr class="empty-row" id="emptyRow"><td colspan="6">🔍 لا توجد نتائج مطابقة</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <!-- 🎯 3. سكربت الجافا سكريبت الصافي (Vanilla JS) المطور لتوجيه النقر والفلترة الحية بحسب البداية غصباً عن الكاش -->
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var searchInput = document.getElementById('post-search-input');
-            var searchBtn = document.getElementById('trigger-posts-search');
+        document.addEventListener("DOMContentLoaded", function () {
+            /* success toast */
+            @if (session('success'))
+                var toast = document.getElementById('custom-toast-notification');
+                if (toast) {
+                    setTimeout(function () { toast.classList.add('show-toast-ultra'); }, 300);
+                    setTimeout(function () { toast.style.transform = "translateX(450px) scale(.9)"; toast.style.opacity = "0"; }, 3800);
+                    setTimeout(function () { toast.classList.remove('show-toast-ultra'); toast.style.transform = ""; toast.style.opacity = ""; }, 4300);
+                }
+            @endif
 
-            // عند الضغط على الدائرة البنفسجية، ينتقل مؤشر الكتابة للداخل فوراً
-            if (searchBtn && searchInput) {
-                searchBtn.addEventListener('click', function() {
-                    searchInput.focus();
-                });
+            /* search (starts-with, as before) + quick filters */
+            var input = document.getElementById('post-search-input'),
+                btn = document.getElementById('trigger-posts-search'),
+                rows = document.querySelectorAll('.post-row'),
+                chips = document.getElementById('filterChips'),
+                empty = document.getElementById('emptyRow'),
+                count = document.getElementById('visibleCount'),
+                filter = 'all';
+
+            function matchFilter(r) {
+                if (filter === 'admin') return r.dataset.type === 'admin';
+                if (filter === 'user') return r.dataset.type !== 'admin';
+                if (filter === 'blocked') return r.dataset.blocked === '1';
+                if (filter === 'top') return r.dataset.top === '1';
+                return true;
             }
-
-            // سكربت الفلترة الحية المبني على بداية الكلمة (Starts With) غصباً عن الكاش
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    var value = this.value.toLowerCase().trim();
-                    var rows = document.querySelectorAll('.post-row');
-
-                    rows.forEach(function(row) {
-                        var titleEl = row.querySelector('.post-title');
-                        var authorEl = row.querySelector('.post-author');
-
-                        // تنظيف النصوص وفصل أي نقاط تزيين أمامية بالجدول لضمان دقة مطابقة البداية
-                        var titleText = titleEl ? titleEl.textContent.toLowerCase().trim().replace(
-                            /^\.+/, '') : '';
-                        // إزالة رمز الإيموجي 👤 من نص الكاتب ليطابق الاسم الصافي بالظبط بالـ replace
-                        var authorText = authorEl ? authorEl.textContent.replace('👤', '')
-                            .toLowerCase().trim() : '';
-
-                        // الفحص والفلترة الحية الصارمة تزامناً مع البداية
-                        if (titleText.startsWith(value) || authorText.startsWith(value)) {
-                            row.classList.remove('hide-row-premium'); // سطر متطابق -> إظهاره
-                        } else {
-                            row.classList.add(
-                            'hide-row-premium'); // سطر مستبعد -> إبادة وإخفاء فوراً ❌
-                        }
-                    });
+            function apply() {
+                var q = input.value.toLowerCase().trim(), shown = 0;
+                rows.forEach(function (row) {
+                    var t = row.querySelector('.post-name'), a = row.querySelector('.post-author');
+                    var name = t ? t.textContent.toLowerCase().trim() : '';
+                    var email = a ? a.textContent.toLowerCase().trim() : '';
+                    var ok = matchFilter(row) && (name.startsWith(q) || email.startsWith(q));
+                    row.classList.toggle('hide-row-premium', !ok);
+                    if (ok) shown++;
                 });
+                count.textContent = shown;
+                empty.classList.toggle('show', shown === 0);
             }
+            if (btn) btn.addEventListener('click', function () { input.focus(); });
+            input.addEventListener('input', apply);
+            chips.addEventListener('click', function (e) {
+                var c = e.target.closest('.chip'); if (!c) return;
+                chips.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('on'); });
+                c.classList.add('on'); filter = c.dataset.f; apply();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); }
+            });
+
+            /* remember the action, block double-clicks, replay the animation after reload */
+            document.querySelectorAll('.act').forEach(function (a) {
+                a.addEventListener('click', function (e) {
+                    if (e.defaultPrevented) return;
+                    var row = a.closest('.post-row');
+                    try { sessionStorage.setItem('cfAct', JSON.stringify({ id: row.dataset.id, a: a.dataset.a })); } catch (x) {}
+                    setTimeout(function () { a.classList.add('busy'); }, 0);
+                });
+            });
+            try {
+                var last = JSON.parse(sessionStorage.getItem('cfAct') || 'null'); sessionStorage.removeItem('cfAct');
+                if (last) {
+                    var r = document.querySelector('.post-row[data-id="' + last.id + '"]');
+                    var b = r && r.querySelector('.act[data-a="' + last.a + '"]');
+                    if (r && b) { r.scrollIntoView({ block: 'center', behavior: 'smooth' }); r.classList.add('just-row'); b.classList.add('just-changed'); }
+                }
+            } catch (x) {}
         });
     </script>
-
 </body>
 
 </html>

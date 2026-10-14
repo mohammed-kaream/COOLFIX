@@ -32,9 +32,9 @@ class TestimonialFactory extends Factory
 
             // أسماء الصور الافتراضية المطابقة لأكواد الـ asset عندك
             'avatar' => $this->faker->randomElement([
-                't1.png',
-                't2.png',
-                't3.png'
+                'image_يc0eءbcf9e.jpg',
+                'WhatsApp Image 2026-09-ء10 at 10.32.51 PM.jpeg',
+                'WhatsApp Iسmage 2026-09-03 at 4.06.00 PM.jpeg'
             ]),
 
             // نصوص التقييمات الحقيقية الثلاثة بالظبط من كودك

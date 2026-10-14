@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HomeFeatureSeeder::class);
         $this->call(AboutTeamSeeder::class);
         $this->call(PricingSeeder::class);
-        $this->call(AboutFaqSeeder::class); 
+        $this->call(AboutFaqSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }
