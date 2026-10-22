@@ -13,11 +13,12 @@
             content="refrigerator repair, fridge repair, refrigeration maintenance, cooling technician, Gaza appliance repair, freezer repair, AC repair, COOLFIX">
         <meta name="author" content="COOLFIX">
         <!-- SITE TITLE -->
-        <title>COOLFIX - Refrigerator & Cooling Repair in Gaza</title>
+        <title>@yield('title', 'COOLFIX Gaza')</title>
         <!-- Latest Bootstrap min CSS -->
 
         <!-- 🎯 سطر حقن أيقونة التبويب الملكية (Favicon) لـ COOLFIX بداخل الـ <head> 👇🔥 -->
-        <link rel="icon" type="image/png" href="{{ asset('webfront/images/all-img/iconcoolfix.jpg') }}">
+        <!-- كود التبويب الحالي الخاص بك سليم، فقط تأكد من استبدال ملف الصورة بالنسخة المقصوصة بالأسفل -->
+        <link rel="icon" type="image/png" href="{{ asset('webfront/images/all-img/image_48ee44cebd.png') }}">
 
 
         <link rel="stylesheet" href="{{ asset('webfront/bootstrap/css/bootstrap.min.css') }}">

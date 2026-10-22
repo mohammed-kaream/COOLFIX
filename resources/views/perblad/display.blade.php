@@ -1,5 +1,5 @@
 @extends('perblad.layout')
-
+@section('title', 'Display Data | COOLFIX Company')
 @section('content')
     <!-- تم قفل المارجن والبادينج 50 بكسل وتوجيه النص من اليسار لليمين ltr -->
     <div class="container mx-auto"
@@ -11,7 +11,6 @@
         </h2>
 
         @if (session()->has('client_data'))
-
             <!-- قائمة منسقة لليسار بمسافات ممتازة وحجم خط كبير -->
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li
@@ -53,8 +52,13 @@
                 No data available to display currently.
             </div>
         @endif
-        <form action={{ route('contact') }}> <button style="background-color: rgb(255, 255, 255); border:none;" type="submit"
-                href="" class="cta"><span>Back</span>
+        <!-- تم تصحيح علامات الاقتباس وإغلاق الأوسمة البرمجية بشكل سليم هنا لمنع عطل الاستضافة -->
+        <form action="{{ route('contact') }}" method="GET" style="margin-top: 24px;">
+            <button
+                style="background-color: #2563eb; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600;"
+                type="submit" class="cta">
+                <span>Back</span>
+            </button>
         </form>
 
     </div>

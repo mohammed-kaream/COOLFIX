@@ -1,5 +1,6 @@
 @extends('perblad.layout')
 @section('content')
+@section('title', 'Contact Us | COOLFIX Company')
 @verbatim
     <style>
         /* =====================================================================

@@ -1,4 +1,5 @@
 @extends('perblad.layout')
+@section('title', 'Home | COOLFIX Company')
 @section('content')
     <!-- START HOME -->
     <section id="home" class="home_bg">

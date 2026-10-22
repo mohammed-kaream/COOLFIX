@@ -1,5 +1,6 @@
 @extends('perblad.layout')
 @section('content')
+@section('title', 'About Us | COOLFIX Company')
     <!-- START SECTION TOP -->
     <section class="section-top">
         <div class="container">
