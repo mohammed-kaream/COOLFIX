@@ -592,12 +592,19 @@
         root.addEventListener('mouseleave', function () { spot.style.opacity = 0; });
 
         /* 5) Live temp, ping, clock */
-        var temp = document.getElementById('cfTemp'), ping = document.getElementById('cfPing'), clock = document.getElementById('cfClock');
+        var temp = document.getElementById('cfTemp'),
+        ping = document.getElementById('cfPing'),
+        clock = document.getElementById('cfClock');
+
         setInterval(function () {
-            temp.textContent = (-17 - Math.round(Math.random() * 20) / 10) + '°C';
-            ping.textContent = 18 + Math.floor(Math.random() * 40);
+        temp.textContent = (-17 - Math.round(Math.random() * 20) / 10) + '°C';
+        ping.textContent = 18 + Math.floor(Math.random() * 40);
         }, 1800);
-        setInterval(function () { clock.textContent = new Date().toLocaleTimeString('en-GB'); }, 1000);
+
+        setInterval(function () {
+        // التعديل هنا: استخدام 'en-US' وتفعيل hour12
+        clock.textContent = new Date().toLocaleTimeString('en-US', { hour12: true });
+        }, 1000);
 
         /* 6) Input: chips, counter, "/" shortcut, voice */
         var input = document.getElementById('faq-ai-input'), count = document.getElementById('cfCount');

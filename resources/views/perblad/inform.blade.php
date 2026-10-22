@@ -11,7 +11,7 @@
 
     <style>
         :root {
-            --primary: #4f46e5; --violet: #8b5cf6; --bg: #f1f5f9; --card: #fff;
+            --primary: #013E37; --violet: #0d6b5e; --tint: #d9efe9; --bg: #f1f5f9; --card: #fff;
             --text: #1e293b; --muted: #64748b; --line: #e2e8f0;
         }
         * { box-sizing: border-box; }
@@ -22,7 +22,7 @@
         .header-section { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 22px; }
         h1 { font-size: 24px; font-weight: 800; margin: 0; color: #0f172a; }
         .header-tools { display: flex; align-items: center; gap: 10px; }
-        .badge { background: #e0e7ff; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 700; }
+        .badge { background: var(--tint); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 700; }
         .rabit_home { background: #fff; color: #1A444E; border: 1px solid var(--line); font-weight: 700; font-size: 14px; padding: 5px 16px; border-radius: 15px; text-decoration: none; transition: .25s; }
         .rabit_home:hover { background: #013e37; color: #fff; box-shadow: 1px 1px 7px #013e37; }
 
@@ -35,15 +35,15 @@
 
         /* search + filters */
         .search-wrap { position: relative; display: flex; align-items: center; width: 100%; background: #fff; border: 2px solid var(--line); border-radius: 50px; padding: 6px 54px 6px 22px; transition: .3s; box-shadow: 0 4px 20px rgb(0 0 0 / .03); }
-        .search-wrap:focus-within { border-color: var(--violet); box-shadow: 0 10px 30px rgb(139 92 246 / .22); transform: translateY(-1px); }
-        #post-search-input { width: 100%; border: 0; outline: 0; background: transparent; font: 500 1.02rem 'Cairo', sans-serif; color: #1e1b4b; direction: ltr; text-align: left; padding: 10px 0; }
-        .search-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--primary)); box-shadow: 0 4px 12px rgb(99 102 241 / .35); cursor: pointer; }
+        .search-wrap:focus-within { border-color: var(--primary); box-shadow: 0 10px 30px rgb(1 62 55 / .22); transform: translateY(-1px); }
+        #post-search-input { width: 100%; border: 0; outline: 0; background: transparent; font: 500 1.02rem 'Cairo', sans-serif; color: #0f2a27; direction: ltr; text-align: left; padding: 10px 0; }
+        .search-btn { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--primary)); box-shadow: 0 4px 12px rgb(1 62 55 / .35); cursor: pointer; }
         .search-btn::before { content: ""; position: absolute; width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; top: 11px; left: 11px; }
         .search-btn::after { content: ""; position: absolute; width: 2px; height: 6px; background: #fff; top: 23px; left: 23px; transform: rotate(-45deg); }
         .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 18px; align-items: center; }
         .chip { border: 1px solid var(--line); background: #fff; color: var(--muted); border-radius: 999px; padding: 6px 16px; font: 700 .85rem 'Cairo', sans-serif; cursor: pointer; transition: .2s; }
-        .chip:hover { border-color: var(--violet); color: var(--primary); }
-        .chip.on { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 12px rgb(79 70 229 / .3); }
+        .chip:hover { border-color: var(--primary); color: var(--primary); }
+        .chip.on { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 4px 12px rgb(1 62 55 / .3); }
         .result-count { margin-right: auto; color: var(--muted); font-size: .85rem; font-weight: 600; }
 
         /* table */
@@ -74,8 +74,8 @@
         .act:active { transform: scale(.94); }
         .act::before { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px); background: #0f172a; color: #fff; font: 700 .72rem 'Cairo', sans-serif; padding: 4px 10px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: .18s; z-index: 5; }
         .act:hover::before, .act:focus-visible::before { opacity: 1; transform: translateX(-50%); }
-        .act:focus-visible { outline: 3px solid rgb(99 102 241 / .45); outline-offset: 2px; }
-        .act-role { background: #f5f3ff; border-color: #ddd6fe; } .act-role:hover { background: #ede9fe; box-shadow: 0 10px 22px rgb(109 40 217 / .25); }
+        .act:focus-visible { outline: 3px solid rgb(1 62 55 / .45); outline-offset: 2px; }
+        .act-role { background: #eef6f4; border-color: #b7d8d3; } .act-role:hover { background: #d9efe9; box-shadow: 0 10px 22px rgb(1 62 55 / .25); }
         .act-block { background: #fff7ed; border-color: #fed7aa; } .act-block:hover { background: #ffedd5; box-shadow: 0 10px 22px rgb(234 88 12 / .25); }
         .act-unblock { background: #fef3c7; border-color: #fde68a; }
         .act-del { background: #fef2f2; border-color: #fca5a5; } .act-del:hover { background: #fee2e2; box-shadow: 0 10px 22px rgb(185 28 28 / .25); }
@@ -90,7 +90,7 @@
         /* state-driven buttons */
         .ico { display: inline-block; line-height: 1; transition: transform .25s, filter .25s, opacity .25s; }
         .act:hover .ico { transform: scale(1.15) rotate(8deg); }
-        .act.is-admin, .act.is-admin:hover { background: #ddd6fe; border-color: #7c3aed; box-shadow: 0 0 0 3px rgb(124 58 237 / .14); }
+        .act.is-admin, .act.is-admin:hover { background: #cde5e1; border-color: #013E37; box-shadow: 0 0 0 3px rgb(1 62 55 / .14); }
         .act.is-blocked, .act.is-blocked:hover { background: #fecaca; border-color: #b91c1c; box-shadow: 0 0 0 3px rgb(185 28 28 / .16), 0 6px 16px rgb(185 28 28 / .3); }
         .act.is-top, .act.is-top:hover { background: #fde68a; border-color: #d97706; box-shadow: 0 0 16px rgb(251 191 36 / .65); }
         .act-top:not(.is-top) .ico { filter: grayscale(1); opacity: .5; }
@@ -98,22 +98,22 @@
         .act.just-changed { animation: flashBtn 1.3s ease-out; }
         .act.just-changed .ico { animation: icoPop .85s cubic-bezier(.2, .9, .3, 1.4); }
         @keyframes icoPop { 0% { transform: scale(.35) rotate(-45deg); } 55% { transform: scale(1.55) rotate(12deg); } 100% { transform: none; } }
-        @keyframes flashBtn { 0% { box-shadow: 0 0 0 0 rgb(99 102 241 / .75); } 100% { box-shadow: 0 0 0 20px transparent; } }
+        @keyframes flashBtn { 0% { box-shadow: 0 0 0 0 rgb(1 62 55 / .75); } 100% { box-shadow: 0 0 0 20px transparent; } }
         .post-row.just-row td { animation: rowFlash 1.8s ease-out; }
-        @keyframes rowFlash { 0% { background: #e0e7ff; } 100% { background: transparent; } }
+        @keyframes rowFlash { 0% { background: var(--tint); } 100% { background: transparent; } }
 
         .empty-row td { text-align: center; padding: 40px; color: var(--muted); font-weight: 700; display: none; }
         .empty-row.show td { display: table-cell; }
 
         /* toast */
-        #custom-toast-notification { position: fixed; top: 30px; right: -450px; background: rgb(255 255 255 / .96); backdrop-filter: blur(10px); border-radius: 16px; padding: 16px 22px; box-shadow: 0 20px 40px rgb(99 102 241 / .15); display: flex; align-items: center; gap: 16px; z-index: 999999; transition: all .5s cubic-bezier(.68, -.55, .265, 1.55); min-width: 340px; overflow: hidden; border: 1px solid var(--line); }
-        #custom-toast-notification::before { content: ''; position: absolute; top: 0; right: 0; width: 6px; height: 100%; background: linear-gradient(#8b5cf6, #6366f1); }
+        #custom-toast-notification { position: fixed; top: 30px; right: -450px; background: rgb(255 255 255 / .96); backdrop-filter: blur(10px); border-radius: 16px; padding: 16px 22px; box-shadow: 0 20px 40px rgb(1 62 55 / .15); display: flex; align-items: center; gap: 16px; z-index: 999999; transition: all .5s cubic-bezier(.68, -.55, .265, 1.55); min-width: 340px; overflow: hidden; border: 1px solid var(--line); }
+        #custom-toast-notification::before { content: ''; position: absolute; top: 0; right: 0; width: 6px; height: 100%; background: linear-gradient(#0d6b5e, #013E37); }
         #custom-toast-notification.show-toast-ultra { right: 30px; }
         .toast-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 6px 20px rgb(16 185 129 / .4); flex: none; }
         .show-toast-ultra .toast-icon { animation: spinIcon .6s cubic-bezier(.175, .885, .32, 1.275) .2s both; }
         @keyframes spinIcon { from { transform: scale(0) rotate(0); } to { transform: scale(1) rotate(360deg); } }
-        .toast-title { font-weight: 800; font-size: 1rem; background: linear-gradient(135deg, #4f46e5, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .toast-bar { position: absolute; bottom: 0; left: 0; height: 4px; width: 100%; background: linear-gradient(to right, #10b981, #6366f1); transform-origin: left; }
+        .toast-title { font-weight: 800; font-size: 1rem; background: linear-gradient(135deg, #013E37, #0d6b5e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .toast-bar { position: absolute; bottom: 0; left: 0; height: 4px; width: 100%; background: linear-gradient(to right, #10b981, #013E37); transform-origin: left; }
         .show-toast-ultra .toast-bar { animation: shrink 3.5s linear forwards; }
         @keyframes shrink { to { transform: scaleX(0); } }
 
@@ -143,7 +143,7 @@
         </div>
 
         <div class="stats">
-            <div class="stat"><i style="background:#e0e7ff">👥</i><div><b>{{ $users->count() }}</b><span>إجمالي الحسابات</span></div></div>
+            <div class="stat"><i style="background:#d9efe9">👥</i><div><b>{{ $users->count() }}</b><span>إجمالي الحسابات</span></div></div>
             <div class="stat"><i style="background:#fef3c7">🛡️</i><div><b>{{ $users->where('type', 'admin')->count() }}</b><span>مدراء</span></div></div>
             <div class="stat"><i style="background:#fee2e2">🚫</i><div><b>{{ $users->where('is_blocked', true)->count() }}</b><span>محظورون</span></div></div>
             <div class="stat"><i style="background:#fffbeb">🌟</i><div><b>{{ $users->where('is_top', true)->count() }}</b><span>مميّزون</span></div></div>
@@ -190,7 +190,7 @@
                                         onclick="return confirm('هل أنت متأكد من رغبتك في تبديل صلاحيات هذا الحساب؟')"
                                         class="act act-role {{ $user->type == 'admin' ? 'is-admin' : '' }}"
                                         data-tip="{{ $user->type == 'admin' ? 'تحويل إلى مستخدم' : 'ترقية إلى مدير' }}"
-                                        aria-label="تغيير الصلاحية"><span class="ico">{{ $user->type == 'admin' ? '🔒' : '🔓' }}</span><span class="ring" style="color:#8b5cf6"></span></a>
+                                        aria-label="تغيير الصلاحية"><span class="ico">{{ $user->type == 'admin' ? '🔒' : '🔓' }}</span><span class="ring" style="color:#013E37"></span></a>
 
                                     {{-- الحظر: المحظور يصير أحمر غامق --}}
                                     <a href="{{ route('admin.user.toggle_block', $user->id) }}" data-a="block"
@@ -311,7 +311,11 @@
                 }
             } catch (x) {}
         });
+
+
+
     </script>
 </body>
 
 </html>
+

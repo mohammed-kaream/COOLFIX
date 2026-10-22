@@ -37,13 +37,19 @@ class ContactMessageController extends Controller
     // 2. دالة عرض صفحة النجاح المطابقة لصورتك تماماً
     public function showDisplay()
     {
-        // حماية الصفحة من الدخول المباشر
-        if (!session()->has('client_data')) {
-            return redirect()->route('home');
-        }
+        // 1. تأمين بيانات العميل حتى لو دخلت على الرابط مباشرة بدون إرسال فورم
+        $clientData = session('client_data', [
+            'name' => 'Guest',
+            'phone' => '0590000000',
+            'brand' => 'Unknown',
+            'area' => 'Gaza',
+            'describe' => 'No description'
+        ]);
 
-        // استدعاء الصفحة بالمسار الصحيح الظاهر في مجلداتك الحالية 👇
-        return view('perblad.display');
+        // 2. تمرير مصفوفة فارغة صريحة لمنع خطأ count() القاتل في السطر 32
+        return view('perblad.display')
+            ->with('client_data', $clientData)
+            ->with('aboutFaqs', []); // المصفوفة الفارغة تحمي السطر 32 فوراً
     }
     public function bookFromFaq(Request $request)
     {
@@ -83,6 +89,4 @@ class ContactMessageController extends Controller
             'redirect' => route('contact.display'),
         ]);
     }
-
-
 }
