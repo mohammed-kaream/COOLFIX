@@ -9,17 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        // dd(Auth::user());
-        if(Auth::user()->type != 'admin'){
-            return redirect('/');
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('login');
         }
+
+        if ($user->type !== 'admin') {
+            abort(403, 'غير مصرّح لك بدخول هذه الصفحة.');
+        }
+
         return $next($request);
     }
 }

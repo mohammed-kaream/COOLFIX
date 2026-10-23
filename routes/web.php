@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\CoolController;
 use App\Http\Controllers\MainPageController;
@@ -56,35 +57,24 @@ require __DIR__ . '/auth.php';
 // =========================================================================
 // 3. جدار الحماية السيادي (ممنوع الدخول إلا للحسابات المسجلة والـ Admin)
 // =========================================================================
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-
-    // الروابط الأساسية والداشبورد للرئيس محمد وللمسؤولين
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [MainPageController::class, 'home'])->name('home');
     Route::get('/dashboard', [MainPageController::class, 'home'])->name('dashboard');
 
-    // مسارات البروفايل للتحكم بالحساب
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    // 🔥 [تم التأمين] مسارات الإدارة الحساسة التي نُقلت هنا لحمايتها من المتطفلين والزوار:
+// أدمن فقط
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/force-delete-user/{id}', [PostController::class, 'destroy'])->name('admin.user.force_delete');
     Route::get('/admin/toggle-user-role/{id}', [PostController::class, 'toggleRole'])->name('admin.user.toggle_role');
     Route::get('/admin/toggle-block-user/{id}', [PostController::class, 'toggleBlock'])->name('admin.user.toggle_block');
     Route::get('/admin/toggle-top-user/{id}', [PostController::class, 'toggleTop'])->name('admin.user.toggle_top');
-
-    // مسارات التفتيش السري والعودة الآمنة لحساب الأدمن
     Route::get('/admin/impersonate-user/{id}', [PostController::class, 'impersonate'])->name('admin.user.impersonate');
     Route::get('/admin/leave-impersonation', [PostController::class, 'leaveImpersonate'])->name('admin.user.leave_impersonate');
-
-    // مسار اختبار الإيميلات (تم تأمينه لمنع استهلاك باقة الإرسال من الغرباء)
-    Route::get('/send-test-email', function () {
-        Mail::to('ashrfalsrsawy36@gmail.com')->send(new WelcomeEmail('ashrf', 'ashrfalsrsawy36@gamil.com'));
-        Mail::to('alzymkhyl936@gmail.com')->send(new WelcomeEmail('mohammed kohail', 'moh@gmail.com'));
-        return "Send successfully";
-    });
 });
-
 
 
 

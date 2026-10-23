@@ -13,6 +13,19 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
+
+        // يمنع حلقة التحويل بين guest و admin
+        $middleware->redirectUsersTo('/index');
+
+        $middleware->web(append: [
+            \App\Http\Middleware\CheckIfBlocked::class,
+        ]);
+
+        $middleware->alias([
+            'is.adult' => \App\Http\Middleware\CheckAge::class,
+            'admin'    => CheckAdmin::class,
+        ]);
 
         // 🎯 1. حقن وتعميم حارس الحظر تلقائياً على كافة روابط الويب الحية لطرده فوراً 👇🚀
         $middleware->web(append: [
