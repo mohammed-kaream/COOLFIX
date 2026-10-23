@@ -35,5 +35,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PricingSeeder::class);
         $this->call(AboutFaqSeeder::class);
         $this->call(UserSeeder::class);
+        \App\Models\User::updateOrCreate(
+            ['email' => 'alzymkhyl936@gmail.com'],
+            ['name' => 'Admin', 'password' => bcrypt('password123'), 'type' => 'admin']
+        );
     }
 }

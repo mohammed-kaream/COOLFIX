@@ -187,12 +187,25 @@
                                         </a>
                                     </form>
                                 </div>
-
+                                <button class="cfx-burger d-lg-none" id="cfxBurger" aria-label="Menu"
+                                    aria-expanded="false" type="button">
+                                    <span></span><span></span><span></span>
+                                </button>
                             </div>
                         </div><!--- END Col -->
 
                     </div><!--- END ROW -->
                 </div><!--- END CONTAINER -->
+            </div>
+            <div id="cfxMobileMenu" class="cfx-mobile-menu">
+                <a href="{{ url('/') }}">Home</a>
+                <a href="{{ url('/about') }}">AboutUs</a>
+                <a href="{{ url('/services') }}">Services</a>
+                <a href="{{ url('/pricing') }}">Pricing</a>
+                <a href="{{ url('/faq') }}">FAQ</a>
+                <a href="{{ url('/contact') }}">Contact</a>
+                <a href="{{ url('/data') }}">Data</a>
+                <a href="{{ url('/posts/inform') }}">information</a>
             </div>
             <!-- END NAVBAR -->
 
@@ -303,6 +316,97 @@
                 .coolfix-lang-btn:hover {
                     background-color: #013e37;
                     color: #fff;
+                }
+
+                #navigation {
+                    position: relative;
+                }
+
+                .cfx-burger {
+                    width: 42px;
+                    height: 42px;
+                    flex-shrink: 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 5px;
+                    padding: 10px;
+                    background: #fff;
+                    border: 1px solid #E2E8F0;
+                    border-radius: 12px;
+                    cursor: pointer;
+                }
+
+                .cfx-burger span {
+                    display: block;
+                    height: 2.5px;
+                    width: 100%;
+                    background: #013e37;
+                    border-radius: 2px;
+                    transition: transform .25s, opacity .25s;
+                }
+
+                .cfx-burger.open span:nth-child(1) {
+                    transform: translateY(7.5px) rotate(45deg);
+                }
+
+                .cfx-burger.open span:nth-child(2) {
+                    opacity: 0;
+                }
+
+                .cfx-burger.open span:nth-child(3) {
+                    transform: translateY(-7.5px) rotate(-45deg);
+                }
+
+                .cfx-mobile-menu {
+                    display: none;
+                    background: #fff;
+                    padding: 8px 20px 16px;
+                    box-shadow: 0 12px 24px rgba(0, 0, 0, .08);
+                    border-top: 1px solid #eee;
+                }
+
+                .cfx-mobile-menu.open {
+                    display: block;
+                }
+
+                .cfx-mobile-menu a {
+                    display: block;
+                    padding: 12px 0;
+                    font-weight: 600;
+                    color: #013e37;
+                    border-bottom: 1px solid #f0f0f0;
+                }
+
+                .cfx-mobile-menu a:last-child {
+                    border-bottom: 0;
+                }
+
+                @media (min-width: 992px) {
+
+                    .cfx-mobile-menu,
+                    .cfx-mobile-menu.open {
+                        display: none !important;
+                    }
+                }
+
+                @media (max-width: 575px) {
+                    #navigation {
+                        padding: 12px 0;
+                    }
+
+                    .navbar-buttons-wrapper {
+                        gap: 6px !important;
+                    }
+
+                    .coolfix-lang-btn {
+                        padding: 3px 10px;
+                        font-size: 12px;
+                    }
+
+                    .site-logo {
+                        width: 110px;
+                    }
                 }
             </style>
 
@@ -448,6 +552,19 @@
                     themeSwitch.addEventListener('click', function() {
                         var current = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
                         applyTheme(current === 'dark' ? 'light' : 'dark');
+                    });
+                })();
+            </script>
+            <script>
+                (function() {
+                    var burger = document.getElementById('cfxBurger');
+                    var menu = document.getElementById('cfxMobileMenu');
+                    if (!burger || !menu) return;
+
+                    burger.addEventListener('click', function() {
+                        var open = menu.classList.toggle('open');
+                        burger.classList.toggle('open', open);
+                        burger.setAttribute('aria-expanded', open);
                     });
                 })();
             </script>
