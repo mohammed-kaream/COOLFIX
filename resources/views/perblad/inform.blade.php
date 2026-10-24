@@ -8,6 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        (function() {
+            try {
+                if (localStorage.getItem('cf_theme') === 'dark')
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                if (localStorage.getItem('cf_lang') === 'en') {
+                    document.documentElement.lang = 'en';
+                    document.documentElement.dir = 'ltr';
+                }
+            } catch (e) {}
+        })();
+    </script>
     <style>
         :root {
             --primary: #013E37;
@@ -725,6 +737,197 @@
                 transition: none !important;
             }
         }
+
+        /* ===== أزرار الثيم واللغة ===== */
+        .navbar-buttons-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle-switch {
+            direction: ltr;
+            position: relative;
+            width: 58px;
+            height: 30px;
+            background: #cfe3df;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background .3s, border-color .3s;
+        }
+
+        .theme-toggle-switch:focus-visible {
+            outline: 3px solid rgb(1 62 55 / .45);
+            outline-offset: 2px;
+        }
+
+        .theme-toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgb(0 0 0 / .25);
+            transition: transform .35s cubic-bezier(.68, -.4, .27, 1.4);
+        }
+
+        [data-theme="dark"] .theme-toggle-switch {
+            background: var(--primary);
+            border-color: #0d6b5e;
+        }
+
+        [data-theme="dark"] .theme-toggle-knob {
+            transform: translateX(28px);
+            background: #0f1b18;
+        }
+
+        .coolfix-lang-btn {
+            font: 700 14px 'Cairo', sans-serif;
+            background: #fff;
+            color: #1A444E;
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            padding: 5px 16px;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .coolfix-lang-btn:hover {
+            background: #013e37;
+            color: #fff;
+            box-shadow: 1px 1px 7px #013e37;
+        }
+
+        /* ===== الوضع الليلي ===== */
+        :root[data-theme="dark"] {
+            --bg: #0b1412;
+            --card: #13211e;
+            --text: #e6f0ee;
+            --muted: #93a8a4;
+            --line: #24352f;
+            --tint: #143a34;
+            color-scheme: dark;
+        }
+
+        [data-theme="dark"] h1 {
+            color: #f1f5f9;
+        }
+
+        [data-theme="dark"] .badge {
+            color: #6ee7d3;
+        }
+
+        [data-theme="dark"] .rabit_home,
+        [data-theme="dark"] .coolfix-lang-btn,
+        [data-theme="dark"] .chip,
+        [data-theme="dark"] .search-wrap {
+            background: var(--card);
+            color: #d5e6e2;
+        }
+
+        [data-theme="dark"] .rabit_home:hover,
+        [data-theme="dark"] .coolfix-lang-btn:hover {
+            background: #0d6b5e;
+            color: #fff;
+        }
+
+        [data-theme="dark"] .chip.on {
+            background: #0d6b5e;
+            border-color: #0d6b5e;
+            color: #fff;
+        }
+
+        [data-theme="dark"] #post-search-input {
+            color: #e6f0ee;
+        }
+
+        [data-theme="dark"] th {
+            background: #0f1b18;
+        }
+
+        [data-theme="dark"] td {
+            color: #cbd9d6;
+            border-bottom-color: #1b2b27;
+        }
+
+        [data-theme="dark"] tr:hover td {
+            background: #172623;
+        }
+
+        [data-theme="dark"] .user-cell {
+            color: #f1f5f9;
+        }
+
+        [data-theme="dark"] .post-row.account-blocked-row td {
+            background: #2a1717;
+        }
+
+        [data-theme="dark"] .act-role {
+            background: #12302b;
+            border-color: #1f5a50;
+        }
+
+        [data-theme="dark"] .act-block {
+            background: #2e2214;
+            border-color: #6b4220;
+        }
+
+        [data-theme="dark"] .act-top {
+            background: #2e2a14;
+            border-color: #6b5a20;
+        }
+
+        [data-theme="dark"] .act-spy {
+            background: #10301f;
+            border-color: #1f6b45;
+        }
+
+        [data-theme="dark"] .act-del {
+            background: #331616;
+            border-color: #7a2a2a;
+        }
+
+        [data-theme="dark"] .stat {
+            box-shadow: none;
+        }
+
+        [data-theme="dark"] #custom-toast-notification {
+            background: rgb(19 33 30 / .96);
+        }
+
+        [data-theme="dark"] #toast-message-text {
+            color: #cbd9d6 !important;
+        }
+
+        /* ===== الاتجاه LTR للإنجليزي ===== */
+        [dir="ltr"] body {
+            direction: ltr;
+        }
+
+        [dir="ltr"] table,
+        [dir="ltr"] th {
+            text-align: left;
+        }
+
+        [dir="ltr"] .result-count {
+            margin-right: 0;
+            margin-left: auto;
+        }
+
+        [dir="ltr"] .tag-blocked {
+            margin-right: 0;
+            margin-left: 6px;
+        }
+
+        [dir="ltr"] td[style*="direction:ltr"] {
+            text-align: left !important;
+        }
     </style>
 </head>
 
@@ -743,10 +946,24 @@
     <div class="container">
         <div class="header-section">
             <h1>صندوق بيانات الحسابات والمستخدمين 👤</h1>
-            <div class="header-tools">
-                <a class="rabit_home" href="{{ url('/') }}">Home</a>
-                <span class="badge">العدد الإجمالي: {{ $users->count() }}</span>
-            </div>
+                <div class="header-tools">
+                    <div class="d-flex align-items-center justify-content-end gap-2 navbar-buttons-wrapper">
+
+                        <!-- زر تبديل النمط (ليلي / نهاري) -->
+                        <div class="coolfix-theme-switch m-0">
+                            <div class="theme-toggle-switch" id="themeToggleSwitch" role="button" tabindex="0"
+                                aria-label="Toggle dark mode">
+                                <div class="theme-toggle-knob" id="themeToggleKnob">☀️</div>
+                            </div>
+                        </div>
+
+                        <!-- زر اللغة -->
+                        <button type="button" class="coolfix-lang-btn" id="langSwitcherBtn">English</button>
+                    </div>
+
+                    <a class="rabit_home" href="{{ url('/') }}">Home</a>
+                    <span class="badge">العدد الإجمالي: {{ $users->count() }}</span>
+                </div>
         </div>
 
         <div class="stats">
@@ -981,7 +1198,140 @@
                 }
             } catch (x) {}
         });
-    </script>
+        /* ===== الثيم واللغة ===== */
+        var root = document.documentElement,
+            sw = document.getElementById('themeToggleSwitch'),
+            knob = document.getElementById('themeToggleKnob'),
+            langBtn = document.getElementById('langSwitcherBtn');
+
+        function setTheme(dark, save) {
+            if (dark) root.setAttribute('data-theme', 'dark');
+            else root.removeAttribute('data-theme');
+            knob.textContent = dark ? '🌙' : '☀️';
+            sw.setAttribute('aria-pressed', dark);
+            if (save) try {
+                localStorage.setItem('cf_theme', dark ? 'dark' : 'light');
+            } catch (x) {}
+        }
+        sw.addEventListener('click', function() {
+            setTheme(root.getAttribute('data-theme') !== 'dark', true);
+        });
+        sw.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                sw.click();
+            }
+        });
+        setTheme(root.getAttribute('data-theme') === 'dark', false);
+
+        /* قاموس الترجمة (عربي → إنجليزي) */
+        var EN = {
+            'صندوق بيانات الحسابات والمستخدمين 👤': 'Accounts & Users Panel 👤',
+            'إجمالي الحسابات': 'Total accounts',
+            'مدراء': 'Admins',
+            'محظورون': 'Blocked',
+            'مميّزون': 'Featured',
+            'مستخدمون': 'Users',
+            'الكل': 'All',
+            'المعروض:': 'Showing:',
+            'العمليات': 'Actions',
+            'الاسم الكامل (Name)': 'Full Name',
+            'البريد الإلكتروني (Email)': 'Email',
+            'رقم الجوال (Mobile)': 'Mobile',
+            'نوع الصلاحية (Type)': 'Role',
+            'محظور': 'Blocked',
+            'لا يوجد': 'N/A',
+            '🔍 لا توجد نتائج مطابقة': '🔍 No matching results',
+            'تحديث لوحة البيانات ⚡': 'Dashboard updated ⚡',
+            'تحويل إلى مستخدم': 'Demote to user',
+            'ترقية إلى مدير': 'Promote to admin',
+            'فك الحظر': 'Unblock',
+            'حظر الحساب': 'Block account',
+            'إلغاء التميز': 'Remove featured',
+            'تعيين كمميز': 'Set as featured',
+            'التفتيش السري': 'Impersonate',
+            'حذف الحساب': 'Delete account',
+            'تغيير الصلاحية': 'Change role',
+            'هل أنت متأكد من رغبتك في تبديل صلاحيات هذا الحساب؟': 'Are you sure you want to change this account\'s role?',
+            'هل أنت متأكد من تغيير حالة حظر هذا الحساب؟': 'Are you sure you want to change this account\'s block status?',
+            'هل أنت متأكد من تغيير رتبة التميز لهذا الموظف؟': 'Are you sure you want to change this user\'s featured status?',
+            'هل أنت متأكد من بدء جلسة التفتيش السري والدخول بهوية هذا الحساب حياً؟': 'Are you sure you want to start an impersonation session as this account?',
+            'هل أنت متأكد من حذف هذا الحساب نهائياً؟': 'Are you sure you want to permanently delete this account?'
+        };
+        var PREFIX = [
+            ['العدد الإجمالي:', 'Total:']
+        ];
+        var PH_AR = 'ابحث عن مستخدم أو بريد... (مثال: Kohail, admin)',
+            PH_EN = 'Search for users or emails... (e.g., Kohail, admin)';
+
+        function trTxt(s) {
+            var t = s.trim(),
+                lead = s.slice(0, s.indexOf(t)),
+                trail = s.slice(lead.length + t.length);
+            if (EN[t]) return lead + EN[t] + trail;
+            for (var i = 0; i < PREFIX.length; i++)
+                if (t.indexOf(PREFIX[i][0]) === 0) return lead + PREFIX[i][1] + t.slice(PREFIX[i][0].length) + trail;
+            return s;
+        }
+
+        /* نجمع العناصر القابلة للترجمة مرة وحدة (النسخة العربية الأصلية) */
+        var tNodes = [],
+            tAttrs = [];
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+            var n = walker.currentNode,
+                p = n.parentNode.nodeName;
+            if (p === 'SCRIPT' || p === 'STYLE') continue;
+            if (trTxt(n.nodeValue) !== n.nodeValue) tNodes.push({
+                n: n,
+                ar: n.nodeValue
+            });
+        }
+        document.querySelectorAll('[data-tip],[aria-label]').forEach(function(el) {
+            ['data-tip', 'aria-label'].forEach(function(a) {
+                var v = el.getAttribute(a);
+                if (v && EN[v]) tAttrs.push({
+                    el: el,
+                    a: a,
+                    ar: v
+                });
+            });
+        });
+
+        /* confirm يترجم رسالته حسب اللغة */
+        var nativeConfirm = window.confirm;
+        window.confirm = function(m) {
+            return nativeConfirm.call(window, root.lang === 'en' && EN[m] ? EN[m] : m);
+        };
+
+function setLang(l, save) {
+    var en = l === 'en';
+
+    /* 1) الزر أولاً: يعرض اسم اللغة المقابلة */
+    langBtn.textContent = en ? 'العربية' : 'English';
+    langBtn.setAttribute('data-lang', en ? 'en' : 'ar');
+
+    /* 2) اتجاه الصفحة */
+    root.lang = en ? 'en' : 'ar';
+    root.dir = en ? 'ltr' : 'rtl';
+
+    /* 3) الترجمة (محمية بـ try عشان ما توقف باقي الكود) */
+    try {
+        tNodes.forEach(function(o) { o.n.nodeValue = en ? trTxt(o.ar) : o.ar; });
+        tAttrs.forEach(function(o) { o.el.setAttribute(o.a, en ? EN[o.ar] : o.ar); });
+        input.placeholder = en ? PH_EN : PH_AR;
+    } catch (err) { console.error('translate error:', err); }
+
+    if (save) try { localStorage.setItem('cf_lang', l); } catch (x) {}
+}
+
+langBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();   /* يمنع أي سكربت ثاني من التدخل بالزر */
+    setLang(root.lang === 'en' ? 'ar' : 'en', true);
+});
+
+setLang(root.lang === 'en' ? 'en' : 'ar', false);    </script>
 </body>
 
 </html>

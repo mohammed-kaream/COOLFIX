@@ -76,7 +76,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/leave-impersonation', [PostController::class, 'leaveImpersonate'])->name('admin.user.leave_impersonate');
 });
 
-
+Route::get('/lang/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['en', 'ar']), 404);
+    session(['locale' => $locale]);
+    return redirect()->back();
+})->name('lang.switch');
 
 
 
