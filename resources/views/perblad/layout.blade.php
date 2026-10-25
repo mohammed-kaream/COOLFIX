@@ -73,19 +73,18 @@
         } catch (e) {}
     </script>
 
-    @php
-        $cfxNav = [
-            ['Home', '/', '/'],
-            ['AboutUs', '/about', 'about'],
-            ['Services', '/services', 'services'],
-            ['Pricing', '/pricing', 'pricing'],
-            ['FAQ', '/faq', 'faq'],
-            ['Contact', '/contact', 'contact'],
-            ['Data', '/data', 'data'],
-            ['Information', '/posts/inform', 'posts/inform*'],
-        ];
-    @endphp
-
+@php
+    $cfxNav = [
+        [__('Home'), '/', '/'],
+        [__('About Us'), '/about', 'about'],
+        [__('Services'), '/services', 'services'],
+        [__('Pricing'), '/pricing', 'pricing'],
+        [__('FAQ'), '/faq', 'faq'],
+        [__('Contact'), '/contact', 'contact'],
+        [__('Data'), '/data', 'data'],
+        [__('Information'), '/posts/inform', 'posts/inform*'],
+    ];
+@endphp
     <!-- ===================== STICKY COMPACT HEADER (يظهر من فوق عند النزول) ===================== -->
     <header id="cfxStickyBar" class="cfx-sticky" aria-hidden="true">
         <div class="container">
