@@ -32,8 +32,8 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'mobile' => ['nullable', 'string', 'max:20', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email:rfc,dns', 'max:255', 'unique:' . User::class],
+            'mobile' => ['nullable', 'string', 'max:20', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -44,10 +44,13 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->string('password')),
         ]);
 
+        // event(new Registered($user));
+
+        // Auth::login($user);
+
+        // return redirect(route('dashboard', absolute: false));
         event(new Registered($user));
-
         Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('verification.notice'));
     }
 }

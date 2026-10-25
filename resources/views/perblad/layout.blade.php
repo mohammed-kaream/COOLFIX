@@ -14,7 +14,7 @@
     <meta name="author" content="COOLFIX">
     <!-- SITE TITLE -->
     <title>@yield('title', 'COOLFIX Gaza')</title>
-        <script src="{{ asset('webfront/js/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('webfront/js/jquery-1.12.4.min.js') }}"></script>
 
     <link rel="icon" type="image/png" href="{{ asset('webfront/images/all-img/image_48ee44cebd.png') }}">
 
@@ -74,18 +74,18 @@
         } catch (e) {}
     </script>
 
-@php
-    $cfxNav = [
-        [__('Home'), '/', '/'],
-        [__('About Us'), '/about', 'about'],
-        [__('Services'), '/services', 'services'],
-        [__('Pricing'), '/pricing', 'pricing'],
-        [__('FAQ'), '/faq', 'faq'],
-        [__('Contact'), '/contact', 'contact'],
-        [__('Data'), '/data', 'data'],
-        [__('Information'), '/posts/inform', 'posts/inform*'],
-    ];
-@endphp
+    @php
+        $cfxNav = [
+            [__('Home'), '/', '/'],
+            [__('About Us'), '/about', 'about'],
+            [__('Services'), '/services', 'services'],
+            [__('Pricing'), '/pricing', 'pricing'],
+            [__('FAQ'), '/faq', 'faq'],
+            [__('Contact'), '/contact', 'contact'],
+            [__('Data'), '/data', 'data'],
+            [__('Information'), '/posts/inform', 'posts/inform*'],
+        ];
+    @endphp
     <!-- ===================== STICKY COMPACT HEADER (يظهر من فوق عند النزول) ===================== -->
     <header id="cfxStickyBar" class="cfx-sticky" aria-hidden="true">
         <div class="container">
@@ -665,7 +665,7 @@
             }
 
             body.dark-mode .single-top-contact i,
-            body.dark-mode .top_social_profile i {
+            body.dark-mode .top_social_profile li {
                 color: var(--neon);
                 text-shadow: 0 0 12px rgba(45, 255, 196, .85);
             }
@@ -1134,191 +1134,232 @@
             .preloaders .loader::after {
                 content: none !important;
             }
-            body.cfx-scrolled .logo-contact,
-body.cfx-scrolled #navigation,
-body.cfx-scrolled .cfx-mobile-menu {
-    visibility: hidden;
-    pointer-events: none;
-    .top_header_banner { overflow: visible; }
-}
-/* ===== زر "اعرف المزيد" / أي زر نصه غامق داخل الكروت ===== */
-body.dark-mode .single_feature_one a,
-body.dark-mode .single_tp a,
-body.dark-mode [class*="single_"] a.cta,
-body.dark-mode [class*="single_"] a.cta span,
-body.dark-mode .cta span {
-    color: #2dffcf !important;
-    text-shadow: none !important;
-}
-body.dark-mode .cta:hover span,
-body.dark-mode [class*="single_"] a.cta:hover span {
-    color: #022 !important;
-}
 
-/* ===== كروت العدادات (15 / 100 / 8) ===== */
-body.dark-mode .single-counter,
-body.dark-mode .count_one,
-body.dark-mode .count_two,
-body.dark-mode .count_three,
-body.dark-mode .count_four {
-    background: #0a1716 !important;
-    border: 1px solid rgba(45, 255, 196, .35) !important;
-    box-shadow: 0 0 22px rgba(45, 255, 196, .12) !important;
-}
-body.dark-mode .single-counter h1,
-body.dark-mode .single-counter h2,
-body.dark-mode .single-counter h3,
-body.dark-mode .single-counter .counter,
-body.dark-mode .single-counter span.counter {
-    color: #2dffcf !important;
-    background: transparent !important;
-    text-shadow: 0 0 14px rgba(45, 255, 196, .6) !important;
-}
-body.dark-mode .single-counter p,
-body.dark-mode .single-counter span,
-body.dark-mode .single-counter i {
-    color: #c9fff1 !important;
-    background: transparent !important;
-}
-/* ===== هيدر الصفحات الداخلية (من نحن، الخدمات...) ===== */
-body.dark-mode .section-top {
-    background: linear-gradient(135deg, #07110f, #0b2420) !important;
-    border-bottom: 1px solid rgba(45, 255, 196, .25);
-}
-body.dark-mode .section-top-title h1 {
-    color: #2dffcf !important;
-    text-shadow: 0 0 18px rgba(45, 255, 196, .55) !important;
-}
-body.dark-mode .section-top-title ul {
-    background: #0a1716 !important;
-    border: 1px solid rgba(45, 255, 196, .4) !important;
-    box-shadow: 0 0 16px rgba(45, 255, 196, .2);
-}
-body.dark-mode .section-top-title ul li,
-body.dark-mode .section-top-title ul li a {
-    color: #c9fff1 !important;
-}
-body.dark-mode .section-top-title ul li a:hover {
-    color: #ffd166 !important;
-}
-/* ===== كروت الأسعار (صفحة Pricing) ===== */
-body.dark-mode .pricing_design .single-pricing,
-body.dark-mode .single-pricing,
-body.dark-mode .single-pricing-card {
-    background: #0a1716 !important;
-    border: 1px solid rgba(45, 255, 196, .4) !important;
-    box-shadow: 0 0 22px rgba(45, 255, 196, .15) !important;
-}
-body.dark-mode .pricing_design .single-pricing::before {
-    background: #050909 !important;
-    border-color: rgba(45, 255, 196, .25) !important;
-}
-body.dark-mode .single-pricing h1,
-body.dark-mode .single-pricing h2,
-body.dark-mode .single-pricing h3,
-body.dark-mode .single-pricing-card h1,
-body.dark-mode .single-pricing-card h3 {
-    color: #2dffcf !important;
-    text-shadow: 0 0 12px rgba(45, 255, 196, .5) !important;
-}
-body.dark-mode .single-pricing p,
-body.dark-mode .single-pricing span,
-body.dark-mode .single-pricing li,
-body.dark-mode .single-pricing-card p,
-body.dark-mode .single-pricing-card li {
-    color: #c9fff1 !important;
-    background: transparent !important;
-}
-body.dark-mode .single-pricing ul li span,
-body.dark-mode .single-pricing-card .list li i {
-    background: rgba(45, 255, 196, .15) !important;
-    color: #2dffcf !important;
-}
-body.dark-mode .price-head {
-    background: #0b2420 !important;
-}
-body.dark-mode .price-head h1,
-body.dark-mode .price-head h2,
-body.dark-mode .price-head span {
-    color: #ffd166 !important;
-}
-/* ===== FAQ ===== */
-body.dark-mode .accordion-item,
-body.dark-mode .accordion-header,
-body.dark-mode .accordion-button,
-body.dark-mode .accordion-body {
-    background: #0a1716 !important;
-    color: #c9fff1 !important;
-    border-color: rgba(45, 255, 196, .35) !important;
-    box-shadow: none !important;
-}
-body.dark-mode .accordion-item {
-    box-shadow: 0 0 16px rgba(45, 255, 196, .12) !important;
-}
-body.dark-mode .accordion-button,
-body.dark-mode .accordion-button:not(.collapsed) {
-    color: #2dffcf !important;
-    text-shadow: none !important;
-}
-body.dark-mode .accordion-button::after {
-    filter: invert(1) brightness(2);
-}
-body.dark-mode .accordion-body {
-    color: #c9fff1 !important;
-    border-inline-start: 3px solid #2dffcf;
-}
-a[href^="tel:"],
-.single-top-contact h4 a,
-.sf_contact p,
-.cta span.phone,
-.ltr-num {
-    direction: ltr;
-    unicode-bidi: isolate;
-    display: inline-block;
-}
-.cta span { unicode-bidi: plaintext; }
-a[href^="tel:"] span { direction: ltr; unicode-bidi: isolate; display: inline-block; }
-/* كروت الإحصائيات العائمة فوق الصورة */
-body.dark-mode .home_ps,
-body.dark-mode .home_ps2 {
-    background: #0a1716 !important;
-    border: 1px solid rgba(45, 255, 196, .4) !important;
-    box-shadow: 0 0 22px rgba(45, 255, 196, .2) !important;
-}
-body.dark-mode .home_ps h2,
-body.dark-mode .home_ps2 h2,
-body.dark-mode .home_ps h2 span,
-body.dark-mode .home_ps2 h2 span {
-    color: #2dffcf !important;
-    background: transparent !important;
-    text-shadow: 0 0 12px rgba(45, 255, 196, .6) !important;
-}
-body.dark-mode .home_ps span,
-body.dark-mode .home_ps2 span {
-    color: #c9fff1 !important;
-    background: transparent !important;
-}
-body.dark-mode .team_member,
-body.dark-mode .team_page,
-body.dark-mode .testi_home_area,
-body.dark-mode .testimonial_area,
-body.dark-mode .owl-carousel,
-body.dark-mode .owl-stage-outer {
-    background: #060e0d !important;
-}
-body.dark-mode .section-padding,
-body.dark-mode section {
-    background-color: #060e0d !important;
-}
-body.dark-mode :has(> #team-slider),
-body.dark-mode :has(> .owl-carousel),
-body.dark-mode .container:has(#team-slider) {
-    background: transparent !important;
-}
-body.dark-mode section:has(#team-slider),
-body.dark-mode div:has(> .container #team-slider) {
-    background-color: #060e0d !important;
-}
+            body.cfx-scrolled .logo-contact,
+            body.cfx-scrolled #navigation,
+            body.cfx-scrolled .cfx-mobile-menu {
+                visibility: hidden;
+                pointer-events: none;
+
+                .top_header_banner {
+                    overflow: visible;
+                }
+            }
+
+            /* ===== زر "اعرف المزيد" / أي زر نصه غامق داخل الكروت ===== */
+            body.dark-mode .single_feature_one a,
+            body.dark-mode .single_tp a,
+            body.dark-mode [class*="single_"] a.cta,
+            body.dark-mode [class*="single_"] a.cta span,
+            body.dark-mode .cta span {
+                color: #2dffcf !important;
+                text-shadow: none !important;
+            }
+
+            body.dark-mode .cta:hover span,
+            body.dark-mode [class*="single_"] a.cta:hover span {
+                color: #022 !important;
+            }
+
+            /* ===== كروت العدادات (15 / 100 / 8) ===== */
+            body.dark-mode .single-counter,
+            body.dark-mode .count_one,
+            body.dark-mode .count_two,
+            body.dark-mode .count_three,
+            body.dark-mode .count_four {
+                background: #0a1716 !important;
+                border: 1px solid rgba(45, 255, 196, .35) !important;
+                box-shadow: 0 0 22px rgba(45, 255, 196, .12) !important;
+            }
+
+            body.dark-mode .single-counter h1,
+            body.dark-mode .single-counter h2,
+            body.dark-mode .single-counter h3,
+            body.dark-mode .single-counter .counter,
+            body.dark-mode .single-counter span.counter {
+                color: #2dffcf !important;
+                background: transparent !important;
+                text-shadow: 0 0 14px rgba(45, 255, 196, .6) !important;
+            }
+
+            body.dark-mode .single-counter p,
+            body.dark-mode .single-counter span,
+            body.dark-mode .single-counter i {
+                color: #c9fff1 !important;
+                background: transparent !important;
+            }
+
+            /* ===== هيدر الصفحات الداخلية (من نحن، الخدمات...) ===== */
+            body.dark-mode .section-top {
+                background: linear-gradient(135deg, #07110f, #0b2420) !important;
+                border-bottom: 1px solid rgba(45, 255, 196, .25);
+            }
+
+            body.dark-mode .section-top-title h1 {
+                color: #2dffcf !important;
+                text-shadow: 0 0 18px rgba(45, 255, 196, .55) !important;
+            }
+
+            body.dark-mode .section-top-title ul {
+                background: #0a1716 !important;
+                border: 1px solid rgba(45, 255, 196, .4) !important;
+                box-shadow: 0 0 16px rgba(45, 255, 196, .2);
+            }
+
+            body.dark-mode .section-top-title ul li,
+            body.dark-mode .section-top-title ul li a {
+                color: #c9fff1 !important;
+            }
+
+            body.dark-mode .section-top-title ul li a:hover {
+                color: #ffd166 !important;
+            }
+
+            /* ===== كروت الأسعار (صفحة Pricing) ===== */
+            body.dark-mode .pricing_design .single-pricing,
+            body.dark-mode .single-pricing,
+            body.dark-mode .single-pricing-card {
+                background: #0a1716 !important;
+                border: 1px solid rgba(45, 255, 196, .4) !important;
+                box-shadow: 0 0 22px rgba(45, 255, 196, .15) !important;
+            }
+
+            body.dark-mode .pricing_design .single-pricing::before {
+                background: #050909 !important;
+                border-color: rgba(45, 255, 196, .25) !important;
+            }
+
+            body.dark-mode .single-pricing h1,
+            body.dark-mode .single-pricing h2,
+            body.dark-mode .single-pricing h3,
+            body.dark-mode .single-pricing-card h1,
+            body.dark-mode .single-pricing-card h3 {
+                color: #2dffcf !important;
+                text-shadow: 0 0 12px rgba(45, 255, 196, .5) !important;
+            }
+
+            body.dark-mode .single-pricing p,
+            body.dark-mode .single-pricing span,
+            body.dark-mode .single-pricing li,
+            body.dark-mode .single-pricing-card p,
+            body.dark-mode .single-pricing-card li {
+                color: #c9fff1 !important;
+                background: transparent !important;
+            }
+
+            body.dark-mode .single-pricing ul li span,
+            body.dark-mode .single-pricing-card .list li i {
+                background: rgba(45, 255, 196, .15) !important;
+                color: #2dffcf !important;
+            }
+
+            body.dark-mode .price-head {
+                background: #0b2420 !important;
+            }
+
+            body.dark-mode .price-head h1,
+            body.dark-mode .price-head h2,
+            body.dark-mode .price-head span {
+                color: #ffd166 !important;
+            }
+
+            /* ===== FAQ ===== */
+            body.dark-mode .accordion-item,
+            body.dark-mode .accordion-header,
+            body.dark-mode .accordion-button,
+            body.dark-mode .accordion-body {
+                background: #0a1716 !important;
+                color: #c9fff1 !important;
+                border-color: rgba(45, 255, 196, .35) !important;
+                box-shadow: none !important;
+            }
+
+            body.dark-mode .accordion-item {
+                box-shadow: 0 0 16px rgba(45, 255, 196, .12) !important;
+            }
+
+            body.dark-mode .accordion-button,
+            body.dark-mode .accordion-button:not(.collapsed) {
+                color: #2dffcf !important;
+                text-shadow: none !important;
+            }
+
+            body.dark-mode .accordion-button::after {
+                filter: invert(1) brightness(2);
+            }
+
+            body.dark-mode .accordion-body {
+                color: #c9fff1 !important;
+                border-inline-start: 3px solid #2dffcf;
+            }
+
+            a[href^="tel:"],
+            .single-top-contact h4 a,
+            .sf_contact p,
+            .cta span.phone,
+            .ltr-num {
+                direction: ltr;
+                unicode-bidi: isolate;
+                display: inline-block;
+            }
+
+            .cta span {
+                unicode-bidi: plaintext;
+            }
+
+            a[href^="tel:"] span {
+                direction: ltr;
+                unicode-bidi: isolate;
+                display: inline-block;
+            }
+
+            /* كروت الإحصائيات العائمة فوق الصورة */
+            body.dark-mode .home_ps,
+            body.dark-mode .home_ps2 {
+                background: #0a1716 !important;
+                border: 1px solid rgba(45, 255, 196, .4) !important;
+                box-shadow: 0 0 22px rgba(45, 255, 196, .2) !important;
+            }
+
+            body.dark-mode .home_ps h2,
+            body.dark-mode .home_ps2 h2,
+            body.dark-mode .home_ps h2 span,
+            body.dark-mode .home_ps2 h2 span {
+                color: #2dffcf !important;
+                background: transparent !important;
+                text-shadow: 0 0 12px rgba(45, 255, 196, .6) !important;
+            }
+
+            body.dark-mode .home_ps span,
+            body.dark-mode .home_ps2 span {
+                color: #c9fff1 !important;
+                background: transparent !important;
+            }
+
+            body.dark-mode .team_member,
+            body.dark-mode .team_page,
+            body.dark-mode .testi_home_area,
+            body.dark-mode .testimonial_area,
+            body.dark-mode .owl-carousel,
+            body.dark-mode .owl-stage-outer {
+                background: #060e0d !important;
+            }
+
+            body.dark-mode .section-padding,
+            body.dark-mode section {
+                background-color: #060e0d !important;
+            }
+
+            body.dark-mode :has(> #team-slider),
+            body.dark-mode :has(> .owl-carousel),
+            body.dark-mode .container:has(#team-slider) {
+                background: transparent !important;
+            }
+
+            body.dark-mode section:has(#team-slider),
+            body.dark-mode div:has(> .container #team-slider) {
+                background-color: #060e0d !important;
+            }
         </style>
 
         @yield('content')

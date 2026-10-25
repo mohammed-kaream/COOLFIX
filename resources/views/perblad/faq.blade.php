@@ -298,8 +298,8 @@
             <div id="cfMForm">
                 <h3 id="cfMTitle">{{ __('🔧 احجز فني صيانة') }}</h3>
                 <p class="cf-m-sub">{{ __('عبّي بياناتك، وعطلك وتشخيص المساعد بينرسلوا معاك تلقائياً.') }}</p>
-                <form id="cfBookForm" novalidate>
-                    <input type="text" name="website" class="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <form id="cfBookForm" novalidate autocomplete="off" onsubmit="return false;">
+                    <input type="text" name="website" class="cf-hp" tabindex="-1" autocomplete="new-password" aria-hidden="true">
                     <div class="cf-m-grid">
                         <label>{{ __('الاسم') }}<input type="text" name="name" maxlength="30" required placeholder="{{ __('اسمك') }}"><small data-e="name"></small></label>
                         <label>{{ __('الجوال / واتساب') }}<input type="tel" name="phone" maxlength="20" required placeholder="059xxxxxxx" dir="ltr"><small data-e="phone"></small></label>
@@ -319,37 +319,6 @@
                 <h3>{{ __('وصلنا طلبك!') }}</h3>
                 <p class="cf-m-sub">{{ __('رقم طلبك:') }} <b id="cfMRef" dir="ltr"></b><br>{{ __('رح نتواصل معك على الجوال بأقرب وقت.') }}</p>
                 <button type="button" class="cf-go cf-m-send" id="cfMOk">{{ __('تمام') }}</button>
-            </div>
-        </div>
-    </div>
-    <!-- BOOK-A-TECHNICIAN MODAL -->
-    <div class="cf-modal" id="cfModal" role="dialog" aria-modal="true" aria-labelledby="cfMTitle" hidden>
-        <div class="cf-m-box">
-            <button type="button" class="cf-m-x" id="cfMClose" aria-label="إغلاق">×</button>
-            <div id="cfMForm">
-                <h3 id="cfMTitle">🔧 احجز فني صيانة</h3>
-                <p class="cf-m-sub">عبّي بياناتك، وعطلك وتشخيص المساعد بينرسلوا معاك تلقائياً.</p>
-                <form id="cfBookForm" novalidate>
-                    <input type="text" name="website" class="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-                    <div class="cf-m-grid">
-                        <label>الاسم<input type="text" name="name" maxlength="30" required placeholder="اسمك"><small data-e="name"></small></label>
-                        <label>الجوال / واتساب<input type="tel" name="phone" maxlength="20" required placeholder="059xxxxxxx" dir="ltr"><small data-e="phone"></small></label>
-                        <label>ماركة الثلاجة<input type="text" name="brand" maxlength="100" required placeholder="LG, Samsung..."><small data-e="brand"></small></label>
-                        <label>المنطقة / الحي<input type="text" name="area" maxlength="150" required placeholder="مثال: الرمال"><small data-e="area"></small></label>
-                    </div>
-                    <label>وصف العطل (معبّى من سؤالك، تقدر تعدّله)
-                        <textarea name="describe" rows="3" maxlength="1000" id="cfMDescribe"></textarea><small data-e="describe"></small>
-                    </label>
-                    <div class="cf-m-diag" id="cfMDiag" hidden>🤖 تشخيص المساعد مرفق مع الطلب</div>
-                    <div class="cf-m-err" id="cfMErr" hidden></div>
-                    <button type="submit" class="cf-go cf-m-send" id="cfMSend">إرسال الطلب 🛰️</button>
-                </form>
-            </div>
-            <div id="cfMDone" hidden>
-                <div class="cf-m-ok">✔</div>
-                <h3>وصلنا طلبك!</h3>
-                <p class="cf-m-sub">رقم طلبك: <b id="cfMRef" dir="ltr"></b><br>رح نتواصل معك على الجوال بأقرب وقت.</p>
-                <button type="button" class="cf-go cf-m-send" id="cfMOk">تمام</button>
             </div>
         </div>
     </div>

@@ -82,6 +82,12 @@ Route::get('/lang/{locale}', function (string $locale) {
     return redirect()->back();
 })->name('lang.switch');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [MainPageController::class, 'home'])->name('home');
+    Route::get('/dashboard', [MainPageController::class, 'home'])->name('dashboard');
+    // ...
+});
+
 
 
 
