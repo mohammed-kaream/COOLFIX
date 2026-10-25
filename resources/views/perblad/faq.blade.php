@@ -457,10 +457,8 @@
     </script>
 
     <style>
-        .cf-hack{--c:#22e3ff;--g:#39ff88;--bg:#030b12;--ln:rgba(34,227,255,.28);
-            position:relative;overflow:hidden;width:100vw;max-width:none;left:50%;right:50%;margin:40px -50vw;border-radius:0;direction:rtl;
-            background:radial-gradient(1200px 500px at 50% -10%,#08304a 0%,var(--bg) 60%);
-            border:solid var(--ln);border-width:1px 0;box-shadow:inset 0 0 80px rgba(34,227,255,.06);
+.cf-hack{--c:#2dffc4;--g:#7fffe0;--bg:#050b0a;--ln:rgba(45,255,196,.28);            position:relative;overflow:hidden;width:100vw;max-width:none;left:50%;right:50%;margin:40px -50vw;border-radius:0;direction:rtl;
+background:radial-gradient(1200px 500px at 50% -10%,#0b2a24 0%,var(--bg) 60%);            border:solid var(--ln);border-width:1px 0;box-shadow:inset 0 0 80px rgba(34,227,255,.06);
             color:#d6f6ff;font-family:'Cairo','Segoe UI',Tahoma,sans-serif;isolation:isolate;box-sizing:border-box}
         .cf-hack *{box-sizing:border-box}
         #cfMatrix{position:absolute;inset:0;width:100%;height:100%;opacity:.35;z-index:-4}
@@ -577,7 +575,36 @@
             .cf-form{flex-direction:column}.cf-go{padding:15px}.cf-cube{display:none}
         }
         @media(prefers-reduced-motion:reduce){.cf-hack *,.cf-hack *::before,.cf-hack *::after{animation:none!important;transition:none!important}}
-    </style>
+   body.dark-mode .cf-hack .cf-go,
+body.dark-mode .cf-hack .cf-m-send {
+    background: linear-gradient(135deg, #2dffc4, #7fffe0) !important;
+    color: #02121a !important;
+    border: 0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 0 24px rgba(45, 255, 196, .5) !important;
+    text-shadow: none !important;
+}
+body.dark-mode .cf-hack .cf-go:hover,
+body.dark-mode .cf-hack .cf-m-send:hover {
+    background: linear-gradient(135deg, #2dffc4, #7fffe0) !important;
+    color: #02121a !important;
+    box-shadow: 0 0 40px rgba(45, 255, 196, .75) !important;
+}
+body.dark-mode .cf-hack .cf-mini,
+body.dark-mode .cf-hack .cf-chips button {
+    background: rgba(45, 255, 196, .06) !important;
+    color: #bfffee !important;
+    border: 1px solid rgba(45, 255, 196, .28) !important;
+    border-radius: 999px !important;
+    box-shadow: none !important;
+}
+body.dark-mode .cf-hack .cf-field input,
+body.dark-mode .cf-hack input {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+   </style>
 
     <script>
     (function () {
@@ -597,10 +624,10 @@
             drops = new Array(Math.ceil(cv.width / fs)).fill(1).map(function () { return Math.random() * -50; });
         }
         function draw() {
-            ctx.fillStyle = 'rgba(3,11,18,.12)'; ctx.fillRect(0, 0, cv.width, cv.height);
+            ctx.fillStyle = 'rgba(5,11,10,.12)'; ctx.fillRect(0, 0, cv.width, cv.height);
             ctx.font = fs + 'px monospace';
             for (var i = 0; i < drops.length; i++) {
-                ctx.fillStyle = Math.random() > .96 ? '#fff' : '#22e3ff';
+               ctx.fillStyle = Math.random() > .96 ? '#fff' : '#2dffc4';
                 ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs);
                 if (drops[i] * fs > cv.height && Math.random() > .975) drops[i] = 0;
                 drops[i]++;
