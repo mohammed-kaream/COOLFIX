@@ -275,30 +275,6 @@
                 animation: cfxSlideDown .45s cubic-bezier(.22, 1, .36, 1) both;
             }
 
-            @keyframes cfxSlideDown {
-                from {
-                    transform: translateY(-100%);
-                    opacity: 0;
-                }
-
-                to {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            }
-
-            .cfx-mobile-menu.is-stuck {
-                position: fixed;
-                left: 0;
-                right: 0;
-                z-index: 99998;
-            }
-
-            body.dark-mode #navigation.is-stuck {
-                background: #07100e;
-                box-shadow: 0 6px 30px rgba(45, 255, 207, .25);
-            }
-
             /* =====================================================================
                TOGGLE + NAV BUTTONS
                ===================================================================== */
@@ -1158,6 +1134,13 @@
             .preloaders .loader::after {
                 content: none !important;
             }
+            body.cfx-scrolled .logo-contact,
+body.cfx-scrolled #navigation,
+body.cfx-scrolled .cfx-mobile-menu {
+    visibility: hidden;
+    pointer-events: none;
+    .top_header_banner { overflow: visible; }
+}
         </style>
 
         @yield('content')
@@ -1281,50 +1264,6 @@
 
         <!-- ===================== THEME TOGGLE (يشتغل على كل الصفحات وعلى الزرين) ===================== -->
 
-        <script>
-            (function() {
-                var nav = document.getElementById('navigation');
-                var top = document.querySelector('.logo-contact');
-                var mobile = document.getElementById('cfxMobileMenu');
-                if (!nav) return;
-
-                var spacer = document.createElement('div');
-                spacer.style.display = 'none';
-                nav.parentNode.insertBefore(spacer, nav);
-
-                var stuck = false;
-
-                function update() {
-                    var limit = (top ? top.offsetHeight : 100) + 20;
-                    var shouldStick = window.scrollY > limit;
-
-                    if (shouldStick && !stuck) {
-                        spacer.style.height = nav.offsetHeight + 'px';
-                        spacer.style.display = 'block';
-                        nav.classList.add('is-stuck');
-                        if (mobile) {
-                            mobile.style.top = nav.offsetHeight + 'px';
-                            mobile.classList.add('is-stuck');
-                        }
-                        stuck = true;
-                    } else if (!shouldStick && stuck) {
-                        nav.classList.remove('is-stuck');
-                        spacer.style.display = 'none';
-                        if (mobile) {
-                            mobile.classList.remove('is-stuck');
-                            mobile.style.top = '';
-                        }
-                        stuck = false;
-                    }
-                }
-
-                window.addEventListener('scroll', update, {
-                    passive: true
-                });
-                window.addEventListener('resize', update);
-                update();
-            })();
-        </script>
         <script>
             (function() {
                 function applyTheme(theme) {
