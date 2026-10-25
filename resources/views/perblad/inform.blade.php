@@ -961,7 +961,7 @@
                         <button type="button" class="coolfix-lang-btn" id="langSwitcherBtn">English</button>
                     </div>
 
-                    <a class="rabit_home" href="{{ url('/') }}">Home</a>
+                    <a class="rabit_home" href="{{ url('/') }}">{{ __("Home") }}</a>
                     <span class="badge">العدد الإجمالي: {{ $users->count() }}</span>
                 </div>
         </div>

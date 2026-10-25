@@ -66,7 +66,7 @@
             <div class="row justify-content-center text-center" style="margin-top:40px;">
                 <div class="col-lg-8">
                     <p style="font-size:16px;margin-bottom:20px;">Still have a question we didn't answer?</p>
-                    <a href="tel:+970598924040" class="cta"><span>Call 0598 924 040</span>
+                    <a href="tel:+970598924040" class="cta"><span>Call 059 892 4040</span>
                         <svg width="13px" height="10px" viewBox="0 0 13 10">
                             <path d="M1,5 L11,5"></path>
                             <polyline points="8 1 12 5 8 9"></polyline>
@@ -177,11 +177,11 @@
         <div class="cf-topbar">
             <span class="cf-dot r"></span><span class="cf-dot y"></span><span class="cf-dot g"></span>
             <span class="cf-path">coolfix@fridge-lab:~$ <b id="cfBoot"></b><u class="cf-caret"></u></span>
-            <button type="button" class="cf-mini" id="cfToggleMatrix" title="تشغيل/إيقاف الخلفية">⚡ FX</button>
+            <button type="button" class="cf-mini" id="cfToggleMatrix" title="{{ __('تشغيل/إيقاف الخلفية') }}">⚡ FX</button>
         </div>
 
-        <h2 class="cf-title" data-text="مختبر صيانة الثلاجات الذكي">مختبر صيانة الثلاجات الذكي</h2>
-        <p class="cf-sub">اكتب العطل، والذكاء الاصطناعي يشخّصه ويعطيك الحل بثواني</p>
+        <h2 class="cf-title" data-text="{{ __('مختبر صيانة الثلاجات الذكي') }}">{{ __('مختبر صيانة الثلاجات الذكي') }}</h2>
+        <p class="cf-sub">{{ __('اكتب العطل، والذكاء الاصطناعي يشخّصه ويعطيك الحل بثواني') }}</p>
 
         <!-- 3 animated cards -->
         <div class="cf-cards">
@@ -200,8 +200,8 @@
                     <g class="cf-flake"><circle cx="45" cy="80" r="2.2"/><circle cx="60" cy="70" r="1.6"/><circle cx="70" cy="90" r="2"/><circle cx="52" cy="108" r="1.7"/><circle cx="66" cy="120" r="2.2"/></g>
                     <rect x="25" y="8" width="70" height="134" rx="9" fill="#22e3ff" opacity=".07" class="cf-cold"/>
                 </svg>
-                <h4>التبريد لا يعمل</h4>
-                <p>حرارة، عزل، وجوان الباب</p>
+                <h4>{{ __('التبريد لا يعمل') }}</h4>
+                <p>{{ __('حرارة، عزل، وجوان الباب') }}</p>
             </div>
 
             <div class="cf-card" data-tilt>
@@ -216,8 +216,8 @@
                     </g>
                     <circle cx="60" cy="75" r="7" fill="#39ff88"/>
                 </svg>
-                <h4>الضاغط والمروحة</h4>
-                <p>أصوات، طقطقة، وسخونة زائدة</p>
+                <h4>{{ __('الضاغط والمروحة') }}</h4>
+                <p>{{ __('أصوات، طقطقة، وسخونة زائدة') }}</p>
             </div>
 
             <div class="cf-card" data-tilt>
@@ -228,8 +228,8 @@
                     <circle cx="60" cy="105" r="6" fill="#39ff88"/>
                     <text x="60" y="140" text-anchor="middle" class="cf-temp" id="cfTemp">-18°C</text>
                 </svg>
-                <h4>حرارة الفريزر</h4>
-                <p>ثلج زائد، تسريب، وحساس الحرارة</p>
+                <h4>{{ __('حرارة الفريزر') }}</h4>
+                <p>{{ __('ثلج زائد، تسريب، وحساس الحرارة') }}</p>
             </div>
         </div>
 
@@ -240,27 +240,27 @@
                 <div class="cf-field">
                     <span class="cf-prompt">&gt;_</span>
                     <input type="text" name="question" id="faq-ai-input" maxlength="500" required autocomplete="off"
-                        placeholder="مثال: الثلاجة بتطلع صوت وما عم تبرّد، شو الحل؟"
+                        placeholder="{{ __('مثال: الثلاجة بتطلع صوت وما عم تبرّد، شو الحل؟') }}"
                         value="{{ session('user_question') }}">
-                    <button type="button" class="cf-mini" id="cfMic" title="إدخال صوتي" hidden>🎤</button>
+                    <button type="button" class="cf-mini" id="cfMic" title="{{ __('إدخال صوتي') }}" hidden>🎤</button>
                     <span class="cf-count" id="cfCount">0/500</span>
                 </div>
             </div>
-            <button type="submit" class="cf-go">🛰️ ابدأ الفحص</button>
+            <button type="submit" class="cf-go">{{ __('🛰️ ابدأ الفحص') }}</button>
         </form>
 
         <div class="cf-chips" id="cfChips">
-            <button type="button" data-q="الثلاجة ما بتبرد بس الفريزر شغال">❄️ ما بتبرد</button>
-            <button type="button" data-q="الفريزر بيتجمد عليه ثلج كتير">🧊 ثلج زائد</button>
-            <button type="button" data-q="الثلاجة بتسرّب ميّ من تحت">💧 تسريب ميّ</button>
-            <button type="button" data-q="الضاغط بيشتغل ويطفي كل دقيقة">🔁 الضاغط يفصل</button>
-            <button type="button" data-q="صوت طقطقة وطنين من ورا الثلاجة">🔊 صوت غريب</button>
+            <button type="button" data-q="{{ __('الثلاجة ما بتبرد بس الفريزر شغال') }}">{{ __('❄️ ما بتبرد') }}</button>
+            <button type="button" data-q="{{ __('الفريزر بيتجمد عليه ثلج كتير') }}">{{ __('🧊 ثلج زائد') }}</button>
+            <button type="button" data-q="{{ __('الثلاجة بتسرّب ميّ من تحت') }}">{{ __('💧 تسريب ميّ') }}</button>
+            <button type="button" data-q="{{ __('الضاغط بيشتغل ويطفي كل دقيقة') }}">{{ __('🔁 الضاغط يفصل') }}</button>
+            <button type="button" data-q="{{ __('صوت طقطقة وطنين من ورا الثلاجة') }}">{{ __('🔊 صوت غريب') }}</button>
         </div>
 
         <div class="cf-status">
-            <span><i class="cf-pulse"></i> النظام متصل</span>
+            <span><i class="cf-pulse"></i> {{ __('النظام متصل') }}</span>
             <span>AI: GEMINI</span>
-            <span>زمن الاستجابة: <b id="cfPing">--</b>ms</span>
+            <span>{{ __('زمن الاستجابة:') }} <b id="cfPing">--</b>ms</span>
             <span id="cfClock">--:--:--</span>
         </div>
 
@@ -274,15 +274,15 @@
         @if (session('ai_answer'))
             <div class="cf-answer" id="cfAnswer">
                 <div class="cf-ans-head">
-                    <span>🤖 نتيجة التشخيص</span>
-                    <button type="button" class="cf-mini" id="cfCopy">📋 نسخ</button>
+                    <span>{{ __('🤖 نتيجة التشخيص') }}</span>
+                    <button type="button" class="cf-mini" id="cfCopy">{{ __('📋 نسخ') }}</button>
                 </div>
                 <div class="cf-ans-body" id="cfAnsBody" data-text="{{ session('ai_answer') }}"></div>
                 <div class="cf-book">
-                    <button type="button" class="cf-go" id="cfBookBtn">🔧 احجز فني</button>
-                    <span>بدك فني يشوف الجهاز؟ بنعبّي لك الطلب بعطلك وتشخيص المساعد.</span>
+                    <button type="button" class="cf-go" id="cfBookBtn">{{ __('🔧 احجز فني') }}</button>
+                    <span>{{ __('بدك فني يشوف الجهاز؟ بنعبّي لك الطلب بعطلك وتشخيص المساعد.') }}</span>
                 </div>
-                <div class="cf-ans-foot">⚠️ تشخيص مبدئي. للأعطال الكهربائية أو الغاز اتصل بفني COOLFIX.</div>
+                <div class="cf-ans-foot">{{ __('⚠️ تشخيص مبدئي. للأعطال الكهربائية أو الغاز اتصل بفني COOLFIX.') }}</div>
             </div>
         @endif
 
@@ -291,6 +291,37 @@
         @endif
     </div>
 
+    <!-- BOOK-A-TECHNICIAN MODAL -->
+    <div class="cf-modal" id="cfModal" role="dialog" aria-modal="true" aria-labelledby="cfMTitle" hidden>
+        <div class="cf-m-box">
+            <button type="button" class="cf-m-x" id="cfMClose" aria-label="{{ __('إغلاق') }}">×</button>
+            <div id="cfMForm">
+                <h3 id="cfMTitle">{{ __('🔧 احجز فني صيانة') }}</h3>
+                <p class="cf-m-sub">{{ __('عبّي بياناتك، وعطلك وتشخيص المساعد بينرسلوا معاك تلقائياً.') }}</p>
+                <form id="cfBookForm" novalidate>
+                    <input type="text" name="website" class="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <div class="cf-m-grid">
+                        <label>{{ __('الاسم') }}<input type="text" name="name" maxlength="30" required placeholder="{{ __('اسمك') }}"><small data-e="name"></small></label>
+                        <label>{{ __('الجوال / واتساب') }}<input type="tel" name="phone" maxlength="20" required placeholder="059xxxxxxx" dir="ltr"><small data-e="phone"></small></label>
+                        <label>{{ __('ماركة الثلاجة') }}<input type="text" name="brand" maxlength="100" required placeholder="LG, Samsung..."><small data-e="brand"></small></label>
+                        <label>{{ __('المنطقة / الحي') }}<input type="text" name="area" maxlength="150" required placeholder="{{ __('مثال: الرمال') }}"><small data-e="area"></small></label>
+                    </div>
+                    <label>{{ __('وصف العطل (معبّى من سؤالك، تقدر تعدّله)') }}
+                        <textarea name="describe" rows="3" maxlength="1000" id="cfMDescribe"></textarea><small data-e="describe"></small>
+                    </label>
+                    <div class="cf-m-diag" id="cfMDiag" hidden>{{ __('🤖 تشخيص المساعد مرفق مع الطلب') }}</div>
+                    <div class="cf-m-err" id="cfMErr" hidden></div>
+                    <button type="submit" class="cf-go cf-m-send" id="cfMSend">{{ __('إرسال الطلب 🛰️') }}</button>
+                </form>
+            </div>
+            <div id="cfMDone" hidden>
+                <div class="cf-m-ok">✔</div>
+                <h3>{{ __('وصلنا طلبك!') }}</h3>
+                <p class="cf-m-sub">{{ __('رقم طلبك:') }} <b id="cfMRef" dir="ltr"></b><br>{{ __('رح نتواصل معك على الجوال بأقرب وقت.') }}</p>
+                <button type="button" class="cf-go cf-m-send" id="cfMOk">{{ __('تمام') }}</button>
+            </div>
+        </div>
+    </div>
     <!-- BOOK-A-TECHNICIAN MODAL -->
     <div class="cf-modal" id="cfModal" role="dialog" aria-modal="true" aria-labelledby="cfMTitle" hidden>
         <div class="cf-m-box">
@@ -360,6 +391,14 @@
     (function () {
         var modal = document.getElementById('cfModal'), openBtn = document.getElementById('cfBookBtn');
         if (!modal) return;
+            var T = {
+        sending: @json(__('جاري الإرسال...')),
+        tooMany: @json(__('طلبات كثيرة، جرّب بعد دقيقة.')),
+        expired: @json(__('انتهت الجلسة، حدّث الصفحة وجرّب مرة ثانية.')),
+        failed:  @json(__('صار خطأ، جرّب مرة ثانية أو اتصل على 059 892 4040.')),
+        offline: @json(__('تعذّر الاتصال، تأكد من الإنترنت وجرّب مرة ثانية.'))
+    };
+
         document.body.appendChild(modal);   /* move out of the section so the site header can't cover it */
         var form = document.getElementById('cfBookForm'), box = {
             f: document.getElementById('cfMForm'), d: document.getElementById('cfMDone'),
@@ -391,7 +430,7 @@
 
         form.addEventListener('submit', function (e) {
             e.preventDefault(); clearErrors();
-            box.send.disabled = true; var old = box.send.textContent; box.send.textContent = 'جاري الإرسال...';
+            box.send.disabled = true; var old = box.send.textContent; box.send.textContent = T.sending;
             fetch(URL_BOOK, {
                 method: 'POST', credentials: 'same-origin',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': CSRF, 'X-Requested-With': 'XMLHttpRequest' },
@@ -408,10 +447,10 @@
                     });
                     return;
                 }
-                box.err.textContent = res.s === 429 ? 'طلبات كثيرة، جرّب بعد دقيقة.' : (res.s === 419 ? 'انتهت الجلسة، حدّث الصفحة وجرّب مرة ثانية.' : 'صار خطأ، جرّب مرة ثانية أو اتصل على 059 892 4040.');
+                box.err.textContent = res.s === 429 ? T.tooMany : (res.s === 419 ? T.expired : T.failed);
                 box.err.hidden = false;
             }).catch(function () {
-                box.err.textContent = 'تعذّر الاتصال، تأكد من الإنترنت وجرّب مرة ثانية.'; box.err.hidden = false;
+                box.err.textContent = T.offline; box.err.hidden = false;
             }).finally(function () { box.send.disabled = false; box.send.textContent = old; });
         });
     })();
@@ -544,6 +583,10 @@
     (function () {
         var root = document.getElementById('cfHack');
         if (!root) return;
+        var TC = {
+    copy:   @json(__('📋 نسخ')),
+    copied: @json(__('✅ تم النسخ'))
+};
         var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         /* 1) Matrix rain */
@@ -652,8 +695,7 @@
             var cp = document.getElementById('cfCopy');
             cp.addEventListener('click', function () {
                 if (navigator.clipboard) navigator.clipboard.writeText(full);
-                cp.textContent = '✅ تم النسخ'; setTimeout(function () { cp.textContent = '📋 نسخ'; }, 1800);
-            });
+cp.textContent = TC.copied; setTimeout(function () { cp.textContent = TC.copy; }, 1800);            });
             document.getElementById('cfAnswer').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     })();

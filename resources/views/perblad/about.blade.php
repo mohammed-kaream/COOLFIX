@@ -6,10 +6,10 @@
         <div class="container">
             <div class="col-lg-10 offset-lg-1 text-center">
                 <div class="section-top-title wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s" data-wow-offset="0">
-                    <h1>About Us</h1>
+                    <h1>{{ __("About Us") }}</h1>
                     <ul>
-                        <li><a href="{{ url('/') }}">Home</a></li>
-                        <li> / About</li>
+                        <li><a href="{{ url('/') }}">{{ __("Home") }}</a></li>
+                        <li> {{ __("/ About") }}</li>
                     </ul>
                 </div><!-- //.HERO-TEXT -->
             </div><!--- END COL -->
@@ -25,24 +25,21 @@
                 <div class="col-lg-6 col-sm-12 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.1s"
                     data-wow-offset="0">
                     <div class="ab_content">
-                        <h2>A family workshop, built on trust.</h2>
-                        <p>COOLFIX started as a one-man repair cart on Omar Al-Mukhtar Street and grew into a full
-                            refrigeration workshop, without ever losing the habit of treating every customer's kitchen
-                            like our own.</p>
+                        <h2>{{ __("A family workshop, built on trust.") }}</h2>
+                        <p>{{ __("COOLFIX started as a one-man repair cart on Omar Al-Mukhtar Street and grew into a full refrigeration workshop, without ever losing the habit of treating every customer's kitchen like our own.") }}</p>
                     </div>
                     <div class="abmv">
                         <img src="{{ asset('webfront/images/all-img/light.svg') }}" alt="" />
-                        <h4>Straight answers, every visit</h4>
-                        <p>We inspect first, explain second, and only start repairs once you've agreed to the price.</p>
+                        <h4>{{ __("Straight answers, every visit") }}</h4>
+                        <p>{{ __("We inspect first, explain second, and only start repairs once you've agreed to the price.") }}</p>
                     </div>
                     <div class="abmv">
                         <img src="{{ asset('webfront/images/all-img/target.svg') }}" alt="" />
-                        <h4>Built for Gaza's power realities</h4>
-                        <p>Our technicians are experienced with the extra strain that power outages put on cooling
-                            systems, and we fix accordingly.</p>
+                        <h4>{{ __("Built for Gaza's power realities") }}</h4>
+                        <p>{{ __("Our technicians are experienced with the extra strain that power outages put on cooling systems, and we fix accordingly.") }}</p>
                     </div>
                     <div class="cta_two">
-                        <a href="contact.html" class="cta"><span>Get In Touch</span>
+                        <a href="contact.html" class="cta"><span>{{ __("Get In Touch") }}</span>
                             <svg width="13px" height="10px" viewBox="0 0 13 10">
                                 <path d="M1,5 L11,5"></path>
                                 <polyline points="8 1 12 5 8 9"></polyline>
@@ -66,8 +63,8 @@
     <section class="marketing_content_area section-padding">
         <div class="container">
             <div class="section-title">
-                <h4>Why Choose COOLFIX</h4>
-                <h1>What sets our workshop apart.</h1>
+                <h4>{{ __("Why Choose COOLFIX") }}</h4>
+                <h1>{{ __("What sets our workshop apart.") }}</h1>
             </div>
             <div class="row">
 
@@ -87,7 +84,7 @@
                             <!-- نص الشرح والوصف التفصيلي القادم من الـ DB -->
                             <p>{{ $feature->description }}</p>
 
-                            <a href="{{ route('about') }}">Read More <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="{{ route('about') }}">{{ __("Read More") }} <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div><!-- END COL -->
                 @endforeach
@@ -133,8 +130,8 @@
 <section class="team_member section-padding" style="position: relative !important; display: block !important; padding: 80px 0 !important; background: #fff !important; overflow: visible !important;">
     <div class="container">
         <div class="section-title text-center" style="margin-bottom: 50px !important;">
-            <h4>Meet The Technician</h4>
-            <h1 style="font-weight: 700; color: #1f2937;">The person who'll be at your door</h1>
+            <h4>{{ __("Meet The Technician") }}</h4>
+            <h1 style="font-weight: 700; color: #1f2937;">{{ __("The person who'll be at your door") }}</h1>
         </div>
         <div class="row" style="overflow: visible !important;">
             <div class="col-lg-12" style="position: relative !important; padding: 0 15px !important; overflow: visible !important;">
@@ -260,12 +257,12 @@ $(document).ready(function(){
     <section class="marketing_content_area section-padding">
         <div class="container">
             <div class="section-title text-center">
-                <h4>Have Questions</h4>
-                <h1>See our full FAQ or just give us a call.</h1>
+                <h4>{{ __("Have Questions") }}</h4>
+                <h1>{{ __("See our full FAQ or just give us a call.") }}</h1>
             </div>
             <div class="row justify-content-center text-center">
                 <div class="col-lg-8">
-                    <a href="faq.html" class="cta"><span>Visit FAQ Page</span>
+                    <a href="faq.html" class="cta"><span>{{ __("Visit FAQ Page") }}</span>
                         <svg width="13px" height="10px" viewBox="0 0 13 10">
                             <path d="M1,5 L11,5"></path>
                             <polyline points="8 1 12 5 8 9"></polyline>

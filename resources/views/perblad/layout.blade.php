@@ -110,7 +110,7 @@
                         {{ app()->getLocale() === 'ar' ? 'English' : 'العربية' }}
                     </a> <a class="cfx-sticky-logout" href="#"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Log Out <i class="fa-solid fa-arrow-right"></i>
+                        {{ __('Log Out') }} <i class="fa-solid fa-arrow-right"></i>
                     </a>
                     <button class="cfx-burger cfx-sticky-burger" type="button" aria-label="Menu" aria-expanded="false">
                         <span></span><span></span><span></span>
@@ -128,7 +128,7 @@
 
     <!-- START PRELOADER -->
     <div class="preloaders">
-        <span class="loader">Loading data...</span>
+        <span class="loader" data-text="{{ __('Loading data...') }}">{{ __('Loading data...') }}</span>
     </div>
     <!-- END PRELOADER -->
 
@@ -154,7 +154,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="single-top-contact">
                             <i class="ti-alarm-clock"></i>
-                            <h4>Sat to Thu: 8am - 8pm</h4>
+                            <h4>{{ __('Sat to Thu: 8am - 8pm') }}</h4>
                         </div>
                     </div><!--- END COL -->
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -199,15 +199,15 @@
                     <!-- 2. القائمة الرئيسية -->
                     <div class="col-xl-6 col-lg-5 d-none d-lg-block">
                         <nav id="main-menu">
-                            <ul class="d-flex justify-content-center list-unstyled m-0 gap-1">
-                                <li><a href="{{ url('/') }}">Home</a></li>
-                                <li><a href="{{ url('/about') }}">AboutUs</a></li>
-                                <li><a href="{{ url('/services') }}">Services</a></li>
-                                <li><a href="{{ url('/pricing') }}">Pricing</a></li>
-                                <li><a href="{{ url('/faq') }}">FAQ</a></li>
-                                <li><a href="{{ url('/contact') }}">Contact</a></li>
-                                <li><a href="{{ url('/data') }}">Data</a></li>
-                                <li><a href="{{ url('/posts/inform') }}">information</a></li>
+                            <ul class="d-flex justify-content-center list-unstyled m-0 gap-1 flex-nowrap">
+                                <li><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
+                                <li><a href="{{ url('/about') }}">{{ __('About Us') }}</a></li>
+                                <li><a href="{{ url('/services') }}">{{ __('Services') }}</a></li>
+                                <li><a href="{{ url('/pricing') }}">{{ __('Pricing') }}</a></li>
+                                <li><a href="{{ url('/faq') }}">{{ __('FAQ') }}</a></li>
+                                <li><a href="{{ url('/contact') }}">{{ __('Contact') }}</a></li>
+                                <li><a href="{{ url('/data') }}">{{ __('Data') }}</a></li>
+                                <li><a href="{{ url('/posts/inform') }}">{{ __('Information') }}</a></li>
                             </ul>
                         </nav>
                     </div><!--- END Col -->
@@ -236,7 +236,7 @@
                                     <a class="btn_two btn btn-primary" href="#"
                                         style="white-space: nowrap; border-radius: 50px;"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Log Out <i class="fa-solid fa-arrow-right ms-1"></i>
+                                        {{ __('Log Out') }} <i class="fa-solid fa-arrow-right ms-1"></i>
                                     </a>
                                 </form>
                             </div>
@@ -251,14 +251,14 @@
             </div><!--- END CONTAINER -->
         </div>
         <div id="cfxMobileMenu" class="cfx-mobile-menu">
-            <a href="{{ url('/') }}">Home</a>
+            <a href="{{ url('/') }}">{{ __('Home') }}</a>
             <a href="{{ url('/about') }}">AboutUs</a>
-            <a href="{{ url('/services') }}">Services</a>
-            <a href="{{ url('/pricing') }}">Pricing</a>
-            <a href="{{ url('/faq') }}">FAQ</a>
-            <a href="{{ url('/contact') }}">Contact</a>
-            <a href="{{ url('/data') }}">Data</a>
-            <a href="{{ url('/posts/inform') }}">information</a>
+            <a href="{{ url('/services') }}">{{ __('Services') }}</a>
+            <a href="{{ url('/pricing') }}">{{ __('Pricing') }}</a>
+            <a href="{{ url('/faq') }}">{{ __('FAQ') }}</a>
+            <a href="{{ url('/contact') }}">{{ __('Contact') }}</a>
+            <a href="{{ url('/data') }}">{{ __('Data') }}</a>
+            <a href="{{ url('/posts/inform') }}">{{ __('information') }}</a>
         </div>
         <!-- END NAVBAR -->
 
@@ -1130,6 +1130,34 @@
             html[dir="rtl"] .fa-arrow-right {
                 transform: scaleX(-1);
             }
+
+            #main-menu ul {
+                flex-wrap: nowrap;
+                white-space: nowrap;
+            }
+
+            #main-menu a {
+                padding-inline: 8px !important;
+                font-size: 15px;
+            }
+
+            html[dir="rtl"] #main-menu a {
+                font-size: 14px;
+            }
+
+            .preloaders .loader,
+            .preloaders .loader::before,
+            .preloaders .loader::after {
+                text-shadow: none !important;
+                -webkit-text-stroke: 0 !important;
+                filter: none !important;
+                animation: none !important;
+            }
+
+            .preloaders .loader::before,
+            .preloaders .loader::after {
+                content: none !important;
+            }
         </style>
 
         @yield('content')
@@ -1141,9 +1169,8 @@
                         <div class="single_footer">
                             <a href="index.html"><img src="{{ asset('webfront/images/brand/logo.svg') }}"
                                     alt="COOLFIX"></a>
-                            <p>COOLFIX has been keeping homes and businesses in Gaza cool for years, with fast,
-                                honest
-                                refrigerator and cooling repair you can trust.</p>
+                            <p>{{ __('COOLFIX has been keeping homes and businesses in Gaza cool for years, with fast, honest refrigerator and cooling repair you can trust.') }}
+                            </p>
                         </div>
                         <div class="foot_social">
                             <ul>
@@ -1167,28 +1194,28 @@
                     </div><!--- END COL -->
                     <div class="col-lg-2 col-sm-6 col-xs-12">
                         <div class="single_footer">
-                            <h4>Services</h4>
+                            <h4>{{ __('Services') }}</h4>
                             <ul>
-                                <li><a href="{{ asset('/services') }}">Fridge Repair</a></li>
-                                <li><a href="{{ asset('/services') }}">Freezer Repair</a></li>
-                                <li><a href="{{ asset('/services') }}">Gas Refill (Freon)</a></li>
-                                <li><a href="{{ asset('/services') }}">Compressor Replacement</a></li>
-                                <li><a href="{{ asset('/services') }}">Preventive Maintenance</a></li>
-                                <li><a href="{{ asset('/services') }}">Commercial Cooling</a></li>
+                                <li><a href="{{ asset('/services') }}">{{ __('Fridge Repair') }}</a></li>
+                                <li><a href="{{ asset('/services') }}">{{ __('Freezer Repair') }}</a></li>
+                                <li><a href="{{ asset('/services') }}">{{ __('Gas Refill (Freon)') }}</a></li>
+                                <li><a href="{{ asset('/services') }}">{{ __('Compressor Replacement') }}</a></li>
+                                <li><a href="{{ asset('/services') }}">{{ __('Preventive Maintenance') }}</a></li>
+                                <li><a href="{{ asset('/services') }}">{{ __('Commercial Cooling') }}</a></li>
                             </ul>
                         </div>
                     </div><!--- END COL -->
                     <div class="col-lg-2 col-sm-6 col-xs-12">
                         <div class="single_footer">
-                            <h4>Company</h4>
+                            <h4>{{ __('Company') }}</h4>
                             <ul>
-                                <li><a href="{{ url('index') }}">Home</a></li>
-                                <li><a href="{{ url('/about') }}">About Us</a></li>
-                                <li><a href="{{ url('/services') }}">Services</a></li>
-                                <li><a href="{{ url('/pricing') }}">Pricing</a></li>
-                                <li><a href="{{ url('/faq') }}">FAQ</a></li>
-                                <li><a href="{{ url('/contact') }}">Contact</a></li>
-                                <li><a href="{{ url('/data') }}">data</a></li>
+                                <li><a href="{{ url('index') }}">{{ __('Home') }}</a></li>
+                                <li><a href="{{ url('/about') }}">{{ __('About Us') }}</a></li>
+                                <li><a href="{{ url('/services') }}">{{ __('Services') }}</a></li>
+                                <li><a href="{{ url('/pricing') }}">{{ __('Pricing') }}</a></li>
+                                <li><a href="{{ url('/faq') }}">{{ __('FAQ') }}</a></li>
+                                <li><a href="{{ url('/contact') }}">{{ __('Contact') }}</a></li>
+                                <li><a href="{{ url('/data') }}">{{ __('data') }}</a></li>
 
                             </ul>
                         </div>
@@ -1196,33 +1223,33 @@
                     </div><!--- END COL -->
                     <div class="col-lg-3 col-sm-6 col-xs-12">
                         <div class="single_footer">
-                            <h4>Contact Info</h4>
+                            <h4>{{ __('Contact Info') }}</h4>
                             <div class="sf_contact">
                                 <span class="ti-mobile"></span>
-                                <h3>Phone / WhatsApp</h3>
+                                <h3>{{ __('Phone / WhatsApp') }}</h3>
                                 <p>059 892 4040</p>
                             </div>
                             <div class="sf_contact">
                                 <span class="ti-email"></span>
-                                <h3>Email Address</h3>
+                                <h3>{{ __('Email Address') }}</h3>
                                 <p>mohammedkareem@gmail.com</p>
                             </div>
                             <div class="sf_contact">
                                 <span class="ti-map"></span>
-                                <h3>Workshop Address</h3>
-                                <p>End of Omar Al-Mukhtar St., Gaza</p>
+                                <h3>{{ __('Workshop Address') }}</h3>
+                                <p>{{ __('End of Omar Al-Mukhtar St., Gaza') }}</p>
                             </div>
                         </div>
                     </div><!--- END COL -->
                     <div class="col-lg-2 col-sm-6 col-xs-12">
                         <div class="single_footer">
-                            <h4>Working Hours</h4>
+                            <h4>{{ __('Working Hours') }}</h4>
                             <ul>
-                                <li>Sat - Thu: 8:00 AM - 8:00 PM</li>
-                                <li>Friday: Emergency calls only</li>
+                                <li>{{ __('Sat - Thu: 8:00 AM - 8:00 PM') }}</li>
+                                <li>{{ __('Friday: Emergency calls only') }}</li>
                             </ul>
                             <div class="cta_two" style="margin-top:20px;">
-                                <a href="tel:+970598924040" class="cta"><span>Call Now</span>
+                                <a href="tel:+970598924040" class="cta"><span>{{ __('Call Now') }}</span>
                                     <svg width="13px" height="10px" viewBox="0 0 13 10">
                                         <path d="M1,5 L11,5"></path>
                                         <polyline points="8 1 12 5 8 9"></polyline>
@@ -1235,15 +1262,15 @@
                 <div class="row fc">
                     <div class="col-lg-6 col-sm-6 col-xs-12">
                         <div class="footer_copyright">
-                            <p>&copy; 2026 COOLFIX. All Rights Reserved. Mohammed Kareem Kohail — Gaza, Palestine.
-                            </p>
+                            <p>&copy; 2026 COOLFIX. {{ __('All Rights Reserved.') }}
+                                {{ __('Mohammed Kareem Kohail — Gaza, Palestine.') }}</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
                         <div class="footer_menu">
                             <ul>
-                                <li><a href="#">Terms of use</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">{{ __('Terms of use') }}</a></li>
+                                <li><a href="#">{{ __('Privacy Policy') }}</a></li>
                             </ul>
                         </div>
                     </div><!-- END COL -->
