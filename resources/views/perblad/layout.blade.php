@@ -42,7 +42,6 @@
     <link rel="stylesheet" href="{{ asset('webfront/css/animate.css') }}">
     <!-- Style CSS -->
     <link rel="stylesheet" href="{{ asset('webfront/css/style.css') }}">
-    <link rel="icon" type="image/svg+xml" href="assets/images/brand/logo.svg">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -190,7 +189,7 @@
                     <!-- 1. الشعار (اللوجو) -->
                     <div class="col-xl-2 col-lg-2 col-6">
                         <div class="site-logo">
-                            <a href="index.html">
+                            <a href="{{ url('/') }}">
                                 <img src="{{ asset('webfront/images/brand/logo.svg') }}" alt="COOLFIX logo">
                             </a>
                         </div>

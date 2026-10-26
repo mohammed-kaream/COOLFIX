@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +7,62 @@
     <link rel="stylesheet" href="{{ asset('deslogin/css/auth-pro.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="icon" href="{{ asset('deslogin/image/favicon.png') }}">
-    <title>Sign In - COOLFIX</title>
-
+<title>{{ __('Sign In') }} - COOLFIX</title>
     <style>
+.form-panel { padding-top: 70px; }
+.auth-tools {
+    position: fixed;
+    top: 14px;
+    z-index: 9999;
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 40px;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 20px rgba(1, 62, 55, .2);
+    white-space: nowrap;
+    transform: none;
+}
+
+/* إنجليزي: أقصى اليمين فوق */
+html[dir="ltr"] .auth-tools { right: 16px; left: auto; }
+
+/* عربي: أقصى اليسار فوق */
+html[dir="rtl"] .auth-tools { left: 16px; right: auto; }
+.theme-toggle-switch{
+    width: 52px; height: 28px; border-radius: 999px; border: 0; cursor: pointer;
+    background: #013e37; display: flex; align-items: center; padding: 0 3px;
+}
+.theme-toggle-knob{
+    width: 22px; height: 22px; border-radius: 50%; background: #FEC961;
+    display: flex; align-items: center; justify-content: center; font-size: 12px;
+    transition: transform .3s;
+}
+body.dark-mode .theme-toggle-knob{ transform: translateX(24px); }
+.auth-lang{
+    padding: 5px 16px; border-radius: 20px; border: 1px solid #E2E8F0;
+    background: #fff; color: #1A444E; font-weight: 600; font-size: 13px;
+    text-decoration: none; white-space: nowrap;
+}
+.auth-lang:hover{ background: #013e37; color: #fff; }
+
+/* الدارك مود لصفحة الدخول */
+body.dark-mode{ background: #050b0a; }
+body.dark-mode .auth-tools{ background: rgba(10,23,22,.9); box-shadow: 0 0 20px rgba(45,255,196,.25); }
+body.dark-mode .theme-toggle-switch{ background: #0b2420; box-shadow: 0 0 12px rgba(45,255,196,.5); }
+body.dark-mode .theme-toggle-knob{ background: #ffd166; }
+body.dark-mode .auth-lang{ background: transparent; color: #2dffc4; border-color: rgba(45,255,196,.5); }
+body.dark-mode .form-panel, body.dark-mode .hheroo{ background: #0a1716 !important; }
+body.dark-mode .hheroo h2, body.dark-mode .hheroo label{ color: #2dffc4 !important; }
+body.dark-mode .hheroo p, body.dark-mode .hheroo .divider{ color: #a6cbc3 !important; }
+body.dark-mode .hheroo input[type="text"],
+body.dark-mode .hheroo input[type="password"]{
+    background: #0a1715 !important; color: #eafffa !important;
+    border: 1px solid rgba(45,255,196,.3) !important;
+}
         .laravel-error-message {
             color: #ef4444;
             font-size: 0.85rem;
@@ -27,6 +79,7 @@
             font-size: 0.9rem;
             text-align: center;
         }
+
     </style>
 </head>
 <!-- START ULTRA PREMIUM TOAST FOR LOGIN PAGE -->
@@ -52,6 +105,104 @@
 
 <!-- 🎨 كود الحركات التفاعلية والـ Keyframes العبقرية لإشعار الـ Login بقوة الـ !important -->
 <style>
+    /* ===== موبايل وتابلت ===== */
+@media (max-width: 900px) {
+    html, body { min-height: 100%; }
+
+    .container {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 100vh;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    /* اللوحة العلوية: اللوجو + الرسمة بالنص، بحجم صغير */
+    .brand-panel {
+        width: 100% !important;
+        padding: 22px 20px 70px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 12px;
+    }
+    .brand-logo,
+    .brand-illustration {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    .brand-logo img { height: 34px !important; width: auto !important; }
+    .brand-illustration img { max-width: 150px !important; width: 55% !important; height: auto !important; }
+
+    /* النص التسويقي مخفي على الجوال */
+    .brand-copy { display: none !important; }
+
+    /* اللوجو المكرر داخل الفورم */
+    .hheroo > img.img { display: none !important; }
+
+    /* الكرت الأبيض يطلع فوق اللوحة الخضراء */
+    .form-panel {
+        width: 100% !important;
+        padding: 0 16px 28px !important;
+        margin-top: -50px !important;
+        position: relative;
+        z-index: 2;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    .hheroo {
+        width: 100% !important;
+        max-width: 460px !important;
+        margin: 0 auto !important;
+        padding: 26px 20px !important;
+        background: #fff;
+        border-radius: 26px;
+        box-shadow: 0 18px 40px rgba(1, 62, 55, .18);
+    }
+    .login { text-align: center !important; margin-bottom: 14px; }
+    .sin { font-size: 1.5rem !important; }
+    .papr { font-size: .9rem !important; }
+
+    .lab-inp input, .input-email, .input-password {
+        width: 100% !important;
+        height: 50px !important;
+        font-size: 16px !important; /* يمنع زوم الآيفون */
+    }
+    .btn { width: 100% !important; height: 50px !important; border-radius: 14px !important; }
+
+    /* زرّين فيسبوك وجوجل جنب بعض بنفس العرض */
+    .link {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10px !important;
+        width: 100% !important;
+    }
+    .link a {
+        flex: 1 1 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        height: 46px !important;
+        padding: 0 8px !important;
+        font-size: .9rem !important;
+        border-radius: 12px !important;
+    }
+    .link a img { width: 20px !important; height: 20px !important; }
+}
+
+@media (max-width: 400px) {
+    .brand-illustration img { max-width: 120px !important; }
+    .hheroo { padding: 22px 16px !important; }
+    .link a span { font-size: .82rem !important; }
+}
 /* تدرج التوهج النيوني الأحمر على الحواف الجانبية */
 .cyber-toast-wrapper::before {
     content: ''; position: absolute; top: 0; right: 0; width: 6px; height: 100%;
@@ -145,18 +296,27 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- END ULTRA PREMIUM TOAST FOR LOGIN PAGE -->
 
 <body>
+    <div class="auth-tools">
+        <button type="button" class="theme-toggle-switch" id="authTheme" aria-label="Toggle dark mode">
+            <span class="theme-toggle-knob" id="authKnob">☀️</span>
+        </button>
+        <a class="auth-lang" href="{{ route('lang.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
+            {{ app()->getLocale() === 'ar' ? 'English' : 'العربية' }}
+        </a>
+    </div>
+
     <div class="container swap-enter">
 
         <div class="brand-panel">
             <div class="brand-logo"><img src="{{ asset('deslogin/image/image_4c8a122c.png') }}" alt="COOLFIX"></div>
             <div class="brand-illustration"><img src="{{ asset('deslogin/image/auth-illustration.svg') }}" alt="COOLFIX refrigeration illustration"></div>
             <div class="brand-copy">
-                <h1>Manage every repair job from one account.</h1>
-                <p>Manage your COOLFIX orders and repairs in one place.</p>
+                <h1>{{ __('Manage every repair job from one account.') }}</h1>
+                <p>{{ __('Manage your COOLFIX orders and repairs in one place.') }}</p>
                 <div class="brand-trust">
-                    <span><i class="fa-solid fa-shield-halved"></i> Certified Technicians</span>
-                    <span><i class="fa-solid fa-bolt"></i> Same-Day Response</span>
-                    <span><i class="fa-solid fa-check-circle"></i> Genuine Parts Only</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> {{ __('Certified Technicians') }}</span>
+                    <span><i class="fa-solid fa-bolt"></i> {{ __('Same-Day Response') }}</span>
+                    <span><i class="fa-solid fa-check-circle"></i> {{ __('Genuine Parts Only') }}</span>
                 </div>
             </div>
         </div>
@@ -166,71 +326,61 @@ document.addEventListener("DOMContentLoaded", function() {
                 <img class="img w-40" src="{{ asset('deslogin/image/image_4c8a122c.png') }}" alt="">
 
                 <div class="login">
-                    <h2 class="sin">Welcome back</h2>
-                    <p class="papr">Enter your email or phone and password to sign in</p>
+                    <h2 class="sin">{{ __('Welcome back') }}</h2>
+                    <p class="papr">{{ __('Enter your email or phone and password to sign in') }}</p>
                 </div>
 
                 <div class="form">
-                    <!-- تفاصيل الـ Session المرجعة من النظام لحالة الحساب -->
                     @if (session('status'))
-                        <div class="session-success-status">
-                            {{ session('status') }}
-                        </div>
+                        <div class="session-success-status">{{ session('status') }}</div>
                     @endif
 
-                    <!-- ربط الفورم بمسار تسجيل الدخول المعتمد ونوع POST -->
                     <form class="f" method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="lab-inp">
-                            <label for="email">Email</label>
-                            <!-- حقل الإيميل مع حفظ الإدخال المكتوب سابقاً تلقائياً في حال الخطأ -->
-                            <input class="input-email" type="text" name="email" id="email" placeholder="Enter email" value="{{ old('email') }}" required autofocus autocomplete="username">
+                            <label for="email">{{ __('Email') }}</label>
+                            <input class="input-email" type="text" name="email" id="email"
+                                placeholder="{{ __('Enter email') }}" value="{{ old('email') }}" required autofocus
+                                autocomplete="username">
 
-                            <!-- إظهار رسائل خطأ التحقق من الإيميل -->
                             @error('email')
                                 <span class="laravel-error-message"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>
                             @enderror
 
                             <div class="forget">
-                                <label for="password">Password</label>
+                                <label for="password">{{ __('Password') }}</label>
                                 @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}" class="swap-nav">Forgot Password?</a>
+                                    <a href="{{ route('password.request') }}" class="swap-nav">{{ __('Forgot Password?') }}</a>
                                 @endif
                             </div>
 
                             <div class="field-relative">
-                                <!-- حقل كلمة المرور مع الربط البرمجي بالنظام -->
-                                <input class="input-password" type="password" name="password" id="password" placeholder="Enter password" required autocomplete="current-password">
-                                <div class="icon-eye-slash">
-                                    <i class="fa-solid fa-eye-slash"></i>
-                                </div>
-                                <div class="icon-eye-open">
-                                    <i class="fa-solid fa-eye"></i>
-                                </div>
+                                <input class="input-password" type="password" name="password" id="password"
+                                    placeholder="{{ __('Enter password') }}" required autocomplete="current-password">
+                                <div class="icon-eye-slash"><i class="fa-solid fa-eye-slash"></i></div>
+                                <div class="icon-eye-open"><i class="fa-solid fa-eye"></i></div>
                             </div>
 
-                            <!-- إظهار رسائل خطأ التحقق من كلمة المرور -->
                             @error('password')
                                 <span class="laravel-error-message"><i class="fa-solid fa-circle-exclamation"></i> {{ $message }}</span>
                             @enderror
 
-                            <!-- تفعيل صندوق "تذكر كلمة المرور" لربطه بالجلسة -->
                             <div class="checkboox">
                                 <input id="remember_me" type="checkbox" name="remember">
-                                <label for="remember_me">Remember password</label>
+                                <label for="remember_me">{{ __('Remember password') }}</label>
                             </div>
                         </div>
 
                         <div class="btn-cr">
-                            <button type="submit" class="btn">Sign In</button>
+                            <button type="submit" class="btn">{{ __('Sign In') }}</button>
                             <div class="account">
-                                <p>Don't have an account?</p>
-                                <a href="{{ route('register') }}">Create Account</a>
+                                <p>{{ __("Don't have an account?") }}</p>
+                                <a href="{{ route('register') }}">{{ __('Create Account') }}</a>
                             </div>
                         </div>
 
-                        <div class="divider">or continue with</div>
+                        <div class="divider">{{ __('or continue with') }}</div>
                         <div class="link">
                             <a class="face" href="">
                                 <img src="{{ asset('deslogin/image/Group 3455.png') }}" alt="">
@@ -241,15 +391,31 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <span>Google</span>
                             </a>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
 
     </div>
+
     <script src="{{ asset('deslogin/js/script.js') }}"></script>
     <script src="{{ asset('deslogin/js/panel-swap.js') }}"></script>
+    <script>
+        (function() {
+            var knob = document.getElementById('authKnob');
+            function apply(t) {
+                var d = t === 'dark';
+                document.body.classList.toggle('dark-mode', d);
+                knob.textContent = d ? '🌙' : '☀️';
+                try { localStorage.setItem('coolfix_theme', t); } catch (e) {}
+            }
+            var saved = 'light';
+            try { saved = localStorage.getItem('coolfix_theme') || 'light'; } catch (e) {}
+            apply(saved);
+            document.getElementById('authTheme').addEventListener('click', function() {
+                apply(document.body.classList.contains('dark-mode') ? 'light' : 'dark');
+            });
+        })();
+    </script>
 </body>
-
 </html>
