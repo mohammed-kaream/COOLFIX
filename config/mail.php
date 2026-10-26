@@ -36,7 +36,6 @@ return [
     */
 
     'mailers' => [
-
         'smtp' => [
             'transport' => 'smtp',
             'scheme' => env('MAIL_SCHEME'),
@@ -99,6 +98,12 @@ return [
             ],
             'retry_after' => 60,
         ],
+        
+        'brevo' => [
+            'transport' => 'brevo',
+            'key' => env('MAIL_URL'),
+        ],
+
 
     ],
 
