@@ -49,7 +49,7 @@
             <div class="row">
 
                 @foreach ($homeCounters as $counter)
-                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4 home-stagger-item">
                         <!-- جعلنا لون خلفية المربع ديناميكي يقرأ من الـ DB ليعيد ألوان صورتك الأصلية الزاهية -->
                         <div class="single-counter"
                             style="background-color: {{ $counter->bg_color }}; border-radius: 8px; padding: 30px 20px;">
@@ -127,8 +127,7 @@
                 <h1>{{ __('Refrigeration you can rely on.') }}</h1>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s"
-                    data-wow-offset="0">
+                <div class="col-lg-3 col-sm-6 col-xs-12 home-stagger-item">
                     <div class="single_tp">
                         <h3>{{ __('Same-Day Service') }}</h3>
                         <i class="fa-solid fa-truck-fast"></i>
@@ -141,8 +140,7 @@
                         </a>
                     </div>
                 </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s"
-                    data-wow-offset="0">
+                <div class="col-lg-3 col-sm-6 col-xs-12 home-stagger-item">
                     <div class="single_tp st_one">
                         <h3>{{ __('Certified Technicians') }}</h3>
                         <i class="fa-solid fa-user-gear"></i>
@@ -155,8 +153,7 @@
                         </a>
                     </div>
                 </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s"
-                    data-wow-offset="0">
+                <div class="col-lg-3 col-sm-6 col-xs-12 home-stagger-item">
                     <div class="single_tp st_two">
                         <h3>{{ __('Genuine Spare Parts') }}</h3>
                         <i class="fa-solid fa-gears"></i>
@@ -169,8 +166,7 @@
                         </a>
                     </div>
                 </div><!-- END COL -->
-                <div class="col-lg-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s"
-                    data-wow-offset="0">
+                <div class="col-lg-3 col-sm-6 col-xs-12 home-stagger-item">
                     <div class="single_tp st_three">
                         <h3>{{ __('Upfront Pricing') }}</h3>
                         <i class="fa-solid fa-tag"></i>
@@ -197,7 +193,7 @@
             </div>
             <div class="row">
                 @foreach ($homeServices as $card)
-                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4 home-stagger-item">
                         <!-- جعلنا لون الخلفية ديناميكي يتغير حسب اللون المخزن في قاعدة البيانات لكل كرت -->
                         <div class="single_tca" style="background-color: {{ $card->bg_color }};">
 

@@ -18,7 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // يمنع حلقة التحويل بين guest و admin
         $middleware->redirectUsersTo('/index');
 
+        // SetLocale أولاً (قبل أي شيء يعتمد على اللغة)، ثم حارس الحظر
         $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
             \App\Http\Middleware\CheckIfBlocked::class,
         ]);
 
@@ -26,18 +28,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'is.adult' => \App\Http\Middleware\CheckAge::class,
             'admin'    => CheckAdmin::class,
         ]);
-
-        // 🎯 1. حقن وتعميم حارس الحظر تلقائياً على كافة روابط الويب الحية لطرده فوراً 👇🚀
-        $middleware->web(append: [
-            \App\Http\Middleware\CheckIfBlocked::class,
-        ]);
-
-        // 2. الـ alias القديمة تبعتك (الأعمار والأدمن) كما هي بدون أي نقصان
-        $middleware->alias([
-            'is.adult' => \App\Http\Middleware\CheckAge::class,
-            'admin'    => CheckAdmin::class,
-        ]);
-        $middleware->web(append: [\App\Http\Middleware\SetLocale::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

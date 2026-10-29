@@ -4,8 +4,8 @@
 @verbatim
     <style>
         /* =====================================================================
-                   COOLFIX – Contact page (all styles scoped under .cfx)
-                   ===================================================================== */
+                               COOLFIX – Contact page (all styles scoped under .cfx)
+                               ===================================================================== */
         .cfx {
             --g900: #012722;
             --g800: #013E37;
@@ -180,7 +180,7 @@
 
         .cfx-ico svg {
             width: 28px;
-            height: 28px;
+            height: 59px;
             stroke: currentColor;
             fill: none;
             stroke-width: 1.8;
@@ -896,22 +896,28 @@
         </div>
 
         {{-- Quick contact cards --}}
-        <div class="cfx-cards">
-            <a class="cfx-card cfx-reveal" href="tel:+970598924040">
-                <span class="cfx-ico"><svg viewBox="0 0 24 24">
+        <div class="cfx-cards home-stagger-item">
+            <a class="cfx-card cfx-reveal" href="tel:+970598924040"
+                style="direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }};">
+                <span class="cfx-ico">
+                    <svg viewBox="0 0 24 24">
                         <path
                             d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />
-                    </svg></span>
+                    </svg>
+                </span>
                 <span>
                     <span class="cfx-card-label">{{ __('Call / WhatsApp') }}</span>
-                    <span class="cfx-card-value">059 892 4040</span>
+                    <!-- إضافة وسم bdo لمنع المتصفح من قلب ترتيب الأرقام في الاتجاهين -->
+                    <span class="cfx-card-value"><bdo dir="ltr">059 892 4040</bdo></span>
                 </span>
             </a>
             <a class="cfx-card cfx-reveal" href="mailto:mohammedkareem@gmail.com">
-                <span class="cfx-ico"><svg viewBox="0 0 24 24">
+                <span class="cfx-ico">
+                    <svg viewBox="0 0 24 24">
                         <rect x="2" y="4" width="20" height="16" rx="3" />
                         <path d="m2 7 10 6 10-6" />
-                    </svg></span>
+                    </svg>
+                </span>
                 <span>
                     <span class="cfx-card-label">{{ __('Send Email') }}</span>
                     <span class="cfx-card-value">mohammedkareem@gmail.com</span>
@@ -919,10 +925,12 @@
             </a>
             <a class="cfx-card cfx-reveal" target="_blank" rel="noopener"
                 href="https://www.google.com/maps/search/?api=1&query=Omar+Al-Mukhtar+St+Gaza">
-                <span class="cfx-ico"><svg viewBox="0 0 24 24">
+                <span class="cfx-ico">
+                    <svg viewBox="0 0 24 24">
                         <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z" />
                         <circle cx="12" cy="10" r="3" />
-                    </svg></span>
+                    </svg>
+                </span>
                 <span>
                     <span class="cfx-card-label">{{ __('Our Workshop') }}</span>
                     <span class="cfx-card-value">{{ __('End of Omar Al-Mukhtar St., Gaza') }}</span>
@@ -934,7 +942,7 @@
         <div class="cfx-main">
 
             {{-- FORM --}}
-            <div class="cfx-form-card cfx-reveal">
+            <div class="cfx-form-card cfx-reveal home-stagger-item">
                 <h3 class="cfx-form-title">{{ __('Request a repair') }}</h3>
                 <p class="cfx-form-sub">
                     {{ __('Fill in the details below, the more we know about the problem, the faster we can help.') }}
@@ -968,7 +976,7 @@
                         <x-input type="tel" name="phone" :placeholder="__('WhatsApp / Phone Number')" />
                         <x-input type="text" name="brand" :placeholder="__('Fridge Brand (e.g., LG, Samsung)')" />
                         <x-input type="text" name="area" :placeholder="__('Area / Neighborhood in Gaza')" />
-                        <x-textarea name="textarea" :placeholder="__(
+                        <x-textarea name="describe" :placeholder="__(
                             'Describe the problem (noise, leaking, not cooling, etc.) and your address in Gaza',
                         )" />
                         <div class="col-md-12">
@@ -994,7 +1002,7 @@
             {{-- SIDE --}}
             <aside class="cfx-side">
 
-                <div class="cfx-info cfx-reveal">
+                <div class="cfx-info cfx-reveal home-stagger-item">
                     <span class="cfx-status" id="cfxStatus"><span class="cfx-dot"></span><span
                             id="cfxStatusText">Checking availability…</span></span>
                     <h3 class="cfx-info-title">{{ __('Working hours') }}</h3>
@@ -1021,7 +1029,7 @@
                     </div>
                 </div>
 
-                <div class="cfx-steps cfx-reveal">
+                <div class="cfx-steps cfx-reveal home-stagger-item">
                     <h4 class="cfx-steps-title">{{ __('How it works') }}</h4>
                     <div class="cfx-step">
                         <span class="cfx-num">1</span>
@@ -1053,7 +1061,7 @@
     </div>
 
     {{-- CTA banner --}}
-    <div class="cfx-cta">
+    <div class="cfx-cta home-stagger-item">
         <div class="cfx-wrap">
             <div class="cfx-cta-inner">
                 <div>

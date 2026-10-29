@@ -70,9 +70,9 @@
 
                 @foreach ($homeFeatures as $index => $feature)
                     <!-- جعلنا الـ delay ديناميكي يزيد تلقائياً مع كل كرت بناءً على الترتيب ليبقى الـ WOW مؤثر وجذاب -->
-                    <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="1s"
+                    <div class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp " data-wow-duration="1s"
                         data-wow-delay="0.{{ $index + 1 }}s" data-wow-offset="0">
-                        <div class="single_feature_one">
+                        <div class="single_feature_one home-stagger-item">
                             <div class="sf_top">
                                 <!-- الأيقونة الديناميكية -->
                                 <i class="fa-solid {{ $feature->icon }}"></i>
@@ -100,7 +100,7 @@
             <div class="row">
 
                 @foreach ($homeCounters as $counter)
-                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4 home-stagger-item">
                         <!-- استخدام نفس الألوان الزاهية الأصلية وقيم التنسيق المتجاوبة ديناميكياً -->
                         <div class="single-counter"
                             style="background-color: {{ $counter->bg_color }}; border-radius: 8px; padding: 30px 20px;">
@@ -127,7 +127,7 @@
     <!-- START TEAM (owner/technician) -->
 <!-- START TEAM SECTION -->
 <!-- START TEAM SECTION -->
-<section class="team_member section-padding" style="position: relative !important; display: block !important; padding: 80px 0 !important; background: #fff !important; overflow: visible !important;">
+<section class="team_member section-padding" style="position: relative !important; display: block !important; padding: 80px 0 !important; overflow: visible !important;">
     <div class="container">
         <div class="section-title text-center" style="margin-bottom: 50px !important;">
             <h4>{{ __("Meet The Technician") }}</h4>
@@ -140,9 +140,9 @@
                 <div id="team-slider" class="owl-carousel owl-theme" style="display: block !important; overflow: visible !important;">
 
                     @foreach ($aboutTeams as $member)
-                        <div class="item" style="overflow: visible !important; height: auto !important;">
+                        <div class="item home-stagger-item" style="overflow: visible !important; height: auto !important; ">
                             <!-- الكرت الطويل الفخم الممدد لـ 600px ليعطي راحة للعين -->
-                            <div class="our-team" style="margin: 20px 7px !important; background: #fff !important; box-shadow: 0 8px 25px rgba(0,0,0,0.06) !important; border-radius: 12px !important; padding-bottom: 40px !important; height: auto !important; min-height: 600px !important; display: block !important; overflow: visible !important; border: 1px solid #f3f4f6 !important;">
+                            <div class="our-team" style="margin: 20px 7px !important;  box-shadow: 0 8px 25px rgba(0,0,0,0.06) !important; border-radius: 12px !important; padding-bottom: 40px !important; height: auto !important; min-height: 600px !important; display: block !important; overflow: visible !important; border: 1px solid #f3f4f6 !important;">
 
                                 <!-- ارتفاع الصورة الأقصى ممدد لـ 420px لتظهر صور الفنيين ضخمة وفخمة -->
                                 <div class="team_img" style="position: relative !important; overflow: hidden !important; height: auto !important; max-height: 520px !important; border-top-left-radius: 12px; border-top-right-radius: 12px;">
@@ -168,7 +168,7 @@
 
                                 <div class="team-content text-center" style="padding-top: 25px !important; display: block !important; height: auto !important;">
                                     <!-- 🛠️ التعديل الحاسم: ضفنا margin-bottom و padding-bottom لإبعاد الاسم عن خط الزينة والنقطة الخضراء تماماً كما طلبت 👇 -->
-                                    <h3 class="title" style="font-size: 1.25rem !important; font-weight:700 !important; color:#232b38 !important; margin-bottom: 15px !important; padding-bottom: 8px !important; display: block !important;">{{ $member->name }}</h3>
+                                    <h3 class="title" style="font-size: 1.25rem !important; font-weight:700 !important;  margin-bottom: 15px !important; padding-bottom: 8px !important; display: block !important;">{{ $member->name }}</h3>
 
                                     <!-- المسمى الوظيفي الأخضر الموحد -->
                                     <span class="post" style="color: #15803d !important; font-size: 0.92rem !important; display:block !important; margin-bottom: 18px !important; font-weight: 600 !important; text-transform: uppercase;">{{ $member->role }}</span>

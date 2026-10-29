@@ -66,6 +66,30 @@
 </head>
 
 <body>
+    <!-- شاشة ثلاجة كول فيكس السريعة والخارقة -->
+<div id="fridge-loader" class="fridge-overlay">
+    <div class="fridge-container">
+        <!-- الباب الأيسر للثلاجة -->
+        <div class="fridge-door door-left">
+            <div class="fridge-handle handle-left"></div>
+        </div>
+        <!-- الباب الأيمن للثلاجة -->
+        <div class="fridge-door door-right">
+            <div class="fridge-handle handle-right"></div>
+        </div>
+        <!-- محتويات الثلاجة الداخلية (الاسم والتحميل) -->
+        <div class="fridge-interior">
+            <div class="fridge-light"></div>
+            <div class="fridge-logo">
+                <span class="cool-text">COOLFIX</span>
+                <div class="loading-dots">
+                    <span>l</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- يمنع وميض الوضع الفاتح قبل تحميل الصفحة إذا كان الوضع الليلي محفوظاً -->
     <script>
         try {
@@ -126,9 +150,9 @@
     </header>
 
     <!-- START PRELOADER -->
-    <div class="preloaders">
+    {{-- <div class="preloaders">
         <span class="loader" data-text="{{ __('Loading data...') }}">{{ __('Loading data...') }}</span>
-    </div>
+    </div> --}}
     <!-- END PRELOADER -->
 
     <!-- START TOP HEADER CLASS -->
@@ -263,6 +287,26 @@
 
 
         <style>
+            .home-stagger-item {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 350ms ease, transform 350ms ease;
+                transition-delay: var(--stagger-delay, 0ms);
+            }
+
+            .home-stagger-item.is-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .home-stagger-item {
+                    opacity: 1;
+                    transform: none;
+                    transition: none;
+                }
+            }
+
             #navigation.is-stuck {
                 position: fixed;
                 top: 0;
@@ -1359,14 +1403,346 @@
             body.dark-mode div:has(> .container #team-slider) {
                 background-color: #060e0d !important;
             }
-        </style>
+
+            /* ===== كروت الآراء: دارك نيون ===== */
+            body.dark-mode .testi_home_area {
+                background: #060e0d !important;
+            }
+
+            body.dark-mode .testimonial {
+                background: linear-gradient(160deg, #0b1f1c, #07110f) !important;
+                border: 1px solid rgba(45, 255, 196, .35) !important;
+                box-shadow: 0 0 0 1px rgba(45, 255, 196, .06), 0 0 28px rgba(45, 255, 196, .14) !important;
+                transition: box-shadow .3s, transform .3s;
+            }
+
+            body.dark-mode .testimonial:hover {
+                box-shadow: 0 0 36px rgba(45, 255, 196, .35) !important;
+                transform: translateY(-4px);
+            }
+
+            /* الاسم: كان نيون على نيون فاختفى */
+            body.dark-mode .testi_pic_title h4,
+            body.dark-mode .testimonial_content h3 {
+                color: #2dffcf !important;
+                background: transparent !important;
+                text-shadow: 0 0 10px rgba(45, 255, 196, .5) !important;
+            }
+
+            body.dark-mode .testi_pic_title small {
+                color: #8fc9bd !important;
+            }
+
+            /* النص: كان رمادي باهت */
+            body.dark-mode .testimonial p {
+                color: #d6f6ee !important;
+                text-shadow: none !important;
+            }
+
+            /* الصورة بإطار مضيء */
+            body.dark-mode .testi_pic_title .pic img {
+                border: 2px solid #2dffcf;
+                box-shadow: 0 0 14px rgba(45, 255, 196, .6);
+            }
+
+            /* النجوم ذهبية متوهجة */
+            body.dark-mode .testimonial i {
+                color: #ffd166 !important;
+                text-shadow: 0 0 8px rgba(255, 209, 102, .7) !important;
+            }
+
+            /* نقاط الكاروسيل */
+            body.dark-mode .owl-theme .owl-controls .owl-page span,
+            body.dark-mode .owl-theme .owl-dots .owl-dot span {
+                background: rgba(45, 255, 196, .35) !important;
+            }
+
+            body.dark-mode .owl-theme .owl-controls .owl-page.active span,
+            body.dark-mode .owl-theme .owl-dots .owl-dot.active span {
+                background: #2dffcf !important;
+                box-shadow: 0 0 10px #2dffcf;
+            }
+
+            /* ===== قسم الفريق: دارك نيون ===== */
+            body.dark-mode section:has(#team-slider),
+            body.dark-mode div:has(> .container #team-slider),
+            body.dark-mode .team_member,
+            body.dark-mode .team_page {
+                background: #060e0d !important;
+            }
+
+            /* شيل الصندوق الأسود الزايد حول الكاروسيل */
+            body.dark-mode #team-slider,
+            body.dark-mode #team-slider .owl-wrapper-outer,
+            body.dark-mode #team-slider .owl-stage-outer {
+                background: transparent !important;
+            }
+
+            /* الكرت */
+            body.dark-mode .our-team {
+                background: #0a1716 !important;
+                border: 1px solid rgba(45, 255, 196, .35) !important;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 0 24px rgba(45, 255, 196, .12) !important;
+                transition: box-shadow .3s, transform .3s;
+            }
+
+            body.dark-mode .our-team:hover {
+                box-shadow: 0 0 34px rgba(45, 255, 196, .35) !important;
+                transform: translateY(-4px);
+            }
+
+            body.dark-mode .our-team .team-content {
+                background: linear-gradient(180deg, #0a1716, #07110f) !important;
+            }
+
+            /* الاسم والمسمى */
+            body.dark-mode .our-team .title {
+                color: #2dffcf !important;
+                text-shadow: 0 0 10px rgba(45, 255, 196, .5) !important;
+            }
+
+            body.dark-mode .our-team .title:before,
+            body.dark-mode .our-team .title:after {
+                background: #2dffcf !important;
+            }
+
+            body.dark-mode .our-team .post {
+                color: #ffd166 !important;
+                text-shadow: none !important;
+            }
+
+            body.dark-mode .our-team .post:before {
+                background: #2dffcf !important;
+            }
+
+            /* صف الخبرة (سنوات / عدد الإصلاحات) */
+            body.dark-mode .sth_det2,
+            body.dark-mode .sth_det2 span,
+            body.dark-mode .sth_det2 u {
+                color: #c9fff1 !important;
+                background: transparent !important;
+                border-color: rgba(45, 255, 196, .2) !important;
+            }
+
+            body.dark-mode .sth_det2 i {
+                color: #2dffcf !important;
+            }
+
+            /* أزرار الاتصال/واتساب على الصورة */
+            body.dark-mode .our-team .social li a {
+                background: #0b2420 !important;
+                color: #2dffcf !important;
+                box-shadow: 0 0 12px rgba(45, 255, 196, .5) !important;
+            }
+
+            /* نقاط الكاروسيل */
+            body.dark-mode #team-slider .owl-dot span,
+            body.dark-mode #team-slider .owl-controls .owl-page span {
+                background: rgba(45, 255, 196, .3) !important;
+            }
+
+            body.dark-mode #team-slider .owl-dot.active span,
+            body.dark-mode #team-slider .owl-controls .owl-page.active span {
+                background: #2dffcf !important;
+                box-shadow: 0 0 10px #2dffcf;
+            }
+
+            body.dark-mode .section-title h1,
+            body.dark-mode .section-title h4 {
+                color: #2dffcf !important;
+                background: transparent !important;
+            }
+            body.dark-mode .section-title h1,
+body.dark-mode .section-title h4 { color: #2dffcf !important; background: transparent !important; }
+       /* تحويل خلفية الصفحة كاملة والمساحات الفارغة في الأسفل إلى الأسود */
+html,
+body.dark-mode {
+    background-color: #0b111e !important;
+    background: #0b111e !important;
+}
+
+/* تأمين القسم السفلي (فوتر أو أي قسم يليه) ليصبح داكناً أيضاً */
+body.dark-mode footer,
+body.dark-mode .footer {
+    background-color: #0b111e !important;
+}
+/* فرض الخلفية السوداء على أي شاشة تحميل متبقية في الدارك مود */
+body.dark-mode div[class*="load"],
+body.dark-mode div[id*="load"],
+body.dark-mode .loading,
+body.dark-mode #loading {
+    background-color: #0b111e !important;
+    background: #0b111e !important;
+}
+
+/* تلوين نص "Loading data..." ليصبح مضيئاً بالفسفوري أو الأبيض بدلاً من اللون الغامق */
+body.dark-mode div[class*="load"] h1,
+body.dark-mode div[class*="load"] h2,
+body.dark-mode div[class*="load"] h3,
+body.dark-mode div[class*="load"] p,
+body.dark-mode div[class*="load"] span,
+body.dark-mode .loading {
+    color: #2dffcf !important; /* نفس لون اسم الفني الفسفوري المريح */
+}
+/* الشاشة الخلفية الكاملة */
+.fridge-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0b111e;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    perspective: 1200px; /* تفعيل البعد الثالث 3D لفتح الباب */
+    transition: opacity 0.4s ease 0.6s, visibility 0s ease 1.0s;
+}
+
+/* حاوية الثلاجة الميكانيكية */
+.fridge-container {
+    position: relative;
+    width: 320px;
+    height: 480px;
+    background: #111827;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    border: 3px solid #1f2937;
+    display: flex;
+}
+
+/* أبواب الثلاجة يسار ويمين */
+.fridge-door {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    border: 1px solid #374151;
+    z-index: 2;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.door-left {
+    left: 0;
+    border-radius: 16px 0 0 16px;
+    transform-origin: left center;
+}
+
+.door-right {
+    right: 0;
+    border-radius: 0 16px 16px 0;
+    transform-origin: right center;
+}
+
+/* مقابض الأبواب الفسفورية المضيئة */
+.fridge-handle {
+    position: absolute;
+    top: 40%;
+    width: 12px;
+    height: 90px;
+    background: linear-gradient(90deg, #2dffcf, #00cc99);
+    box-shadow: 0 0 15px rgba(45, 255, 196, 0.6);
+    border-radius: 6px;
+}
+
+.handle-left { right: 8px; }
+.handle-right { left: 8px; }
+
+/* قلب الثلاجة من الداخل والوهج الضوئي */
+.fridge-interior {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    background: #0f172a;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* تأثير التوهج الفسفوري العجيب داخل الثلاجة عند الفتح */
+.fridge-light {
+    position: absolute;
+    width: 130%;
+    height: 130%;
+    background: radial-gradient(circle, rgba(45, 255, 196, 0.2) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+}
+
+.fridge-logo {
+    text-align: center;
+    z-index: 3;
+}
+
+/* كلمة COOLFIX الضخمة المضيئة */
+.cool-text {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #2dffcf;
+    text-shadow: 0 0 25px rgba(45, 255, 196, 0.9);
+    letter-spacing: 4px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* تأثير حركة أنيميشن الحروف لكلمة loading... */
+.loading-dots {
+    display: flex;
+    justify-content: center;
+}
+
+.loading-dots span {
+    font-size: 1.1rem;
+    color: #9ca3af;
+    font-weight: 500;
+    letter-spacing: 2px;
+    animation: waveText 1.2s infinite ease-in-out;
+}
+
+/* توزيع التوقيت لعمل تأثير الموجة الحركية الجذابة للكلمة */
+.loading-dots span:nth-child(1) { animation-delay: 0.1s; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.3s; }
+.loading-dots span:nth-child(4) { animation-delay: 0.4s; }
+.loading-dots span:nth-child(5) { animation-delay: 0.5s; }
+.loading-dots span:nth-child(6) { animation-delay: 0.6s; }
+.loading-dots span:nth-child(7) { animation-delay: 0.7s; }
+.loading-dots span:nth-child(8) { animation-delay: 0.8s; }
+.loading-dots span:nth-child(9) { animation-delay: 0.9s; }
+.loading-dots span:nth-child(10) { animation-delay: 1.0s; }
+
+@keyframes waveText {
+    0%, 100% { transform: translateY(0); color: #9ca3af; }
+    50% { transform: translateY(-6px); color: #2dffcf; text-shadow: 0 0 8px rgba(45, 255, 196, 0.5); }
+}
+
+/* كلاسات التفعيل البرمجي لحركة الـ 3D والإخفاء السريع */
+.fridge-overlay.loaded .door-left { transform: rotateY(-135deg); }
+.fridge-overlay.loaded .door-right { transform: rotateY(135deg); }
+.fridge-overlay.loaded .fridge-light { opacity: 1; }
+.fridge-overlay.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+       </style>
 
         @yield('content')
         <!-- START FOOTER -->
         <div class="footer section-padding">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="col-lg-3 col-sm-6 col-xs-12 home-stagger-item">
                         <div class="single_footer">
                             <a href="index.html"><img src="{{ asset('webfront/images/brand/logo.svg') }}"
                                     alt="COOLFIX"></a>
@@ -1393,7 +1769,7 @@
                             </ul>
                         </div>
                     </div><!--- END COL -->
-                    <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <div class="col-lg-2 col-sm-6 col-xs-12 home-stagger-item">
                         <div class="single_footer">
                             <h4>{{ __('Services') }}</h4>
                             <ul>
@@ -1406,7 +1782,7 @@
                             </ul>
                         </div>
                     </div><!--- END COL -->
-                    <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <div class="col-lg-2 col-sm-6 col-xs-12 home-stagger-item">
                         <div class="single_footer">
                             <h4>{{ __('Company') }}</h4>
                             <ul>
@@ -1422,7 +1798,7 @@
                         </div>
 
                     </div><!--- END COL -->
-                    <div class="col-lg-3 col-sm-6 col-xs-12">
+                    <div class="col-lg-3 col-sm-6 col-xs-12 home-stagger-item">
                         <div class="single_footer">
                             <h4>{{ __('Contact Info') }}</h4>
                             <div class="sf_contact">
@@ -1442,7 +1818,7 @@
                             </div>
                         </div>
                     </div><!--- END COL -->
-                    <div class="col-lg-2 col-sm-6 col-xs-12">
+                    <div class="col-lg-2 col-sm-6 col-xs-12 home-stagger-item">
                         <div class="single_footer">
                             <h4>{{ __('Working Hours') }}</h4>
                             <ul>
@@ -1632,7 +2008,48 @@
                 });
             });
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const items = document.querySelectorAll('.home-stagger-item');
 
+                if (!('IntersectionObserver' in window)) {
+                    items.forEach(item => item.classList.add('is-visible'));
+                    return;
+                }
+
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+
+                        const item = entry.target;
+                        const siblings = [...item.parentElement.children]
+                            .filter(element => element.classList.contains('home-stagger-item'));
+                        const index = siblings.indexOf(item);
+
+                        // 80ms بين كروت المجموعة، ويبدأ الترتيب من جديد لكل مجموعة
+                        item.style.setProperty('--stagger-delay', `${Math.max(index, 0) * 80}ms`);
+                        item.classList.add('is-visible');
+                        observer.unobserve(item);
+                    });
+                }, {
+                    threshold: 0.1
+                });
+
+                items.forEach(item => observer.observe(item));
+            });
+        </script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+    // تشغيل الحركة فور انتهاء تحميل الصفحة لضمان أقصى سرعة وتجربة مستخدم مذهلة
+    window.addEventListener("load", function () {
+        const fridgeLoader = document.getElementById("fridge-loader");
+        if (fridgeLoader) {
+            setTimeout(() => {
+                fridgeLoader.classList.add("loaded");
+            }, 400); // 500 ميللي ثانية كافية جداً لإبراز الأنيميشن والانتقال للموقع فوراً
+        }
+    });
+});
+</script>
 </body>
 
 </html>

@@ -34,7 +34,7 @@
                     </div>
                     <div class="accordion" id="accordionExample">
                         @foreach ($aboutFaqs as $index => $faq)
-                            <div class="accordion-item {{ $index == 0 ? 'is-open' : '' }}">
+                            <div class="accordion-item {{ $index == 0 ? 'is-open' : '' }} home-stagger-item">
                                 <h2 class="accordion-header" id="heading_{{ $index }}">
                                     <button class="accordion-button {{ $index == 0 ? '' : 'collapsed' }}" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapse_{{ $index }}"
@@ -165,7 +165,7 @@
     <!-- END FAQ -->
 
 <!-- START COOLFIX HACKER AI FAQ -->
-<section class="cf-hack" id="cfHack">
+<section class="cf-hack home-stagger-item" id="cfHack">
     <canvas id="cfMatrix" aria-hidden="true"></canvas>
     <div class="cf-floor" aria-hidden="true"></div>
     <div class="cf-cube cf-cube-a" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>

@@ -47,7 +47,7 @@
 
         @foreach ($services as $service)
             <!-- كلاس service-card على الـ COL الأب الخارجي مجهز بتصفير حشو البوتستراب px-0 -->
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4 service-card px-0">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-4 service-card px-0 home-stagger-item">
 
                 <!-- 🛠️ التعديل الحاسم: أضفنا margin جانبي بمقدار 15px لإبعاد الكروت عن بعضها بشكل فخم ومنع الالتصاق 👇 -->
                 <div class="course-item d-flex"

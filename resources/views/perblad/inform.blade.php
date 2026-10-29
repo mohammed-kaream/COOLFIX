@@ -929,6 +929,47 @@
         [dir="ltr"] td[style*="direction:ltr"] {
             text-align: left !important;
         }
+        .stagger-item {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 350ms ease, transform 350ms ease;
+    transition-delay: var(--stagger-delay, 0ms);
+}
+
+.stagger-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stagger-item {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+.stagger-item {
+    animation: rowEnter 300ms ease both;
+    animation-delay: var(--stagger-delay, 0ms);
+}
+
+@keyframes rowEnter {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stagger-item {
+        animation: none;
+    }
+}
+
     </style>
 </head>
 
@@ -1011,79 +1052,99 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
-                        <tr class="post-row {{ $user->is_blocked ? 'account-blocked-row' : '' }}"
-                            data-id="{{ $user->id }}" data-type="{{ $user->type }}"
-                            data-blocked="{{ $user->is_blocked ? 1 : 0 }}" data-top="{{ $user->is_top ? 1 : 0 }}">
+@foreach ($users as $index => $user)
+    <tr
+        class="post-row stagger-item {{ $user->is_blocked ? 'account-blocked-row' : '' }}"
+        data-index="{{ $index }}"
+        data-id="{{ $user->id }}"
+        data-type="{{ $user->type }}"
+        data-blocked="{{ $user->is_blocked ? 1 : 0 }}"
+        data-top="{{ $user->is_top ? 1 : 0 }}"
+    >
+        <td class="actions-col">
+            <div class="action-group">
+                {{-- القفل: مدير = مغلق 🔒 ، مستخدم = مفتوح 🔓 --}}
+                <a href="{{ route('admin.user.toggle_role', $user->id) }}" data-a="role"
+                    onclick="return confirm('هل أنت متأكد من رغبتك في تبديل صلاحيات هذا الحساب؟')"
+                    class="act act-role {{ $user->type == 'admin' ? 'is-admin' : '' }}"
+                    data-tip="{{ $user->type == 'admin' ? 'تحويل إلى مستخدم' : 'ترقية إلى مدير' }}"
+                    aria-label="تغيير الصلاحية">
+                    <span class="ico">{{ $user->type == 'admin' ? '🔒' : '🔓' }}</span>
+                    <span class="ring" style="color:#013E37"></span>
+                </a>
 
-                            <td class="actions-col">
-                                <div class="action-group">
-                                    {{-- القفل: مدير = مغلق 🔒 ، مستخدم = مفتوح 🔓 --}}
-                                    <a href="{{ route('admin.user.toggle_role', $user->id) }}" data-a="role"
-                                        onclick="return confirm('هل أنت متأكد من رغبتك في تبديل صلاحيات هذا الحساب؟')"
-                                        class="act act-role {{ $user->type == 'admin' ? 'is-admin' : '' }}"
-                                        data-tip="{{ $user->type == 'admin' ? 'تحويل إلى مستخدم' : 'ترقية إلى مدير' }}"
-                                        aria-label="تغيير الصلاحية"><span
-                                            class="ico">{{ $user->type == 'admin' ? '🔒' : '🔓' }}</span><span
-                                            class="ring" style="color:#013E37"></span></a>
+                {{-- الحظر: المحظور يصير أحمر غامق --}}
+                <a href="{{ route('admin.user.toggle_block', $user->id) }}" data-a="block"
+                    onclick="return confirm('هل أنت متأكد من تغيير حالة حظر هذا الحساب؟')"
+                    class="act act-block {{ $user->is_blocked ? 'is-blocked' : '' }}"
+                    data-tip="{{ $user->is_blocked ? 'فك الحظر' : 'حظر الحساب' }}"
+                    aria-label="{{ $user->is_blocked ? 'فك الحظر' : 'حظر الحساب' }}">
+                    <span class="ico">🚫</span>
+                    <span class="ring" style="color:#ea580c"></span>
+                </a>
 
-                                    {{-- الحظر: المحظور يصير أحمر غامق --}}
-                                    <a href="{{ route('admin.user.toggle_block', $user->id) }}" data-a="block"
-                                        onclick="return confirm('هل أنت متأكد من تغيير حالة حظر هذا الحساب؟')"
-                                        class="act act-block {{ $user->is_blocked ? 'is-blocked' : '' }}"
-                                        data-tip="{{ $user->is_blocked ? 'فك الحظر' : 'حظر الحساب' }}"
-                                        aria-label="{{ $user->is_blocked ? 'فك الحظر' : 'حظر الحساب' }}"><span
-                                            class="ico">🚫</span><span class="ring"
-                                            style="color:#ea580c"></span></a>
+                {{-- التميّز --}}
+                <a href="{{ route('admin.user.toggle_top', $user->id) }}" data-a="top"
+                    onclick="return confirm('هل أنت متأكد من تغيير رتبة التميز لهذا الموظف؟')"
+                    class="act act-top {{ $user->is_top ? 'is-top' : '' }}"
+                    data-tip="{{ $user->is_top ? 'إلغاء التميز' : 'تعيين كمميز' }}"
+                    aria-label="{{ $user->is_top ? 'إلغاء التميز' : 'تعيين كمميز' }}">
+                    <span class="ico">🌟</span>
+                    <span class="ring" style="color:#fbbf24"></span>
+                </a>
 
-                                    {{-- التميّز: المميز نجمة مضيئة، غير المميز نجمة باهتة --}}
-                                    <a href="{{ route('admin.user.toggle_top', $user->id) }}" data-a="top"
-                                        onclick="return confirm('هل أنت متأكد من تغيير رتبة التميز لهذا الموظف؟')"
-                                        class="act act-top {{ $user->is_top ? 'is-top' : '' }}"
-                                        data-tip="{{ $user->is_top ? 'إلغاء التميز' : 'تعيين كمميز' }}"
-                                        aria-label="{{ $user->is_top ? 'إلغاء التميز' : 'تعيين كمميز' }}"><span
-                                            class="ico">🌟</span><span class="ring"
-                                            style="color:#fbbf24"></span></a>
+                <a href="{{ route('admin.user.impersonate', $user->id) }}" data-a="spy"
+                    onclick="return confirm('هل أنت متأكد من بدء جلسة التفتيش السري والدخول بهوية هذا الحساب حياً؟')"
+                    class="act act-spy" data-tip="التفتيش السري" aria-label="التفتيش السري">
+                    <span class="ico">🕵️‍♂️</span>
+                    <span class="ring" style="color:#10b981"></span>
+                </a>
 
-                                    <a href="{{ route('admin.user.impersonate', $user->id) }}" data-a="spy"
-                                        onclick="return confirm('هل أنت متأكد من بدء جلسة التفتيش السري والدخول بهوية هذا الحساب حياً؟')"
-                                        class="act act-spy" data-tip="التفتيش السري" aria-label="التفتيش السري"><span
-                                            class="ico">🕵️‍♂️</span><span class="ring"
-                                            style="color:#10b981"></span></a>
+                <a href="{{ route('admin.user.force_delete', $user->id) }}" data-a="del"
+                    onclick="return confirm('هل أنت متأكد من حذف هذا الحساب نهائياً؟')"
+                    class="act act-del" data-tip="حذف الحساب" aria-label="حذف الحساب">
+                    <span class="ico">❌</span>
+                    <span class="ring" style="color:#ef4444"></span>
+                </a>
+            </div>
+        </td>
 
-                                    <a href="{{ route('admin.user.force_delete', $user->id) }}" data-a="del"
-                                        onclick="return confirm('هل أنت متأكد من حذف هذا الحساب نهائياً؟')"
-                                        class="act act-del" data-tip="حذف الحساب" aria-label="حذف الحساب"><span
-                                            class="ico">❌</span><span class="ring"
-                                            style="color:#ef4444"></span></a>
-                                </div>
-                            </td>
+        <td class="id-cell">#{{ $user->id }}</td>
 
-                            <td class="id-cell">#{{ $user->id }}</td>
-                            <td class="post-title">
-                                <div class="user-cell">
-                                    <span class="avatar">{{ mb_strtoupper(mb_substr($user->name, 0, 1)) }}</span>
-                                    <span>👤 <span class="post-name">{{ $user->name }}</span>
-                                        @if ($user->is_blocked)
-                                            <span class="tag-blocked">محظور</span>
-                                        @endif
-                                    </span>
-                                </div>
-                            </td>
-                            <td class="content-cell post-author" title="{{ $user->email }}">{{ $user->email }}
-                            </td>
-                            <td style="direction:ltr;text-align:right">{{ $user->mobile ?? 'لا يوجد' }}</td>
-                            <td>
-                                <div class="type-col">
-                                    @if ($user->is_top)
-                                        <span class="royal-badge-glow-top">PREMIUM 🌟</span>
-                                    @endif
-                                    <span class="type-pill"
-                                        style="background: {{ $user->type == 'admin' ? '#b45309' : '#0369a1' }}">{{ strtoupper($user->type) }}</span>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+        <td class="post-title">
+            <div class="user-cell">
+                <span class="avatar">{{ mb_strtoupper(mb_substr($user->name, 0, 1)) }}</span>
+                <span>
+                    👤 <span class="post-name">{{ $user->name }}</span>
+                    @if ($user->is_blocked)
+                        <span class="tag-blocked">محظور</span>
+                    @endif
+                </span>
+            </div>
+        </td>
+
+        <td class="content-cell post-author" title="{{ $user->email }}">
+            {{ $user->email }}
+        </td>
+
+        <td style="direction:ltr;text-align:right">
+            {{ $user->mobile ?? 'لا يوجد' }}
+        </td>
+
+        <td>
+            <div class="type-col">
+                @if ($user->is_top)
+                    <span class="royal-badge-glow-top">PREMIUM 🌟</span>
+                @endif
+
+                <span class="type-pill"
+                    style="background: {{ $user->type == 'admin' ? '#b45309' : '#0369a1' }}">
+                    {{ strtoupper($user->type) }}
+                </span>
+            </div>
+        </td>
+    </tr>
+@endforeach
                     <tr class="empty-row" id="emptyRow">
                         <td colspan="6">🔍 لا توجد نتائج مطابقة</td>
                     </tr>
@@ -1333,6 +1394,31 @@ langBtn.addEventListener('click', function(e) {
 });
 
 setLang(root.lang === 'en' ? 'en' : 'ar', false);    </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // إنشاء مراقب الشاشة
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            // لا يتم تفعيل التأخير والحركة إلا عندما يدخل الصف في شاشة المستخدم
+            if (entry.isIntersecting) {
+                const row = entry.target;
+
+                // الكود الخاص بك للحساب الذكي (باقي القسمة)
+                row.style.setProperty('--stagger-delay', `${(index % 8) * 40}ms`);
+
+                // إلغاء مراقبة الصف بعد ظهوره لمرة واحدة لتحسين الأداء
+                observer.unobserve(row);
+            }
+        });
+    }, { threshold: 0.1 }); // يبدأ التفاعل فور ظهور 10% من الصف
+
+    // تمرير كافة الصفوف للمراقب بدلاً من تشغيلها فوراً
+    document.querySelectorAll('.stagger-item').forEach((row) => {
+        observer.observe(row);
+    });
+});
+</script>
+
 </body>
 
 </html>

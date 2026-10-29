@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('brand');
             $table->string('area');
-            $table->text('describe')->nullable();
+            $table->text('describe');
             $table->timestamps();
         });
     }

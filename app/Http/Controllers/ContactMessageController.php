@@ -24,14 +24,16 @@ class ContactMessageController extends Controller
             'phone'    => 'required|string|min:9|max:20',
             'brand'    => 'required|string|max:100',
             'area'     => 'required|string|max:150',
-            'describe' => 'nullable|string',
+            'describe' => 'required|string',
         ]);
 
         // ترحيل البيانات الفعلي وحفظها داخل الـ DB (شغلك في الباك)
         ContactMessage::create($validated);
 
         // التوجيه إلى مسار صفحة النجاح مع تمرير البيانات في الـ Session
-        return redirect()->route('contact.display')->with('client_data', $validated);
+        // return redirect()->route('contact.display')->with('client_data', $validated);
+        session(['client_data' => $validated]);
+return redirect()->route('contact.display');
     }
 
     // 2. دالة عرض صفحة النجاح المطابقة لصورتك تماماً
@@ -47,10 +49,12 @@ class ContactMessageController extends Controller
         ]);
 
         // 2. تمرير مصفوفة فارغة صريحة لمنع خطأ count() القاتل في السطر 32
-        return view('perblad.display')
-            ->with('client_data', $clientData)
-            ->with('aboutFaqs', []); // المصفوفة الفارغة تحمي السطر 32 فوراً
-    }
+        // return view('perblad.display')
+        //     ->with('client_data', $clientData)
+        //     ->with('aboutFaqs', []); // المصفوفة الفارغة تحمي السطر 32 فوراً
+        return view('perblad.display')->with('aboutFaqs', []);
+
+        }
     public function bookFromFaq(Request $request)
     {
         // honeypot: البوتات بتعبّي الحقل المخفي
@@ -81,8 +85,8 @@ class ContactMessageController extends Controller
         $ref = 'CF-' . str_pad((string) $message->id, 5, '0', STR_PAD_LEFT);
 
         // نفس البيانات اللي بتعرضها صفحة الشكر، تنحفظ للطلب الجاي (التحويل)
-        session()->flash('client_data', $data + ['ref' => $ref]);
-
+        // session(['client_data' => $data + ['ref' => $ref]]);
+        session(['client_data' => $data + ['ref' => $ref]]);
         return response()->json([
             'ok'       => true,
             'ref'      => $ref,

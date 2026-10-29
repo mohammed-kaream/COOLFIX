@@ -29,7 +29,7 @@
 
                 <!-- 🎯 التقفيل الديناميكي النظيف الخالي من الأخطاء لكروت التسعير الثلاثة -->
                 @foreach ($pricings as $pricing)
-                    <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="col-lg-4 col-md-6 mb-4 home-stagger-item">
                         <div class="single-pricing-card">
                             <!-- اسم الباقة الديناميكي -->
                             <h3>{{ $pricing->name }}</h3>
