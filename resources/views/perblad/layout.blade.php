@@ -67,28 +67,37 @@
 
 <body>
     <!-- شاشة ثلاجة كول فيكس السريعة والخارقة -->
-<div id="fridge-loader" class="fridge-overlay">
-    <div class="fridge-container">
-        <!-- الباب الأيسر للثلاجة -->
-        <div class="fridge-door door-left">
-            <div class="fridge-handle handle-left"></div>
-        </div>
-        <!-- الباب الأيمن للثلاجة -->
-        <div class="fridge-door door-right">
-            <div class="fridge-handle handle-right"></div>
-        </div>
-        <!-- محتويات الثلاجة الداخلية (الاسم والتحميل) -->
-        <div class="fridge-interior">
-            <div class="fridge-light"></div>
-            <div class="fridge-logo">
-                <span class="cool-text">COOLFIX</span>
-                <div class="loading-dots">
-                    <span>l</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span>
+    <div id="fridge-loader" class="fridge-overlay">
+        <div class="fridge-container">
+            <!-- الباب الأيسر للثلاجة -->
+            <div class="fridge-door door-left">
+                <div class="fridge-handle handle-left"></div>
+            </div>
+            <!-- الباب الأيمن للثلاجة -->
+            <div class="fridge-door door-right">
+                <div class="fridge-handle handle-right"></div>
+            </div>
+            <!-- محتويات الثلاجة الداخلية (الاسم والتحميل) -->
+            <div class="fridge-interior">
+                <div class="fridge-light"></div>
+                <div class="fridge-logo">
+                    <span class="cool-text">COOLFIX</span>
+                    <div class="loading-dots">
+                        @if (app()->getLocale() == 'ar')
+                            <!-- الحروف العربية مدمجة في مقاطع متصلة لكي لا تظهر متقطعة، مع الحفاظ على الأنيميشن الموجي -->
+                            <span class="ar-word">جاري</span>
+                            <span class="ar-word">التحميل</span>
+                            <span class="ar-dot">.</span><span class="ar-dot">.</span><span class="ar-dot">.</span>
+                        @else
+                            <!-- الإنجليزي يظل مفككاً لأن الحروف اللاتينية لا تتأثر بالاتصال -->
+                            <span>l</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 
     <!-- يمنع وميض الوضع الفاتح قبل تحميل الصفحة إذا كان الوضع الليلي محفوظاً -->
     <script>
@@ -1554,188 +1563,280 @@
                 color: #2dffcf !important;
                 background: transparent !important;
             }
+
             body.dark-mode .section-title h1,
-body.dark-mode .section-title h4 { color: #2dffcf !important; background: transparent !important; }
-       /* تحويل خلفية الصفحة كاملة والمساحات الفارغة في الأسفل إلى الأسود */
-html,
-body.dark-mode {
-    background-color: #0b111e !important;
-    background: #0b111e !important;
-}
+            body.dark-mode .section-title h4 {
+                color: #2dffcf !important;
+                background: transparent !important;
+            }
 
-/* تأمين القسم السفلي (فوتر أو أي قسم يليه) ليصبح داكناً أيضاً */
-body.dark-mode footer,
-body.dark-mode .footer {
-    background-color: #0b111e !important;
-}
-/* فرض الخلفية السوداء على أي شاشة تحميل متبقية في الدارك مود */
-body.dark-mode div[class*="load"],
-body.dark-mode div[id*="load"],
-body.dark-mode .loading,
-body.dark-mode #loading {
-    background-color: #0b111e !important;
-    background: #0b111e !important;
-}
+            /* تحويل خلفية الصفحة كاملة والمساحات الفارغة في الأسفل إلى الأسود */
+            html,
+            body.dark-mode {
+                background-color: #0b111e !important;
+                background: #0b111e !important;
+            }
 
-/* تلوين نص "Loading data..." ليصبح مضيئاً بالفسفوري أو الأبيض بدلاً من اللون الغامق */
-body.dark-mode div[class*="load"] h1,
-body.dark-mode div[class*="load"] h2,
-body.dark-mode div[class*="load"] h3,
-body.dark-mode div[class*="load"] p,
-body.dark-mode div[class*="load"] span,
-body.dark-mode .loading {
-    color: #2dffcf !important; /* نفس لون اسم الفني الفسفوري المريح */
-}
-/* الشاشة الخلفية الكاملة */
-.fridge-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #0b111e;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    perspective: 1200px; /* تفعيل البعد الثالث 3D لفتح الباب */
-    transition: opacity 0.4s ease 0.6s, visibility 0s ease 1.0s;
-}
+            /* تأمين القسم السفلي (فوتر أو أي قسم يليه) ليصبح داكناً أيضاً */
+            body.dark-mode footer,
+            body.dark-mode .footer {
+                background-color: #0b111e !important;
+            }
 
-/* حاوية الثلاجة الميكانيكية */
-.fridge-container {
-    position: relative;
-    width: 320px;
-    height: 480px;
-    background: #111827;
-    border-radius: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-    border: 3px solid #1f2937;
-    display: flex;
-}
+            /* فرض الخلفية السوداء على أي شاشة تحميل متبقية في الدارك مود */
+            body.dark-mode div[class*="load"],
+            body.dark-mode div[id*="load"],
+            body.dark-mode .loading,
+            body.dark-mode #loading {
+                background-color: #0b111e !important;
+                background: #0b111e !important;
+            }
 
-/* أبواب الثلاجة يسار ويمين */
-.fridge-door {
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    border: 1px solid #374151;
-    z-index: 2;
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
+            /* تلوين نص "Loading data..." ليصبح مضيئاً بالفسفوري أو الأبيض بدلاً من اللون الغامق */
+            body.dark-mode div[class*="load"] h1,
+            body.dark-mode div[class*="load"] h2,
+            body.dark-mode div[class*="load"] h3,
+            body.dark-mode div[class*="load"] p,
+            body.dark-mode div[class*="load"] span,
+            body.dark-mode .loading {
+                color: #2dffcf !important;
+                /* نفس لون اسم الفني الفسفوري المريح */
+            }
 
-.door-left {
-    left: 0;
-    border-radius: 16px 0 0 16px;
-    transform-origin: left center;
-}
+            /* 1. الشاشة الخلفية الكاملة */
+            .fridge-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: #0b111e;
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                perspective: 1200px;
+                transition: opacity 0.4s ease 0.6s, visibility 0s ease 1.0s;
+            }
 
-.door-right {
-    right: 0;
-    border-radius: 0 16px 16px 0;
-    transform-origin: right center;
-}
+            /* 2. حاوية الثلاجة (شاشات الكمبيوتر واللاب توب) */
+            .fridge-container {
+                position: relative;
+                width: 300px;
+                height: 450px;
+                background: #111827;
+                border-radius: 20px;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+                border: 3px solid #1f2937;
+                display: flex;
+            }
 
-/* مقابض الأبواب الفسفورية المضيئة */
-.fridge-handle {
-    position: absolute;
-    top: 40%;
-    width: 12px;
-    height: 90px;
-    background: linear-gradient(90deg, #2dffcf, #00cc99);
-    box-shadow: 0 0 15px rgba(45, 255, 196, 0.6);
-    border-radius: 6px;
-}
+            /* 3. أبواب الثلاجة والمقابض */
+            .fridge-door {
+                position: absolute;
+                top: 0;
+                width: 50%;
+                height: 100%;
+                background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+                border: 1px solid #374151;
+                z-index: 2;
+                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+            }
 
-.handle-left { right: 8px; }
-.handle-right { left: 8px; }
+            .door-left {
+                left: 0;
+                border-radius: 16px 0 0 16px;
+                transform-origin: left center;
+            }
 
-/* قلب الثلاجة من الداخل والوهج الضوئي */
-.fridge-interior {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    background: #0f172a;
-    border-radius: 16px;
-    overflow: hidden;
-}
+            .door-right {
+                right: 0;
+                border-radius: 0 16px 16px 0;
+                transform-origin: right center;
+            }
 
-/* تأثير التوهج الفسفوري العجيب داخل الثلاجة عند الفتح */
-.fridge-light {
-    position: absolute;
-    width: 130%;
-    height: 130%;
-    background: radial-gradient(circle, rgba(45, 255, 196, 0.2) 0%, transparent 65%);
-    opacity: 0;
-    transition: opacity 0.3s ease 0.1s;
-}
+            .fridge-handle {
+                position: absolute;
+                top: 40%;
+                width: 12px;
+                height: 90px;
+                background: linear-gradient(90deg, #2dffcf, #00cc99);
+                box-shadow: 0 0 15px rgba(45, 255, 196, 0.6);
+                border-radius: 6px;
+            }
 
-.fridge-logo {
-    text-align: center;
-    z-index: 3;
-}
+            .handle-left {
+                right: 8px;
+            }
 
-/* كلمة COOLFIX الضخمة المضيئة */
-.cool-text {
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: #2dffcf;
-    text-shadow: 0 0 25px rgba(45, 255, 196, 0.9);
-    letter-spacing: 4px;
-    display: block;
-    margin-bottom: 5px;
-}
+            .handle-right {
+                left: 8px;
+            }
 
-/* تأثير حركة أنيميشن الحروف لكلمة loading... */
-.loading-dots {
-    display: flex;
-    justify-content: center;
-}
+            /* 4. التصميم الداخلي والأنيميشن للكمبيوتر */
+            .fridge-interior {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1;
+                background: #0f172a;
+                border-radius: 16px;
+                overflow: hidden;
+            }
 
-.loading-dots span {
-    font-size: 1.1rem;
-    color: #9ca3af;
-    font-weight: 500;
-    letter-spacing: 2px;
-    animation: waveText 1.2s infinite ease-in-out;
-}
+            .fridge-light {
+                position: absolute;
+                width: 130%;
+                height: 130%;
+                background: radial-gradient(circle, rgba(45, 255, 196, 0.2) 0%, transparent 65%);
+                opacity: 0;
+                transition: opacity 0.3s ease 0.1s;
+            }
 
-/* توزيع التوقيت لعمل تأثير الموجة الحركية الجذابة للكلمة */
-.loading-dots span:nth-child(1) { animation-delay: 0.1s; }
-.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
-.loading-dots span:nth-child(3) { animation-delay: 0.3s; }
-.loading-dots span:nth-child(4) { animation-delay: 0.4s; }
-.loading-dots span:nth-child(5) { animation-delay: 0.5s; }
-.loading-dots span:nth-child(6) { animation-delay: 0.6s; }
-.loading-dots span:nth-child(7) { animation-delay: 0.7s; }
-.loading-dots span:nth-child(8) { animation-delay: 0.8s; }
-.loading-dots span:nth-child(9) { animation-delay: 0.9s; }
-.loading-dots span:nth-child(10) { animation-delay: 1.0s; }
+            .fridge-logo {
+                text-align: center;
+                z-index: 3;
+                width: 100%;
+                padding: 0 10px;
+            }
 
-@keyframes waveText {
-    0%, 100% { transform: translateY(0); color: #9ca3af; }
-    50% { transform: translateY(-6px); color: #2dffcf; text-shadow: 0 0 8px rgba(45, 255, 196, 0.5); }
-}
+            .cool-text {
+                font-size: 2.5rem;
+                font-weight: 900;
+                color: #2dffcf;
+                text-shadow: 0 0 25px rgba(45, 255, 196, 0.9);
+                letter-spacing: 4px;
+                display: block;
+                margin-bottom: 5px;
+            }
 
-/* كلاسات التفعيل البرمجي لحركة الـ 3D والإخفاء السريع */
-.fridge-overlay.loaded .door-left { transform: rotateY(-135deg); }
-.fridge-overlay.loaded .door-right { transform: rotateY(135deg); }
-.fridge-overlay.loaded .fridge-light { opacity: 1; }
-.fridge-overlay.loaded {
-    opacity: 0;
-    visibility: hidden;
-}
+            .loading-dots {
+                display: flex;
+                justify-content: center;
+            }
 
-       </style>
+            .loading-dots span {
+                font-size: 1.1rem;
+                color: #9ca3af;
+                font-weight: 500;
+                letter-spacing: 2px;
+                animation: waveText 1.2s infinite ease-in-out;
+            }
+
+            .loading-dots span:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+
+            .loading-dots span:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .loading-dots span:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+
+            .loading-dots span:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+
+            .loading-dots span:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+
+            .loading-dots span:nth-child(6) {
+                animation-delay: 0.6s;
+            }
+
+            .loading-dots span:nth-child(7) {
+                animation-delay: 0.7s;
+            }
+
+            .loading-dots span:nth-child(8) {
+                animation-delay: 0.8s;
+            }
+
+            .loading-dots span:nth-child(9) {
+                animation-delay: 0.9s;
+            }
+
+            .loading-dots span:nth-child(10) {
+                animation-delay: 1.0s;
+            }
+
+            @keyframes waveText {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                    color: #9ca3af;
+                }
+
+                50% {
+                    transform: translateY(-6px);
+                    color: #2dffcf;
+                    text-shadow: 0 0 8px rgba(45, 255, 196, 0.5);
+                }
+            }
+
+            /* 5. قواعد تشغيل الحركة الافتراضية (تفتح بزاوية كاملة للكمبيوتر) */
+            .fridge-overlay.loaded .door-left {
+                transform: rotateY(-135deg);
+            }
+
+            .fridge-overlay.loaded .door-right {
+                transform: rotateY(135deg);
+            }
+
+            .fridge-overlay.loaded .fridge-light {
+                opacity: 1;
+            }
+
+            .fridge-overlay.loaded {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            /* 6. 📱 كود الجوال النهائي الصارم (يوضع في نهاية الملف تماماً ليفرص قوته) 📱 */
+            @media (max-width: 768px) {
+                .fridge-container {
+                    width: 250px !important;
+                    height: 380px !important;
+                    max-width: 85vw !important;
+                    max-height: 75vh !important;
+                }
+
+                .cool-text {
+                    font-size: 1.7rem !important;
+                    letter-spacing: 2px !important;
+                }
+
+                .loading-dots span {
+                    font-size: 0.85rem !important;
+                }
+
+                .fridge-handle {
+                    height: 60px !important;
+                    top: 42% !important;
+                }
+
+                /* زوايا دوران مخصصة للجوال لحل مشكلة الإخفاء في طور التصفح */
+                .fridge-overlay.loaded .door-left {
+                    transform: rotateY(-95deg) !important;
+                }
+
+                .fridge-overlay.loaded .door-right {
+                    transform: rotateY(95deg) !important;
+                }
+            }
+        </style>
 
         @yield('content')
         <!-- START FOOTER -->
@@ -2038,18 +2139,19 @@ body.dark-mode .loading {
                 items.forEach(item => observer.observe(item));
             });
         </script>
-<script>document.addEventListener("DOMContentLoaded", function () {
-    // تشغيل الحركة فور انتهاء تحميل الصفحة لضمان أقصى سرعة وتجربة مستخدم مذهلة
-    window.addEventListener("load", function () {
-        const fridgeLoader = document.getElementById("fridge-loader");
-        if (fridgeLoader) {
-            setTimeout(() => {
-                fridgeLoader.classList.add("loaded");
-            }, 400); // 500 ميللي ثانية كافية جداً لإبراز الأنيميشن والانتقال للموقع فوراً
-        }
-    });
-});
-</script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // تشغيل الحركة فور انتهاء تحميل الصفحة لضمان أقصى سرعة وتجربة مستخدم مذهلة
+                window.addEventListener("load", function() {
+                    const fridgeLoader = document.getElementById("fridge-loader");
+                    if (fridgeLoader) {
+                        setTimeout(() => {
+                            fridgeLoader.classList.add("loaded");
+                        }, 400); // 500 ميللي ثانية كافية جداً لإبراز الأنيميشن والانتقال للموقع فوراً
+                    }
+                });
+            });
+        </script>
 </body>
 
 </html>
