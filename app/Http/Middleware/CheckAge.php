@@ -15,6 +15,11 @@ class CheckAge
      */
     public function handle(Request $request, Closure $next): Response
     {
+            // 🛠️ إذا كان لديه جلسة ضيف زائر، اسمح له بالمرور فوراً وتخطى فحص الحساب والإيميل
+    if (session()->has('guest_auth')) {
+        return $next($request);
+    }
+
         if ($request->pass == 123) {
             return $next($request);
         } else {

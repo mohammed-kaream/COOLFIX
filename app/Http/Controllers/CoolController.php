@@ -191,4 +191,17 @@ class CoolController extends Controller
     {
         return 'Welcome bake in the page post @-@ ';
     }
+
+public function loginAsGuest()
+{
+    // 1. تسجيل الخروج من أي حساب حقيقي سابق منعاً للتداخل
+    auth()->logout();
+
+    // 2. تفعيل جلسة الضيف الزائر في المتصفح فوراً
+    session()->put('guest_auth', true);
+
+    // 3. التوجيه الفوري لصفحة الموقع الرئيسية
+    return redirect()->to('/');
 }
+
+    }

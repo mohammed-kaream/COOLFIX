@@ -15,13 +15,21 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
 
-        // يمنع حلقة التحويل بين guest و admin
+        // التوجيه الذكي: إذا كان الطلب هو تسجيل خروج للضيف، يتم تمريره فوراً للوجن، وإلا يفحص الجلسة بشكل طبيعي
+        $middleware->redirectGuestsTo(function() {
+            if (request()->is('logout') && session()->has('guest_auth')) {
+                session()->forget('guest_auth');
+                return route('login');
+            }
+            return session()->has('guest_auth') ? null : route('login');
+        });
+
         $middleware->redirectUsersTo('/index');
 
-        // SetLocale أولاً (قبل أي شيء يعتمد على اللغة)، ثم حارس الحظر
+        // الشغل الصح: حارس الحظر أولاً ليمسك طلب الـ logout والزوار الحقيقيين، ثم اللغات
         $middleware->web(append: [
-            \App\Http\Middleware\SetLocale::class,
             \App\Http\Middleware\CheckIfBlocked::class,
+            \App\Http\Middleware\SetLocale::class,
         ]);
 
         $middleware->alias([

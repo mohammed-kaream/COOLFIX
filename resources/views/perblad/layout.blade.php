@@ -128,6 +128,39 @@
 
                 <nav class="cfx-sticky-nav" aria-label="Main">
                     @foreach ($cfxNav as $item)
+                        @php
+                            $urlPath = isset($item[1]) ? strtolower($item[1]) : '';
+                            $urlName = isset($item[0]) ? $item[0] : '';
+                        @endphp
+
+                        {{-- 1. حماية روابط الإدارة (البيانات والمعلومات): للأدمن فقط عبر الـ Policy وفحص الـ Type --}}
+                        @if (str_contains($urlPath, 'inform') ||
+                                str_contains($urlName, 'المعلومات') ||
+                                str_contains($urlName, 'Information') ||
+                                str_contains($urlPath, 'data') ||
+                                str_contains($urlName, 'البيانات'))
+                            @if (!auth()->check() || auth()->user()->type !== 'admin' || auth()->user()->cannot('viewAny', App\Models\User::class))
+                                @continue
+                            @endif
+                        @endif
+
+                        {{-- 2. حظر باقي الروابط الإضافية عن الضيف الزائر (يرى فقط الهوم والأباوت والسيرفيسز) --}}
+                        @if (session()->has('guest_auth'))
+                            @php
+                                $isGuestAllowed =
+                                    str_contains($urlPath, 'index') ||
+                                    str_contains($urlPath, 'home') ||
+                                    str_contains($urlPath, 'about') ||
+                                    str_contains($urlPath, 'service') ||
+                                    $urlPath == '' ||
+                                    $urlPath == '/';
+                            @endphp
+                            @if (!$isGuestAllowed)
+                                @continue
+                            @endif
+                        @endif
+
+                        {{-- طباعة الروابط بالاعتماد الحقيقي على مصفوفتك المستقرة لتتبع الستايل الأصلي والدارك مود --}}
                         <a href="{{ url($item[1]) }}"
                             class="{{ request()->is($item[2]) ? 'active' : '' }}">{{ $item[0] }}</a>
                     @endforeach
@@ -232,14 +265,25 @@
                     <div class="col-xl-6 col-lg-5 d-none d-lg-block">
                         <nav id="main-menu">
                             <ul class="d-flex justify-content-center list-unstyled m-0 gap-1 flex-nowrap">
+                                <!-- 1. الروابط العامة (تظهر دائماً وللجميع: ضيف، مستخدم، أدمن) -->
                                 <li><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
                                 <li><a href="{{ url('/about') }}">{{ __('About Us') }}</a></li>
                                 <li><a href="{{ url('/services') }}">{{ __('Services') }}</a></li>
-                                <li><a href="{{ url('/pricing') }}">{{ __('Pricing') }}</a></li>
-                                <li><a href="{{ url('/faq') }}">{{ __('FAQ') }}</a></li>
-                                <li><a href="{{ url('/contact') }}">{{ __('Contact') }}</a></li>
-                                <li><a href="{{ url('/data') }}">{{ __('Data') }}</a></li>
-                                <li><a href="{{ url('/posts/inform') }}">{{ __('Information') }}</a></li>
+
+                                <!-- 2. روابط المستخدم المسجل (تظهر لليوزر والأدمن، وتختفي عن الضيف) -->
+                                @if (!session()->has('guest_auth'))
+                                    <li><a href="{{ url('/pricing') }}">{{ __('Pricing') }}</a></li>
+                                    <li><a href="{{ url('/faq') }}">{{ __('FAQ') }}</a></li>
+                                    <li><a href="{{ url('/contact') }}">{{ __('Contact') }}</a></li>
+                                @endif
+
+                                <!-- 3. روابط الإدارة الحصرية (تظهر للأدمن فقط ويتم فحصها عبر الـ Policy) -->
+                                @auth
+                                    @can('viewAny', App\Models\User::class)
+                                        <li><a href="{{ url('/data') }}">{{ __('Data') }}</a></li>
+                                        <li><a href="{{ url('/posts/inform') }}">{{ __('Information') }}</a></li>
+                                    @endcan
+                                @endauth
                             </ul>
                         </nav>
                     </div><!--- END Col -->
@@ -263,14 +307,14 @@
                             </a>
                             <!-- زر تسجيل الخروج -->
                             <div class="call_to_action">
-                                <form method="POST" action="{{ route('logout') }}" id="logout-form">
-                                    @csrf
-                                    <a class="btn_two btn btn-primary" href="#"
-                                        style="white-space: nowrap; border-radius: 50px;"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Log Out') }} <i class="fa-solid fa-arrow-right ms-1"></i>
-                                    </a>
-                                </form>
+<form method="POST" action="{{ route('logout') }}" id="logout-form">
+    @csrf
+    <a class="btn_two btn btn-primary" href="{{ route('logout') }}"
+        style="white-space: nowrap; border-radius: 50px;"
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        {{ __('Log Out') }} <i class="fa-solid fa-arrow-right ms-1"></i>
+    </a>
+</form>
                             </div>
                             <button class="cfx-burger d-lg-none" id="cfxBurger" aria-label="Menu"
                                 aria-expanded="false" type="button">

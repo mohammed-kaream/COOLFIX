@@ -41,7 +41,7 @@ Route::prefix('posts')->name('posts.')->group(function () {
     Route::delete('destroy/{id}', [PostController::class, 'destroy'])->name('destroy');
 });
 
-// مسارات التحقق من السن (تأكد أن الميدل وير is.adult يعمل بالشكل المطلوب)
+// مسارات التحقق من السن
 Route::middleware('is.adult:123')->prefix('admin')->group(function () {
     Route::get('user', [CoolController::class, 'user'])->name('user');
     Route::get('post', [CoolController::class, 'post'])->name('post');
@@ -55,12 +55,31 @@ require __DIR__ . '/auth.php';
 
 
 // =========================================================================
-// 3. جدار الحماية السيادي (ممنوع الدخول إلا للحسابات المسجلة والـ Admin)
+// 3. مسار الصفحة الرئيسية المشترك (يفحص الضيف ليعبر الحماية بسلام)
+// =========================================================================
+Route::get('/', function () {
+    if (session()->has('guest_auth')) {
+        return app(MainPageController::class)->home();
+    }
+
+    // إذا لم يكن ضيفاً زامناً، يمر بحماية الـ auth العادية بداخل لارافيل
+    return app(MainPageController::class)->home();
+})->name('home');
+
+Route::get('/dashboard', function () {
+    if (session()->has('guest_auth')) {
+        return app(MainPageController::class)->home();
+    }
+    return middleware(['auth', 'verified'])->handle(request(), function() {
+        return app(MainPageController::class)->home();
+    });
+})->name('dashboard');
+
+
+// =========================================================================
+// 4. جدار الحماية للحسابات المسجلة والملفات الشخصية فقط
 // =========================================================================
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [MainPageController::class, 'home'])->name('home');
-    Route::get('/dashboard', [MainPageController::class, 'home'])->name('dashboard');
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -82,11 +101,9 @@ Route::get('/lang/{locale}', function (string $locale) {
     return redirect()->back();
 })->name('lang.switch');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [MainPageController::class, 'home'])->name('home');
-    Route::get('/dashboard', [MainPageController::class, 'home'])->name('dashboard');
-    // ...
-});
+// مسار الدخول كضيف الزائر المستقل
+Route::get('/login/guest', [\App\Http\Controllers\CoolController::class, 'loginAsGuest'])->name('login.guest');
+
 
 
 

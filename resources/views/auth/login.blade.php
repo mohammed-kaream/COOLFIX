@@ -372,13 +372,33 @@ document.addEventListener("DOMContentLoaded", function() {
                             </div>
                         </div>
 
-                        <div class="btn-cr">
-                            <button type="submit" class="btn">{{ __('Sign In') }}</button>
-                            <div class="account">
-                                <p>{{ __("Don't have an account?") }}</p>
-                                <a href="{{ route('register') }}">{{ __('Create Account') }}</a>
-                            </div>
-                        </div>
+<div class="btn-cr">
+    <!-- 1. زر تسجيل الدخول الأساسي -->
+    <button type="submit" class="btn" style="width: 100%;">{{ __('Sign In') }}</button>
+
+    <!-- 2. زر الدخول كضيف زائر (بنفس التنسيق والألوان المريحة والمطابقة تماماً) -->
+    <a href="{{ route('login.guest') }}" class="btn"
+       style="width: 100%;
+              background-color: #033931;
+              color: #ffffff;
+              font-weight: bold;
+              border-radius: 12px;
+              padding: 12px 0;
+              text-align: center;
+              display: block;
+              text-decoration: none;
+              margin-top: 15px;
+              border: none;
+              transition: background-color 0.3s ease;">
+        {{ __('الدخول كضيف زائر') }}
+    </a>
+
+    <!-- 3. قسم إنشاء حساب جديد -->
+    <div class="account" style="margin-top: 20px;">
+        <p>{{ __("Don't have an account?") }}</p>
+        <a href="{{ route('register') }}">{{ __('Create Account') }}</a>
+    </div>
+</div>
 
                         <div class="divider">{{ __('or continue with') }}</div>
                         <div class="link">
