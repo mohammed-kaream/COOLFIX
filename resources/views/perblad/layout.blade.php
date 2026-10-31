@@ -183,12 +183,40 @@
                 </div>
             </div>
         </div>
-        <div class="cfx-sticky-menu" id="cfxStickyMenu">
-            @foreach ($cfxNav as $item)
-                <a href="{{ url($item[1]) }}"
-                    class="{{ request()->is($item[2]) ? 'active' : '' }}">{{ $item[0] }}</a>
-            @endforeach
-        </div>
+<div class="cfx-sticky-menu" id="cfxStickyMenu">
+    @foreach ($cfxNav as $item)
+        @php
+            // استخراج النصوص والمسارات بالاعتماد الصارم على إندكسات مصفوفك الحقيقية
+            $urlPath = isset($item[1]) ? strtolower($item[1]) : '';
+            $urlName = isset($item[0]) ? $item[0] : '';
+        @endphp
+
+        {{-- 1. حماية روابط الإدارة (البيانات والمعلومات): تختفي عن الجميع وتظهر للأدمن فقط عبر الـ Policy --}}
+        @if (str_contains($urlPath, 'inform') || str_contains($urlName, 'المعلومات') || str_contains($urlName, 'Information') || str_contains($urlPath, 'data') || str_contains($urlName, 'البيانات'))
+            @if (!auth()->check() || auth()->user()->type !== 'admin' || auth()->user()->cannot('viewAny', App\Models\User::class))
+                @continue
+            @endif
+        @endif
+
+        {{-- 2. حظر روابط المستخدم والآدمن عن الضيف الزائر (يترك له فقط أول 3 روابط) --}}
+        @if (session()->has('guest_auth') || (auth()->check() && auth()->user()->type === 'guest'))
+            @php
+                $isGuestAllowed = str_contains($urlPath, 'index') ||
+                                   str_contains($urlPath, 'home') ||
+                                   str_contains($urlPath, 'about') ||
+                                   str_contains($urlPath, 'service') ||
+                                   $urlPath == '' || $urlPath == '/';
+            @endphp
+            @if (!$isGuestAllowed)
+                @continue
+            @endif
+        @endif
+
+        {{-- طباعة الروابط بالاعتماد الحقيقي والمستقر على مصفوفتك الأصلية بدون أي تغيير بالـ CSS --}}
+        <a href="{{ url($item[1]) }}"
+           class="{{ request()->is($item[2]) ? 'active' : '' }}">{{ $item[0] }}</a>
+    @endforeach
+</div>
     </header>
 
     <!-- START PRELOADER -->
