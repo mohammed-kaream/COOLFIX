@@ -116,34 +116,26 @@ public function data()
     /**
      * دالة ترقية وإلغاء تميز الموظف فوراً بقرار من الرئيس محمد 👑🌟
      */
-public function toggleRole($id)
-{
-    // 🔒 جدار حماية صارم: منع أي شخص غير الأدمن من تنفيذ هذا الأمر نهائياً
-    abort_if(auth()->user()->type !== 'admin', 403, 'غير مصرح لك بتعديل الصلاحيات.');
+    public function toggleTop($id)
+    {
+        // 1. جلب حساب الموظف من قاعدة البيانات
+        $user = \App\Models\User::findOrFail($id);
 
-    // 1. شرط الأمان الحديدي: منع الأدمن الحالي من تغيير صلاحية نفسه لحماية الجلسة 🔒
-    if ((int)$id === (int)auth()->id()) {
-        return redirect()->back()->with('error', 'تنبيه أمان: لا يمكنك تغيير صلاحية حسابك الحالي الذي تدير منه الجلسة الحين! ❌');
+        // 2. آلية التبديل (إذا كان مميزاً نلغي التميز، والعكس صحيح)
+        if ($user->is_top) {
+            $user->is_top = false;
+            $statusMessage = 'تم إلغاء الترقية الملوكية للحساب وعاد كـ موظف عادي. 👤';
+        } else {
+            $user->is_top = true;
+            $statusMessage = 'أمر سيادي: تم ترفيع وتعيين ' . $user->name . ' كـ فني مميز بنجاح! 🌟👑';
+        }
+
+        // 3. حفظ التعديل الجديد في جدول قاعدة البيانات فوراً 🚀
+        $user->save();
+
+        // 4. العودة للخلف وتفجير الإشعار الطائر النيوني الفخم في أعلى اليمين
+        return redirect()->back()->with('success', $statusMessage);
     }
-
-    // 2. الاستعلام المباشر عن الحساب بالـ ID بجدول الـ users
-    $user = \App\Models\User::findOrFail($id);
-
-    // 3. آلية القلب التلقائية
-    if ($user->type === 'admin') {
-        $user->type = 'user';
-        $message = 'تم إنزال رتبة المستخدم إلى USER بنجاح! 👤';
-    } else {
-        $user->type = 'admin';
-        $message = 'تم ترفيع رتبة المستخدم إلى ADMIN بنجاح! 👑';
-    }
-
-    // 4. حفظ التعديل الجديد في قاعدة البيانات فوراً 🚀
-    $user->save();
-
-    // 5. العودة للخلف وتفجير الإشعار الطائر
-    return redirect()->back()->with('success', $message);
-}
 
     public function impersonate($id)
     {
