@@ -49,9 +49,9 @@ Route::prefix('posts')->name('posts.')->middleware(['auth'])->group(function () 
 });
 
 // مسارات التحقق من السن
-Route::middleware('is.adult:123')->prefix('admin')->group(function () {
-    Route::get('user', [CoolController::class, 'user'])->name('user');
-    Route::get('post', [CoolController::class, 'post'])->name('post');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/toggle-user-role/{id}', [PostController::class, 'toggleRole'])->name('admin.user.toggle_role');
+    // ... بقية المسارات
 });
 
 
@@ -95,8 +95,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // أدمن فقط
-// أدمن فقط (تم ربطه ببوابة الـ Gate ليعمل فوراً دون الحاجة لـ Middleware مخصص)
-Route::middleware(['auth', 'can:admin-only'])->group(function () {
+// تم تحويلها لـ auth فقط لتجنب كاش السيرفر، وسنقوم بالحماية من داخل الكنترولر مباشرة
+Route::middleware(['auth'])->group(function () {
     Route::get('/admin/force-delete-user/{id}', [PostController::class, 'destroy'])->name('admin.user.force_delete');
     Route::get('/admin/toggle-user-role/{id}', [PostController::class, 'toggleRole'])->name('admin.user.toggle_role');
     Route::get('/admin/toggle-block-user/{id}', [PostController::class, 'toggleBlock'])->name('admin.user.toggle_block');
