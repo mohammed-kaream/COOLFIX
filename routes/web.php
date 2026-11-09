@@ -42,8 +42,8 @@ Gate::define('admin-only', function ($user) {
     return $user->type === 'admin';
 });
 
-// الـ Group المحمي (ممنوع الدخول إلا للـ Admin)
-Route::prefix('posts')->name('posts.')->middleware(['auth', 'can:admin-only'])->group(function () {
+// الـ Group الآن يفحص فقط هل المستخدم مسجل دخول أم لا لتجنب كاش السيرفر
+Route::prefix('posts')->name('posts.')->middleware(['auth'])->group(function () {
     Route::get('inform', [PostController::class, 'data'])->name('data');
     Route::delete('destroy/{id}', [PostController::class, 'destroy'])->name('destroy');
 });
