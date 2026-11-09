@@ -7,370 +7,523 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Audiowide&display=swap');
-
         html,
         body {
-            margin: 0px;
-            overflow: hidden;
-        }
-
-        div {
-            position: absolute;
-            top: 0%;
-            left: 0%;
             height: 100%;
             width: 100%;
             margin: 0px;
-            background: radial-gradient(circle, #240015 0%, #12000b 100%);
-            overflow: hidden;
+            background: linear-gradient(90deg, rgba(47, 54, 64, 1) 23%, rgba(24, 27, 32, 1) 100%);
         }
 
-        .wrap {
+        .moon {
+            background: linear-gradient(90deg, rgba(208, 208, 208, 1) 48%, rgba(145, 145, 145, 1) 100%);
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            top: -100px;
+            left: -300px;
+            width: 900px;
+            height: 900px;
+            content: '';
+            border-radius: 100%;
+            box-shadow: 0px 0px 30px -4px rgba(0, 0, 0, 0.5);
         }
 
-        h2 {
+        .moon__crater {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            margin-top: 150px;
-            font-size: 32px;
-            text-transform: uppercase;
-            transform: translate(-50%, -50%);
-            display: block;
-            color: #12000a;
-            font-weight: 300;
-            font-family: Audiowide;
-            text-shadow: 0px 0px 4px #12000a;
-            animation: fadeInText 3s ease-in 3.5s forwards, flicker4 5s linear 7.5s infinite, hueRotate 6s ease-in-out 3s infinite;
+            content: '';
+            border-radius: 100%;
+            background: linear-gradient(90deg, rgba(122, 122, 122, 1) 38%, rgba(195, 195, 195, 1) 100%);
+            opacity: 0.6;
         }
 
-        #svgWrap_1,
-        #svgWrap_2 {
+        .moon__crater1 {
+            top: 250px;
+            left: 500px;
+            width: 60px;
+            height: 180px;
+        }
+
+        .moon__crater2 {
+            top: 650px;
+            left: 340px;
+            width: 40px;
+            height: 80px;
+            transform: rotate(55deg);
+        }
+
+        .moon__crater3 {
+            top: -20px;
+            left: 40px;
+            width: 65px;
+            height: 120px;
+            transform: rotate(250deg);
+        }
+
+        .star {
+            background: grey;
             position: absolute;
-            height: auto;
-            width: 600px;
-            max-width: 100%;
-            top: 50%;
+            width: 5px;
+            height: 5px;
+            content: '';
+            border-radius: 100%;
+            transform: rotate(250deg);
+            opacity: 0.4;
+            animation-name: shimmer;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        @keyframes shimmer {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 0.7;
+            }
+        }
+
+        .star1 {
+            top: 40%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            animation-delay: 1s;
         }
 
-        #svgWrap_1,
-        #svgWrap_2,
-        div {
-            animation: hueRotate 6s ease-in-out 3s infinite;
+        .star2 {
+            top: 60%;
+            left: 90%;
+            animation-delay: 3s;
         }
 
-        #id1_1,
-        #id2_1,
-        #id3_1 {
-            stroke: #ff005d;
-            stroke-width: 3px;
-            fill: transparent;
-            filter: url(#glow);
+        .star3 {
+            top: 10%;
+            left: 70%;
+            animation-delay: 2s;
         }
 
-        #id1_2,
-        #id2_2,
-        #id3_2 {
-            stroke: #12000a;
-            stroke-width: 3px;
-            fill: transparent;
-            filter: url(#glow);
+        .star4 {
+            top: 90%;
+            left: 40%;
         }
 
-        #id3_1 {
-            stroke-dasharray: 940px;
-            stroke-dashoffset: -940px;
-            animation: drawLine3 2.5s ease-in-out 0s forwards, flicker3 4s linear 4s infinite;
+        .star5 {
+            top: 20%;
+            left: 30%;
+            animation-delay: 0.5s;
         }
 
-        #id2_1 {
-            stroke-dasharray: 735px;
-            stroke-dashoffset: -735px;
-            animation: drawLine2 2.5s ease-in-out 0.5s forwards, flicker2 4s linear 4.5s infinite;
+        .error {
+            position: absolute;
+            left: 100px;
+            top: 400px;
+            transform: translateY(-60%);
+            font-family: 'Righteous', cursive;
+            color: #363e49;
         }
 
-        #id1_1 {
-            stroke-dasharray: 940px;
-            stroke-dashoffset: -940px;
-            animation: drawLine1 2.5s ease-in-out 1s forwards, flicker1 4s linear 5s infinite;
+        .error__title {
+            font-size: 10em;
         }
 
-        @keyframes drawLine1 {
-            0% {
-                stroke-dashoffset: -940px;
-            }
-
-            100% {
-                stroke-dashoffset: 0px;
-            }
+        .error__subtitle {
+            font-size: 2em;
         }
 
-        @keyframes drawLine2 {
-            0% {
-                stroke-dashoffset: -735px;
-            }
-
-            100% {
-                stroke-dashoffset: 0px;
-            }
+        .error__description {
+            opacity: 0.5;
         }
 
-        @keyframes drawLine3 {
-            0% {
-                stroke-dashoffset: -940px;
-            }
-
-            100% {
-                stroke-dashoffset: 0px;
-            }
+        .error__button {
+            min-width: 7em;
+            margin-top: 3em;
+            margin-right: 0.5em;
+            padding: 0.5em 2em;
+            outline: none;
+            border: 2px solid #2f3640;
+            background-color: transparent;
+            border-radius: 8em;
+            color: #576375;
+            cursor: pointer;
+            transition-duration: 0.2s;
+            font-size: 0.75em;
+            font-family: 'Righteous', cursive;
         }
 
-        @keyframes flicker1 {
-            0% {
-                stroke: #ff005d;
-            }
-
-            1% {
-                stroke: transparent;
-            }
-
-            3% {
-                stroke: transparent;
-            }
-
-            4% {
-                stroke: #ff005d;
-            }
-
-            6% {
-                stroke: #ff005d;
-            }
-
-            7% {
-                stroke: transparent;
-            }
-
-            13% {
-                stroke: transparent;
-            }
-
-            14% {
-                stroke: #ff005d;
-            }
-
-            100% {
-                stroke: #ff005d;
-            }
+        .error__button:hover {
+            color: #21252c;
         }
 
-        @keyframes flicker2 {
-            0% {
-                stroke: #ff005d;
-            }
-
-            50% {
-                stroke: #ff005d;
-            }
-
-            51% {
-                stroke: transparent;
-            }
-
-            61% {
-                stroke: transparent;
-            }
-
-            62% {
-                stroke: #ff005d;
-            }
-
-            100% {
-                stroke: #ff005d;
-            }
+        .error__button--active {
+            background-color: #e67e22;
+            border: 2px solid #e67e22;
+            color: white;
         }
 
-        @keyframes flicker3 {
-            0% {
-                stroke: #ff005d;
-            }
-
-            1% {
-                stroke: transparent;
-            }
-
-            10% {
-                stroke: transparent;
-            }
-
-            11% {
-                stroke: #ff005d;
-            }
-
-            40% {
-                stroke: #ff005d;
-            }
-
-            41% {
-                stroke: transparent;
-            }
-
-            45% {
-                stroke: transparent;
-            }
-
-            46% {
-                stroke: #ff005d;
-            }
-
-            100% {
-                stroke: #ff005d;
-            }
+        .error__button--active:hover {
+            box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+            color: white;
         }
 
-        @keyframes flicker4 {
-            0% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
-
-            30% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
-
-            31% {
-                color: #12000a;
-                text-shadow: 0px 0px 4px #12000a;
-            }
-
-            32% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
-
-            36% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
-
-            37% {
-                color: #12000a;
-                text-shadow: 0px 0px 4px #12000a;
-            }
-
-            41% {
-                color: #12000a;
-                text-shadow: 0px 0px 4px #12000a;
-            }
-
-            42% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
-
-            85% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
-
-            86% {
-                color: #12000a;
-                text-shadow: 0px 0px 4px #12000a;
-            }
-
-            95% {
-                color: #12000a;
-                text-shadow: 0px 0px 4px #12000a;
-            }
-
-            96% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
-
-            100% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
+        .astronaut {
+            position: absolute;
+            width: 185px;
+            height: 300px;
+            left: 70%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(20deg) scale(1.2);
         }
 
-        @keyframes fadeInText {
-            1% {
-                color: #12000a;
-                text-shadow: 0px 0px 4px #12000a;
-            }
-
-            70% {
-                color: #ff005d;
-                text-shadow: 0px 0px 14px #ff005d;
-            }
-
-            100% {
-                color: #ff005d;
-                text-shadow: 0px 0px 4px #ff005d;
-            }
+        .astronaut__head {
+            background-color: white;
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            width: 60px;
+            height: 60px;
+            content: '';
+            border-radius: 2em;
         }
 
-        @keyframes hueRotate {
-            0% {
-                filter: hue-rotate(0deg);
-            }
+        .astronaut__head-visor-flare1 {
+            background-color: #7f8fa6;
+            position: absolute;
+            top: 28px;
+            left: 40px;
+            width: 10px;
+            height: 10px;
+            content: '';
+            border-radius: 2em;
+            opacity: 0.5;
+        }
 
-            50% {
-                filter: hue-rotate(-120deg);
-            }
+        .astronaut__head-visor-flare2 {
+            background-color: #718093;
+            position: absolute;
+            top: 40px;
+            left: 38px;
+            width: 5px;
+            height: 5px;
+            content: '';
+            border-radius: 2em;
+            opacity: 0.3;
+        }
 
-            100% {
-                filter: hue-rotate(0deg);
-            }
+        .astronaut__backpack {
+            background-color: #bfbfbf;
+            position: absolute;
+            top: 90px;
+            left: 47px;
+            width: 86px;
+            height: 90px;
+            content: '';
+            border-radius: 8px;
+        }
+
+        .astronaut__body {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 115px;
+            left: 55px;
+            width: 70px;
+            height: 80px;
+            content: '';
+            border-radius: 8px;
+        }
+
+        .astronaut__body__chest {
+            background-color: #d9d9d9;
+            position: absolute;
+            top: 140px;
+            left: 68px;
+            width: 45px;
+            height: 25px;
+            content: '';
+            border-radius: 6px;
+        }
+
+        .astronaut__arm-left1 {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 127px;
+            left: 9px;
+            width: 65px;
+            height: 20px;
+            content: '';
+            border-radius: 8px;
+            transform: rotate(-30deg);
+        }
+
+        .astronaut__arm-left2 {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 102px;
+            left: 7px;
+            width: 20px;
+            height: 45px;
+            content: '';
+            border-radius: 8px;
+            transform: rotate(-12deg);
+            border-top-left-radius: 8em;
+            border-top-right-radius: 8em;
+        }
+
+        .astronaut__arm-right1 {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 113px;
+            left: 100px;
+            width: 65px;
+            height: 20px;
+            content: '';
+            border-radius: 8px;
+            transform: rotate(-10deg);
+        }
+
+        .astronaut__arm-right2 {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 78px;
+            left: 141px;
+            width: 20px;
+            height: 45px;
+            content: '';
+            border-radius: 8px;
+            transform: rotate(-10deg);
+            border-top-left-radius: 8em;
+            border-top-right-radius: 8em;
+        }
+
+        .astronaut__arm-thumb-left {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 110px;
+            left: 21px;
+            width: 10px;
+            height: 6px;
+            content: '';
+            border-radius: 8em;
+            transform: rotate(-35deg);
+        }
+
+        .astronaut__arm-thumb-right {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 90px;
+            left: 133px;
+            width: 10px;
+            height: 6px;
+            content: '';
+            border-radius: 8em;
+            transform: rotate(20deg);
+        }
+
+        .astronaut__wrist-left {
+            background-color: #e67e22;
+            position: absolute;
+            top: 122px;
+            left: 6.5px;
+            width: 21px;
+            height: 4px;
+            content: '';
+            border-radius: 8em;
+            transform: rotate(-15deg);
+        }
+
+        .astronaut__wrist-right {
+            background-color: #e67e22;
+            position: absolute;
+            top: 98px;
+            left: 141px;
+            width: 21px;
+            height: 4px;
+            content: '';
+            border-radius: 8em;
+            transform: rotate(-10deg);
+        }
+
+        .astronaut__leg-left {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 188px;
+            left: 50px;
+            width: 23px;
+            height: 75px;
+            content: '';
+            transform: rotate(10deg);
+        }
+
+        .astronaut__leg-right {
+            background-color: #e6e6e6;
+            position: absolute;
+            top: 188px;
+            left: 108px;
+            width: 23px;
+            height: 75px;
+            content: '';
+            transform: rotate(-10deg);
+        }
+
+        .astronaut__foot-left {
+            background-color: white;
+            position: absolute;
+            top: 240px;
+            left: 43px;
+            width: 28px;
+            height: 20px;
+            content: '';
+            transform: rotate(10deg);
+            border-radius: 3px;
+            border-top-left-radius: 8em;
+            border-top-right-radius: 8em;
+            border-bottom: 4px solid #e67e22;
+        }
+
+        .astronaut__foot-right {
+            background-color: white;
+            position: absolute;
+            top: 240px;
+            left: 111px;
+            width: 28px;
+            height: 20px;
+            content: '';
+            transform: rotate(-10deg);
+            border-radius: 3px;
+            border-top-left-radius: 8em;
+            border-top-right-radius: 8em;
+            border-bottom: 4px solid #e67e22;
         }
     </style>
     <title>Document</title>
 </head>
 
 <body>
-    <div></div>
-    <svg id="svgWrap_2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 700 250">
-        <g>
-            <path id="id3_2"
-                d="M195.7 232.67h-37.1V149.7H27.76c-2.64 0-5.1-.5-7.36-1.49-2.27-.99-4.23-2.31-5.88-3.96-1.65-1.65-2.95-3.61-3.89-5.88s-1.42-4.67-1.42-7.22V29.62h36.82v82.98H158.6V29.62h37.1v203.05z" />
-            <path id="id2_2"
-                d="M470.69 147.71c0 8.31-1.06 16.17-3.19 23.58-2.12 7.41-5.12 14.28-8.99 20.6-3.87 6.33-8.45 11.99-13.74 16.99-5.29 5-11.07 9.28-17.35 12.81a85.146 85.146 0 0 1-20.04 8.14 83.637 83.637 0 0 1-21.67 2.83H319.3c-7.46 0-14.73-.94-21.81-2.83-7.08-1.89-13.76-4.6-20.04-8.14a88.292 88.292 0 0 1-17.35-12.81c-5.29-5-9.84-10.67-13.66-16.99-3.82-6.32-6.8-13.19-8.92-20.6-2.12-7.41-3.19-15.27-3.19-23.58v-33.13c0-12.46 2.34-23.88 7.01-34.27 4.67-10.38 10.92-19.33 18.76-26.83 7.83-7.5 16.87-13.36 27.12-17.56 10.24-4.2 20.93-6.3 32.07-6.3h66.41c7.36 0 14.58.94 21.67 2.83 7.08 1.89 13.76 4.6 20.04 8.14a88.292 88.292 0 0 1 17.35 12.81c5.29 5 9.86 10.67 13.74 16.99 3.87 6.33 6.87 13.19 8.99 20.6 2.13 7.41 3.19 15.27 3.19 23.58v33.14zm-37.1-33.13c0-7.27-1.32-13.88-3.96-19.82-2.64-5.95-6.16-11.04-10.55-15.29-4.39-4.25-9.46-7.5-15.22-9.77-5.76-2.27-11.8-3.35-18.13-3.26h-66.41c-6.14-.09-12.11.97-17.91 3.19-5.81 2.22-10.95 5.43-15.44 9.63-4.48 4.2-8.07 9.3-10.76 15.29-2.69 6-4.04 12.67-4.04 20.04v33.13c0 7.36 1.32 14.02 3.96 19.97 2.64 5.95 6.18 11.02 10.62 15.22 4.44 4.2 9.56 7.43 15.36 9.7 5.8 2.27 11.87 3.35 18.2 3.26h66.41c7.27 0 13.85-1.2 19.75-3.61s10.93-5.73 15.08-9.98 7.36-9.32 9.63-15.22c2.27-5.9 3.4-12.34 3.4-19.33v-33.15zm-16-26.91a17.89 17.89 0 0 1 2.83 6.73c.47 2.41.47 4.77 0 7.08-.47 2.31-1.39 4.48-2.76 6.51-1.37 2.03-3.14 3.75-5.31 5.17l-99.4 66.41c-1.61 1.23-3.26 2.08-4.96 2.55-1.7.47-3.45.71-5.24.71-3.02 0-5.9-.71-8.64-2.12-2.74-1.42-4.96-3.44-6.66-6.09a17.89 17.89 0 0 1-2.83-6.73c-.47-2.41-.5-4.77-.07-7.08.43-2.31 1.3-4.48 2.62-6.51 1.32-2.03 3.07-3.75 5.24-5.17l99.69-66.41a17.89 17.89 0 0 1 6.73-2.83c2.41-.47 4.77-.47 7.08 0 2.31.47 4.48 1.37 6.51 2.69 2.03 1.32 3.75 3.02 5.17 5.09z" />
-            <path id="id1_2"
-                d="M688.33 232.67h-37.1V149.7H520.39c-2.64 0-5.1-.5-7.36-1.49-2.27-.99-4.23-2.31-5.88-3.96-1.65-1.65-2.95-3.61-3.89-5.88s-1.42-4.67-1.42-7.22V29.62h36.82v82.98h112.57V29.62h37.1v203.05z" />
-        </g>
-    </svg>
-    <svg id="svgWrap_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 700 250">
-        <g>
-            <path id="id3_1"
-                d="M195.7 232.67h-37.1V149.7H27.76c-2.64 0-5.1-.5-7.36-1.49-2.27-.99-4.23-2.31-5.88-3.96-1.65-1.65-2.95-3.61-3.89-5.88s-1.42-4.67-1.42-7.22V29.62h36.82v82.98H158.6V29.62h37.1v203.05z" />
-            <path id="id2_1"
-                d="M470.69 147.71c0 8.31-1.06 16.17-3.19 23.58-2.12 7.41-5.12 14.28-8.99 20.6-3.87 6.33-8.45 11.99-13.74 16.99-5.29 5-11.07 9.28-17.35 12.81a85.146 85.146 0 0 1-20.04 8.14 83.637 83.637 0 0 1-21.67 2.83H319.3c-7.46 0-14.73-.94-21.81-2.83-7.08-1.89-13.76-4.6-20.04-8.14a88.292 88.292 0 0 1-17.35-12.81c-5.29-5-9.84-10.67-13.66-16.99-3.82-6.32-6.8-13.19-8.92-20.6-2.12-7.41-3.19-15.27-3.19-23.58v-33.13c0-12.46 2.34-23.88 7.01-34.27 4.67-10.38 10.92-19.33 18.76-26.83 7.83-7.5 16.87-13.36 27.12-17.56 10.24-4.2 20.93-6.3 32.07-6.3h66.41c7.36 0 14.58.94 21.67 2.83 7.08 1.89 13.76 4.6 20.04 8.14a88.292 88.292 0 0 1 17.35 12.81c5.29 5 9.86 10.67 13.74 16.99 3.87 6.33 6.87 13.19 8.99 20.6 2.13 7.41 3.19 15.27 3.19 23.58v33.14zm-37.1-33.13c0-7.27-1.32-13.88-3.96-19.82-2.64-5.95-6.16-11.04-10.55-15.29-4.39-4.25-9.46-7.5-15.22-9.77-5.76-2.27-11.8-3.35-18.13-3.26h-66.41c-6.14-.09-12.11.97-17.91 3.19-5.81 2.22-10.95 5.43-15.44 9.63-4.48 4.2-8.07 9.3-10.76 15.29-2.69 6-4.04 12.67-4.04 20.04v33.13c0 7.36 1.32 14.02 3.96 19.97 2.64 5.95 6.18 11.02 10.62 15.22 4.44 4.2 9.56 7.43 15.36 9.7 5.8 2.27 11.87 3.35 18.2 3.26h66.41c7.27 0 13.85-1.2 19.75-3.61s10.93-5.73 15.08-9.98 7.36-9.32 9.63-15.22c2.27-5.9 3.4-12.34 3.4-19.33v-33.15zm-16-26.91a17.89 17.89 0 0 1 2.83 6.73c.47 2.41.47 4.77 0 7.08-.47 2.31-1.39 4.48-2.76 6.51-1.37 2.03-3.14 3.75-5.31 5.17l-99.4 66.41c-1.61 1.23-3.26 2.08-4.96 2.55-1.7.47-3.45.71-5.24.71-3.02 0-5.9-.71-8.64-2.12-2.74-1.42-4.96-3.44-6.66-6.09a17.89 17.89 0 0 1-2.83-6.73c-.47-2.41-.5-4.77-.07-7.08.43-2.31 1.3-4.48 2.62-6.51 1.32-2.03 3.07-3.75 5.24-5.17l99.69-66.41a17.89 17.89 0 0 1 6.73-2.83c2.41-.47 4.77-.47 7.08 0 2.31.47 4.48 1.37 6.51 2.69 2.03 1.32 3.75 3.02 5.17 5.09z" />
-            <path id="id1_1"
-                d="M688.33 232.67h-37.1V149.7H520.39c-2.64 0-5.1-.5-7.36-1.49-2.27-.99-4.23-2.31-5.88-3.96-1.65-1.65-2.95-3.61-3.89-5.88s-1.42-4.67-1.42-7.22V29.62h36.82v82.98h112.57V29.62h37.1v203.05z" />
-        </g>
-    </svg>
 
-    <svg>
-        <defs>
-            <filter id="glow">
-                <fegaussianblur class="blur" result="coloredBlur" stddeviation="4"></fegaussianblur>
-                <femerge>
-                    <femergenode in="coloredBlur"></femergenode>
-                    <femergenode in="SourceGraphic"></femergenode>
-                </femerge>
-            </filter>
-        </defs>
-    </svg>
+    <div class="moon"></div>
+    <div class="moon__crater moon__crater1"></div>
+    <div class="moon__crater moon__crater2"></div>
+    <div class="moon__crater moon__crater3"></div>
 
-    <h2>Page Not Found</h2>
+    <div class="star star1"></div>
+    <div class="star star2"></div>
+    <div class="star star3"></div>
+    <div class="star star4"></div>
+    <div class="star star5"></div>
+
+    <div class="error">
+        <div class="error__title">404</div>
+        <div class="error__subtitle">Hmmm...</div>
+        <div class="error__description">It looks like one of the developers fell asleep</div>
+<a style="text-decoration: none" href="{{ url('/') }}" class="error__button error__button--active">Home</a>
+        <button onclick="history.back()" class="error__button">Back</button>
+    </div>
+
+    <div class="astronaut">
+        <div class="astronaut__backpack"></div>
+        <div class="astronaut__body"></div>
+        <div class="astronaut__body__chest"></div>
+        <div class="astronaut__arm-left1"></div>
+        <div class="astronaut__arm-left2"></div>
+        <div class="astronaut__arm-right1"></div>
+        <div class="astronaut__arm-right2"></div>
+        <div class="astronaut__arm-thumb-left"></div>
+        <div class="astronaut__arm-thumb-right"></div>
+        <div class="astronaut__leg-left"></div>
+        <div class="astronaut__leg-right"></div>
+        <div class="astronaut__foot-left"></div>
+        <div class="astronaut__foot-right"></div>
+        <div class="astronaut__wrist-left"></div>
+        <div class="astronaut__wrist-right"></div>
+
+        <div class="astronaut__cord">
+            <canvas id="cord" height="500px" width="500px"></canvas>
+        </div>
+
+        <div class="astronaut__head">
+            <canvas id="visor" width="60px" height="60px"></canvas>
+            <div class="astronaut__head-visor-flare1"></div>
+            <div class="astronaut__head-visor-flare2"></div>
+        </div>
+    </div>
+
+    <script>
+        function drawVisor() {
+            const canvas = document.getElementById('visor');
+            const ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.moveTo(5, 45);
+            ctx.bezierCurveTo(15, 64, 45, 64, 55, 45);
+
+            ctx.lineTo(55, 20);
+            ctx.bezierCurveTo(55, 15, 50, 10, 45, 10);
+
+            ctx.lineTo(15, 10);
+
+            ctx.bezierCurveTo(15, 10, 5, 10, 5, 20);
+            ctx.lineTo(5, 45);
+
+            ctx.fillStyle = '#2f3640';
+            ctx.strokeStyle = '#f5f6fa';
+            ctx.fill();
+            ctx.stroke();
+        }
+
+        const cordCanvas = document.getElementById('cord');
+        const ctx = cordCanvas.getContext('2d');
+
+        let y1 = 160;
+        let y2 = 100;
+        let y3 = 100;
+
+        let y1Forward = true;
+        let y2Forward = false;
+        let y3Forward = true;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+            ctx.beginPath();
+            ctx.moveTo(130, 170);
+            ctx.bezierCurveTo(250, y1, 345, y2, 400, y3);
+
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+
+
+            if (y1 === 100) {
+                y1Forward = true;
+            }
+
+            if (y1 === 300) {
+                y1Forward = false;
+            }
+
+            if (y2 === 100) {
+                y2Forward = true;
+            }
+
+            if (y2 === 310) {
+                y2Forward = false;
+            }
+
+            if (y3 === 100) {
+                y3Forward = true;
+            }
+
+            if (y3 === 317) {
+                y3Forward = false;
+            }
+
+            y1Forward ? y1 += 1 : y1 -= 1;
+            y2Forward ? y2 += 1 : y2 -= 1;
+            y3Forward ? y3 += 1 : y3 -= 1;
+        }
+
+        drawVisor();
+        animate();
+    </script>
 </body>
 
 </html>

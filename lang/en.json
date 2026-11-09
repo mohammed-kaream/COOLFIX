@@ -47,5 +47,10 @@
     "طلبات كثيرة، جرّب بعد دقيقة.": "Too many requests, try again in a minute.",
     "انتهت الجلسة، حدّث الصفحة وجرّب مرة ثانية.": "Session expired, refresh the page and try again.",
     "صار خطأ، جرّب مرة ثانية أو اتصل على 059 892 4040.": "Something went wrong, try again or call 059 892 4040.",
-    "تعذّر الاتصال، تأكد من الإنترنت وجرّب مرة ثانية.": "Connection failed, check your internet and try again."
+    "تعذّر الاتصال، تأكد من الإنترنت وجرّب مرة ثانية.": "Connection failed, check your internet and try again.",
+    "مختبر صيانة الثلاجات الذكي": "Smart Fridge Repair Lab",
+    "اكتب العطل، والذكاء الاصطناعي يشخّصه ويعطيك الحل بثواني": "Describe the fault and AI will diagnose it and give you the fix in seconds",
+    "🛰️ ابدأ الفحص": "🛰️ Start Diagnosis",
+    "🔧 احجز فني": "🔧 Book a Technician",
+    "التبريد لا يعمل": "Cooling not working"
 }

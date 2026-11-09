@@ -36,7 +36,13 @@ Route::post('/faq/ai-search', [PostController::class, 'faqAISearch'])
     ->middleware('throttle:10,1')
     ->name('faq.ai_search');
 
-Route::prefix('posts')->name('posts.')->group(function () {
+// بوابة فحص الأدمن
+Gate::define('admin-only', function ($user) {
+    return $user->type === 'admin';
+});
+
+// الـ Group المحمي (ممنوع الدخول إلا للـ Admin)
+Route::prefix('posts')->name('posts.')->middleware(['auth', 'can:admin-only'])->group(function () {
     Route::get('inform', [PostController::class, 'data'])->name('data');
     Route::delete('destroy/{id}', [PostController::class, 'destroy'])->name('destroy');
 });
@@ -70,10 +76,8 @@ Route::get('/dashboard', function () {
     if (session()->has('guest_auth')) {
         return app(MainPageController::class)->home();
     }
-    return middleware(['auth', 'verified'])->handle(request(), function() {
-        return app(MainPageController::class)->home();
-    });
-})->name('dashboard');
+    return app(MainPageController::class)->home();
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 // =========================================================================

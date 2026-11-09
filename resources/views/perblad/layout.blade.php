@@ -120,75 +120,86 @@
     @endphp
     <!-- ===================== STICKY COMPACT HEADER (يظهر من فوق عند النزول) ===================== -->
     <header id="cfxStickyBar" class="cfx-sticky" aria-hidden="true">
-        <div class="container">
-            <div class="cfx-sticky-in">
-                <a class="cfx-sticky-logo" href="{{ url('/') }}">
-                    <img src="{{ asset('webfront/images/brand/logo.svg') }}" alt="COOLFIX logo">
-                </a>
+<div class="container">
+    <div class="cfx-sticky-in">
+        <!-- شعار الموقع الرسمي الموجه للرئيسية -->
+        <a class="cfx-sticky-logo" href="{{ url('/') }}">
+            <img src="{{ asset('webfront/images/brand/logo.svg') }}" alt="COOLFIX logo">
+        </a>
 
-                <nav class="cfx-sticky-nav" aria-label="Main">
-                    @foreach ($cfxNav as $item)
-                        @php
-                            $urlPath = isset($item[1]) ? strtolower($item[1]) : '';
-                            $urlName = isset($item[0]) ? $item[0] : '';
-                        @endphp
+        <!-- 1. شريط التنقل الرئيسي للشاشات الكبيرة (فرز صارم وثابت للثلاث حالات) -->
+        <nav class="cfx-sticky-nav" aria-label="Main">
+            <!-- الروابط العامة للزوار (تظهر للجميع دائماً: ضيف، مستخدم، أدمن) -->
+            <a href="{{ url('/') }}" class="{{ request()->is('/') || request()->is('index') ? 'active' : '' }}">{{ __('Home') }}</a>
+            <a href="{{ url('/about') }}" class="{{ request()->is('about') ? 'active' : '' }}">{{ __('About Us') }}</a>
+            <a href="{{ url('/services') }}" class="{{ request()->is('services') ? 'active' : '' }}">{{ __('Services') }}</a>
 
-                        {{-- 1. حماية روابط الإدارة (البيانات والمعلومات): للأدمن فقط عبر الـ Policy وفحص الـ Type --}}
-                        @if (str_contains($urlPath, 'inform') ||
-                                str_contains($urlName, 'المعلومات') ||
-                                str_contains($urlName, 'Information') ||
-                                str_contains($urlPath, 'data') ||
-                                str_contains($urlName, 'البيانات'))
-                            @if (!auth()->check() || auth()->user()->type !== 'admin' || auth()->user()->cannot('viewAny', App\Models\User::class))
-                                @continue
-                            @endif
-                        @endif
+            <!-- روابط المستخدم المسجل (تظهر فقط لليوزر الحقيقي والأدمن، وتختفي تماماً عن الضيف الزائر) -->
+            @if (!session()->has('guest_auth') && auth()->check() && auth()->user()->type !== 'guest')
+                <a href="{{ url('/pricing') }}" class="{{ request()->is('pricing') ? 'active' : '' }}">{{ __('Pricing') }}</a>
+                <a href="{{ url('/faq') }}" class="{{ request()->is('faq') ? 'active' : '' }}">{{ __('FAQ') }}</a>
+                <a href="{{ url('/contact') }}" class="{{ request()->is('contact') ? 'active' : '' }}">{{ __('Contact') }}</a>
+            @endif
 
-                        {{-- 2. حظر باقي الروابط الإضافية عن الضيف الزائر (يرى فقط الهوم والأباوت والسيرفيسز) --}}
-                        @if (session()->has('guest_auth'))
-                            @php
-                                $isGuestAllowed =
-                                    str_contains($urlPath, 'index') ||
-                                    str_contains($urlPath, 'home') ||
-                                    str_contains($urlPath, 'about') ||
-                                    str_contains($urlPath, 'service') ||
-                                    $urlPath == '' ||
-                                    $urlPath == '/';
-                            @endphp
-                            @if (!$isGuestAllowed)
-                                @continue
-                            @endif
-                        @endif
+            <!-- روابط الإدارة الحصرية (تظهر حصرياً للأدمن الفعلي فقط ويتم حمايتها بالـ Policy) -->
+            @auth
+                @if (auth()->user()->type === 'admin')
+                    @can('viewAny', App\Models\User::class)
+                        <a href="{{ url('/data') }}" class="{{ request()->is('data') ? 'active' : '' }}">{{ __('Data') }}</a>
+                        <a href="{{ url('/posts/inform') }}" class="{{ request()->is('posts/inform') ? 'active' : '' }}">{{ __('Information') }}</a>
+                    @endcan
+                @endif
+            @endauth
+        </nav>
 
-                        {{-- طباعة الروابط بالاعتماد الحقيقي على مصفوفتك المستقرة لتتبع الستايل الأصلي والدارك مود --}}
-                        <a href="{{ url($item[1]) }}"
-                            class="{{ request()->is($item[2]) ? 'active' : '' }}">{{ $item[0] }}</a>
-                    @endforeach
-                </nav>
-
-                <div class="cfx-sticky-tools">
-                    <div class="theme-toggle-switch" role="button" tabindex="0" aria-label="Toggle dark mode">
-                        <div class="theme-toggle-knob">☀️</div>
-                    </div>
-                    <a class="coolfix-lang-btn" id="langSwitcherBtn"
-                        href="{{ route('lang.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
-                        {{ app()->getLocale() === 'ar' ? 'English' : 'العربية' }}
-                    </a> <a class="cfx-sticky-logout" href="#"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Log Out') }} <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <button class="cfx-burger cfx-sticky-burger" type="button" aria-label="Menu" aria-expanded="false">
-                        <span></span><span></span><span></span>
-                    </button>
-                </div>
+        <!-- أدوات الهيدر الجانبية (الوضع الليلي، تغيير اللغة، وزر الخروج) -->
+        <div class="cfx-sticky-tools">
+            <div class="theme-toggle-switch" role="button" tabindex="0" aria-label="Toggle dark mode">
+                <div class="theme-toggle-knob">☀️</div>
             </div>
+
+            <a class="coolfix-lang-btn" id="langSwitcherBtn"
+                href="{{ route('lang.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}">
+                {{ app()->getLocale() === 'ar' ? 'English' : 'العربية' }}
+            </a>
+
+            <a class="cfx-sticky-logout" href="#"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                {{ __('Log Out') }} <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <button class="cfx-burger cfx-sticky-burger" type="button" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-        <div class="cfx-sticky-menu" id="cfxStickyMenu">
-            @foreach ($cfxNav as $item)
-                <a href="{{ url($item[1]) }}"
-                    class="{{ request()->is($item[2]) ? 'active' : '' }}">{{ $item[0] }}</a>
-            @endforeach
-        </div>
+    </div>
+</div>
+
+<!-- 2. قائمة الجوال المنسدلة الجانبية (تم ضبطها وتثبيتها بنفس التقسيم المضمون 100%) -->
+<div class="cfx-sticky-menu" id="cfxStickyMenu">
+    <!-- الروابط العامة للزوار -->
+    <a href="{{ url('/') }}" class="{{ request()->is('/') || request()->is('index') ? 'active' : '' }}">{{ __('Home') }}</a>
+    <a href="{{ url('/about') }}" class="{{ request()->is('about') ? 'active' : '' }}">{{ __('About Us') }}</a>
+    <a href="{{ url('/services') }}" class="{{ request()->is('services') ? 'active' : '' }}">{{ __('Services') }}</a>
+
+    <!-- روابط المستخدم المسجل -->
+    @if (!session()->has('guest_auth') && auth()->check() && auth()->user()->type !== 'guest')
+        <a href="{{ url('/pricing') }}" class="{{ request()->is('pricing') ? 'active' : '' }}">{{ __('Pricing') }}</a>
+        <a href="{{ url('/faq') }}" class="{{ request()->is('faq') ? 'active' : '' }}">{{ __('FAQ') }}</a>
+        <a href="{{ url('/contact') }}" class="{{ request()->is('contact') ? 'active' : '' }}">{{ __('Contact') }}</a>
+    @endif
+
+
+    <!-- روابط الإدارة الحصرية -->
+    @auth
+        @if (auth()->user()->type === 'admin')
+            @can('viewAny', App\Models\User::class)
+                <a href="{{ url('/data') }}" class="{{ request()->is('data') ? 'active' : '' }}">{{ __('Data') }}</a>
+                <a href="{{ url('/posts/inform') }}" class="{{ request()->is('posts/inform') ? 'active' : '' }}">{{ __('Information') }}</a>
+            @endcan
+        @endif
+    @endauth
+</div>
     </header>
 
     <!-- START PRELOADER -->

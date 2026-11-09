@@ -73,10 +73,12 @@ class PostController extends Controller
         return redirect()->back()->with('success', 'تم حذف الحساب بنجاح وتحديث لوحة التحكم!');
     }
 
-    public function data()
-    {
-        // جلب كافة المستخدمين والمسؤولين المسجلين في الـ MySQL 🚀
-        $users = User::all();
+public function data()
+{
+    abort_if(auth()->user()->type !== 'admin', 403, 'غير مصرح لك بدخول هذه الصفحة.');
+
+    // جلب كافة المستخدمين والمسؤولين المسجلين في الـ MySQL 🚀
+    $users = User::all();
 
         // 🛠️ التعديل الحاسم: توجيه المسار إلى مجلد perblad ليعثر اللارافيل على ملف الـ inform فوراً 👇🎯
         return view('perblad.inform', compact('users'));

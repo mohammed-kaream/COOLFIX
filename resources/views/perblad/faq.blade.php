@@ -1,17 +1,16 @@
 @extends('perblad.layout')
-@section('title', 'FAQ | COOLFIX Company')
+@section('title', __('FAQ') . ' | COOLFIX')
 @section('content')
     <!-- START SECTION TOP -->
     <section class="section-top">
         <div class="container">
             <div class="col-lg-10 offset-lg-1 text-center">
                 <div class="section-top-title wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s" data-wow-offset="0">
-                    <h1>Frequently Asked Questions</h1>
-                    <ul>
-                        <li><a href="{{ url('/') }}">Home</a></li>
-                        <li> / FAQ</li>
-                    </ul>
-                </div><!-- //.HERO-TEXT -->
+<h1>{{ __('Frequently Asked Questions') }}</h1>
+<ul>
+    <li><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
+    <li> {{ __('/ FAQ') }}</li>
+</ul>                </div><!-- //.HERO-TEXT -->
             </div><!--- END COL -->
         </div><!--- END CONTAINER -->
     </section>
@@ -22,15 +21,13 @@
     <section class="faq_area section-padding cf-faq" id="cfFaq">
         <div class="container">
             <div class="section-title">
-                <h4>Have Questions</h4>
-                <h1>Everything You Need To Know</h1>
-            </div>
+<h4>{{ __('Have Questions') }}</h4>
+<h1>{{ __('Everything You Need To Know') }}</h1>            </div>
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-sm-6 col-xs-12">
                     <div class="cf-filter">
                         <span>&gt;_</span>
-                        <input type="text" id="cfFaqFilter" placeholder="filter_questions..." autocomplete="off" aria-label="Filter questions">
-                        <b id="cfFaqCount">{{ count($aboutFaqs) }}</b>
+<input type="text" id="cfFaqFilter" placeholder="{{ __('Search questions...') }}" autocomplete="off" aria-label="{{ __('Search questions...') }}">                        <b id="cfFaqCount">{{ count($aboutFaqs) }}</b>
                     </div>
                     <div class="accordion" id="accordionExample">
                         @foreach ($aboutFaqs as $index => $faq)
@@ -41,15 +38,14 @@
                                         aria-expanded="{{ $index == 0 ? 'true' : 'false' }}"
                                         aria-controls="collapse_{{ $index }}">
                                         <em class="cf-q-id">Q-{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</em>
-                                        <span class="cf-q-text">{{ $faq->question }}</span>
+<span class="cf-q-text">{{ __($faq->question) }}</span>
                                     </button>
                                 </h2>
                                 <div id="collapse_{{ $index }}"
                                     class="accordion-collapse collapse {{ $index == 0 ? 'show' : '' }}"
                                     aria-labelledby="heading_{{ $index }}" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <span class="cf-dec" data-text="{{ $faq->answer }}">{{ $faq->answer }}</span>
-                                    </div>
+<span class="cf-dec" data-text="{{ __($faq->answer) }}">{{ __($faq->answer) }}</span>                                    </div>
                                 </div>
                             </div><!-- END ACCORDION ITEM -->
                         @endforeach
@@ -59,15 +55,14 @@
                     <div class="pt_faq cf-holo">
                         <span class="cf-holo-ring"></span>
                         <img src="{{ asset('webfront/images/brand/faq-illustration.svg') }}" class="img-fluid"
-                            alt="Technician answering a question" />
+                            alt="{{ __('Technician answering a question') }}" />
                     </div>
                 </div><!-- END COL  -->
             </div><!--END  ROW  -->
             <div class="row justify-content-center text-center" style="margin-top:40px;">
                 <div class="col-lg-8">
-                    <p style="font-size:16px;margin-bottom:20px;">Still have a question we didn't answer?</p>
-                    <a href="tel:+970598924040" class="cta"><span>Call 059 892 4040</span>
-                        <svg width="13px" height="10px" viewBox="0 0 13 10">
+<p style="font-size:16px;margin-bottom:20px;">{{ __("Still have a question we didn't answer?") }}</p>
+<a href="tel:+970598924040" class="cta"><span>{{ __('Call 059 892 4040') }}</span>                        <svg width="13px" height="10px" viewBox="0 0 13 10">
                             <path d="M1,5 L11,5"></path>
                             <polyline points="8 1 12 5 8 9"></polyline>
                         </svg>
