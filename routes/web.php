@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Gate; // 👈 هذا السطر الحاسم الناقص!
+use Illuminate\Support\Facades\Gate;
 
 // =========================================================================
 // 1. المسارات العامة (مفتوحة للزوار والضيوف بشكل طبيعي)
@@ -37,44 +37,45 @@ Route::post('/faq/ai-search', [PostController::class, 'faqAISearch'])
     ->middleware('throttle:10,1')
     ->name('faq.ai_search');
 
-// بوابة فحص الأدمن
+// بوابة فحص الأدمن الاحتياطية
 Gate::define('admin-only', function ($user) {
     return $user->type === 'admin';
 });
 
-// الـ Group الآن يفحص فقط هل المستخدم مسجل دخول أم لا لتجنب كاش السيرفر
-Route::prefix('posts')->name('posts.')->middleware(['auth'])->group(function () {
-    Route::get('inform', [PostController::class, 'data'])->name('data');
-    Route::delete('destroy/{id}', [PostController::class, 'destroy'])->name('destroy');
-});
+// =========================================================================
+// 2. مسارات لوحة التحكم والإدارة (محمية بـ auth ونفحص الصلاحية داخل الكنترولر غصباً عن الكاش)
+// =========================================================================
+Route::middleware(['auth'])->group(function () {
+    // عرض جدول الحسابات وحذف الحسابات الأساسي
+    Route::get('posts/inform', [PostController::class, 'data'])->name('posts.data');
+    Route::delete('posts/destroy/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-// مسارات التحقق من السن
-Route::middleware(['auth', 'admin'])->group(function () {
+    // أزرار العمليات والتعديل داخل اللوحة
+    Route::get('/admin/force-delete-user/{id}', [PostController::class, 'destroy'])->name('admin.user.force_delete');
     Route::get('/admin/toggle-user-role/{id}', [PostController::class, 'toggleRole'])->name('admin.user.toggle_role');
-    // ... بقية المسارات
+    Route::get('/admin/toggle-block-user/{id}', [PostController::class, 'toggleBlock'])->name('admin.user.toggle_block');
+    Route::get('/admin/toggle-top-user/{id}', [PostController::class, 'toggleTop'])->name('admin.user.toggle_top');
+    Route::get('/admin/impersonate-user/{id}', [PostController::class, 'impersonate'])->name('admin.user.impersonate');
+    Route::get('/admin/leave-impersonation', [PostController::class, 'leaveImpersonate'])->name('admin.user.leave_impersonate');
 });
-
 
 // =========================================================================
-// 2. مسارات حزمة المصادقة (Laravel Breeze)
+// 3. مسارات حزمة المصادقة (Laravel Breeze)
 // =========================================================================
 require __DIR__ . '/auth.php';
 
 // =========================================================================
-// 3. مسار الصفحة الرئيسية المشترك (يفحص الضيف ليعبر الحماية بسلام)
+// 4. مسار الصفحة الرئيسية المشترك (يفحص الضيف ليعبر الحماية بسلام)
 // =========================================================================
 Route::get('/', function () {
-    // إذا كان ضيفاً مسجلاً بالجلسة، اظهر له الصفحة
     if (session()->has('guest_auth')) {
         return app(MainPageController::class)->home();
     }
 
-    // إذا كان مستخدم مسجل دخول طبيعي
     if (auth()->check()) {
         return app(MainPageController::class)->home();
     }
 
-    // 👈 التعديل الحاسم: إذا لم يكن ضيفاً ولا مسجلاً، وجهه فوراً لصفحة تسجيل الدخول ومنعه من تصفح الموقع
     return redirect()->route('login');
 })->name('home');
 
@@ -86,23 +87,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // =========================================================================
-// 4. جدار الحماية للحسابات المسجلة والملفات الشخصية فقط
+// 5. جدار الحماية للحسابات المسجلة والملفات الشخصية فقط
 // =========================================================================
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-// أدمن فقط
-// تم تحويلها لـ auth فقط لتجنب كاش السيرفر، وسنقوم بالحماية من داخل الكنترولر مباشرة
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/force-delete-user/{id}', [PostController::class, 'destroy'])->name('admin.user.force_delete');
-    Route::get('/admin/toggle-user-role/{id}', [PostController::class, 'toggleRole'])->name('admin.user.toggle_role');
-    Route::get('/admin/toggle-block-user/{id}', [PostController::class, 'toggleBlock'])->name('admin.user.toggle_block');
-    Route::get('/admin/toggle-top-user/{id}', [PostController::class, 'toggleTop'])->name('admin.user.toggle_top');
-    Route::get('/admin/impersonate-user/{id}', [PostController::class, 'impersonate'])->name('admin.user.impersonate');
-    Route::get('/admin/leave-impersonation', [PostController::class, 'leaveImpersonate'])->name('admin.user.leave_impersonate');
 });
 
 Route::get('/lang/{locale}', function (string $locale) {
@@ -113,9 +103,6 @@ Route::get('/lang/{locale}', function (string $locale) {
 
 // مسار الدخول كضيف الزائر المستقل
 Route::get('/login/guest', [\App\Http\Controllers\CoolController::class, 'loginAsGuest'])->name('login.guest');
-
-
-
 
 
 
